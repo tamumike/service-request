@@ -58,7 +58,7 @@ namespace ServiceRequest.API.Data
 
         public async Task<IEnumerable<Request>> Get()
         {
-            var requests = _context.Requests.Include(r => r.Comments);
+            var requests = _context.Requests.Include(r => r.Comments).Include(r => r.Attachments);
             return await requests.ToListAsync();
         }
 
@@ -70,8 +70,16 @@ namespace ServiceRequest.API.Data
 
         public async Task<Request> GetRequest(string id)
         {
-            var request = _context.Requests.Include(r => r.Comments).Where(r => r.RequestID == id);
+            var request = _context.Requests.Include(r => r.Comments).Include(r => r.Attachments).Where(r => r.RequestID == id);
             return await request.FirstOrDefaultAsync();
+        }
+
+        public async Task<Attachment> UploadAttachment(Attachment attachment)
+        {
+            await _context.Attachments.AddAsync(attachment);
+            await _context.SaveChangesAsync();
+
+            return attachment;
         }
     }
 }

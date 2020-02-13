@@ -1,9 +1,11 @@
 using System.IO;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ServiceRequest.API.Data;
+using ServiceRequest.API.DTOs;
 using ServiceRequest.API.Models;
 
 namespace ServiceRequest.API.Controllers
@@ -13,18 +15,22 @@ namespace ServiceRequest.API.Controllers
     public class AttachmentsController : ControllerBase
     {
         private readonly IConfiguration _config;
-        private readonly DataContext _context;
         private readonly string _targetFilePath;
-        public AttachmentsController(IConfiguration config, DataContext context)
+        private readonly IMapper _mapper;
+        private readonly IRequestRepository _repo;
+        public AttachmentsController(IConfiguration config, IRequestRepository repo, IMapper mapper)
         {
-            _context = context;
+            _repo = repo;
+            _mapper = mapper;
             _config = config;
             _targetFilePath = _config.GetValue<string>("StoredFilesPath");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UploadAsync([FromForm (Name="uploadedFile")]IFormFile file)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> UploadAsync([FromForm]CreateNewAttachmentDTO createNewAttachmentDTO, [FromRoute]string id)
         {
+
+            var file = createNewAttachmentDTO.File;
             long size = file.Length;
             var filePath = "";
             var fileExt = Path.GetExtension(file.FileName);
@@ -34,11 +40,16 @@ namespace ServiceRequest.API.Controllers
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    await file.CopyToAsync(stream); 
+                    await file.CopyToAsync(stream);
                 }
             }
 
-            return Ok(new { size, filePath, fileExt, file.Name });
+            createNewAttachmentDTO.RequestID = id;
+            var attachmentToCreate = _mapper.Map<Attachment>(createNewAttachmentDTO);
+            var createdAttachment = await _repo.UploadAttachment(attachmentToCreate);
+
+            // return Ok(new { size, filePath, fileExt, file.Name });
+            return Ok(createdAttachment);
         }
     }
 }
