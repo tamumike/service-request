@@ -29,13 +29,18 @@ namespace ServiceRequest.API.Controllers
         [HttpPost("{id}")]
         public async Task<IActionResult> UploadAsync([FromForm]CreateNewAttachmentDTO createNewAttachmentDTO, [FromRoute]string id)
         {
-
             var file = createNewAttachmentDTO.File;
-            long size = file.Length;
-            var filePath = "";
-            var fileExt = Path.GetExtension(file.FileName);
+            
+            if (file == null || file.Length == 0) 
+            {
+                throw new System.NullReferenceException("No file");
+            }
+
             if (file.Length > 0)
             {
+                long size = file.Length;
+                var filePath = "";
+                var fileExt = Path.GetExtension(file.FileName);
                 filePath = Path.Combine(_targetFilePath, Path.GetRandomFileName() + Path.GetExtension(file.FileName));
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
@@ -48,7 +53,6 @@ namespace ServiceRequest.API.Controllers
             var attachmentToCreate = _mapper.Map<Attachment>(createNewAttachmentDTO);
             var createdAttachment = await _repo.UploadAttachment(attachmentToCreate);
 
-            // return Ok(new { size, filePath, fileExt, file.Name });
             return Ok(createdAttachment);
         }
     }

@@ -58,19 +58,35 @@ namespace ServiceRequest.API.Data
 
         public async Task<IEnumerable<Request>> Get()
         {
-            var requests = _context.Requests.Include(r => r.Comments).Include(r => r.Attachments);
+            var requests = _context.Requests
+                .Include(r => r.Comments)
+                .Include(r => r.Attachments);
+
             return await requests.ToListAsync();
         }
 
         public async Task<IEnumerable<Comment>> GetComments(string id)
         {
-            var comments = await _context.Comments.Where(c => c.RequestID == id).ToListAsync();
+            var comments = await _context.Comments
+                .Where(c => c.RequestID == id)
+                .ToListAsync();
+                
             return comments;
+        }
+
+        public async Task<IEnumerable<Location>> GetLocations()
+        {
+            var locations = await _context.Locations.ToListAsync();
+            return locations;
         }
 
         public async Task<Request> GetRequest(string id)
         {
-            var request = _context.Requests.Include(r => r.Comments).Include(r => r.Attachments).Where(r => r.RequestID == id);
+            var request = _context.Requests
+                .Include(r => r.Comments)
+                .Include(r => r.Attachments)
+                .Where(r => r.RequestID == id);
+
             return await request.FirstOrDefaultAsync();
         }
 

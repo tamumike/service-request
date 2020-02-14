@@ -36,6 +36,13 @@ namespace ServiceRequest.API.Controllers
             return Ok(request);
         }
 
+        [HttpGet("locations")]
+        public async Task<IActionResult> GetLocations()
+        {
+            var locations = await _repo.GetLocations();
+            return Ok(locations);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateNewRequest(CreateNewRequestDTO createNewRequestDTO)
         {

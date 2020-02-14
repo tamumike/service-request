@@ -1,0 +1,38 @@
+<div class="RequestList">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Request ID</th>
+        <th scope="col">Requested By</th>
+        <th scope="col">Request Date</th>
+        <th scope="col">Location</th>
+        <th scope="col">Status</th>
+        <th scope="col">Submitted</th>
+        <th scope="col">Approved</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of requestsFromHome">
+        <td>{{ request.requestID }}</td>
+        <td>{{ request.createdBy }}</td>
+        <td>{{ request.requestDate | date }}</td>
+        <td>{{ request.location }}</td>
+        <td>{{ request.status }}</td>
+        <td>{{ request.submitted }}</td>
+        <td>{{ request.approved }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<!-- <div class="request-on-home" *ngFor="let request of requests">
+  <h3>{{ request.requestID }}</h3>
+  <p>Created By: {{ request.createdBy }}</p>
+  <p>Created Date: {{ request.createdDate | date }}</p>
+  <p>Location: {{ request.location }}</p>
+  <p>Request Date: {{ request.requestDate | date }}</p>
+  <p>Description: {{ request.description }}</p>
+</div> -->

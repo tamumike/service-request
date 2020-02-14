@@ -13,5 +13,6 @@ namespace ServiceRequest.API.Data
         Task<Comment> CreateNewComment(Comment comment);
         Task<IEnumerable<Comment>> GetComments(string id);
         Task<Attachment> UploadAttachment(Attachment attachment);
+        Task<IEnumerable<Location>> GetLocations();
     }
 }

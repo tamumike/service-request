@@ -1,0 +1,52 @@
+<div class="RequestCreate">
+  <h3>Create New Request</h3>
+  <form [formGroup]="createRequestForm" (ngSubmit)="createRequest()">
+
+    <div class="form-group">
+      <input type="text"
+      autocomplete="off"
+      formControlName="requestDate"
+      class="form-control"
+      bsDatepicker
+      [ngClass]="{'is-invalid': createRequestForm.get('requestDate').errors && createRequestForm.get('requestDate').touched}"
+      [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true, isAnimated: false }">
+      <div class="invalid-feedback">Please choose a date for the request.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location:</label>
+      <select
+      class="form-control"
+      formControlName="location"
+      [ngClass]="{'is-invalid': createRequestForm.get('location').errors && createRequestForm.get('location').touched}">
+        <option *ngFor="let location of locations" value="{{ location.name }}">{{ location.name }}</option>
+      </select>
+      <div class="invalid-feedback">Please choose a location for the request.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description: </label>
+      <textarea
+      class="form-control"
+      formControlName="description"
+      placeholder="Enter Description..."
+      [ngClass]="{'is-invalid': createRequestForm.get('description').errors && createRequestForm.get('description').touched}"
+      >
+      </textarea>
+      <div class="invalid-feedback">Please enter a description for the request.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="deliverables">Deliverables: </label>
+      <textarea
+      class="form-control"
+      formControlName="deliverables"
+      placeholder="Enter Deliverables..."
+      [ngClass]="{'is-invalid': createRequestForm.get('deliverables').errors && createRequestForm.get('deliverables').touched}"
+      >
+      </textarea>
+      <div class="invalid-feedback">Please enter the deliverables needed for the request.</div>
+    </div>
+
+  </form>
+</div>

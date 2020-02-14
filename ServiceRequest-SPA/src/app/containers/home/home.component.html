@@ -1,5 +1,12 @@
-<div class="Home">
-  <div *ngFor="let value of values">
-    <p>{{value.requestID}}</p>
+<div class="Home container-fluid">
+  <div class="row">
+    <div class="col-8">
+      <!-- <router-outlet></router-outlet> -->
+      <app-request-list [requestsFromHome]="requests"></app-request-list>
+      <button class="btn-primary" (click)="displayCreate()">Create</button>
+    </div>
+    <div class="col-4 sidebar">
+      <app-requests-overview [requestsFromHome]="requests"></app-requests-overview>
+    </div>
   </div>
 </div>

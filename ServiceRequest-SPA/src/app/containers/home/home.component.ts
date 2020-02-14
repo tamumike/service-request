@@ -1,27 +1,51 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { environment } from '../../../environments/environment';
+import { RequestService } from 'src/app/services/request.service';
+import { ModalService } from 'src/app/services/modal.service';
+import { RequestCreateComponent } from '../../components/request-create/request-create.component';
+import { UserService } from 'src/app/services/user.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  values: any;
+  requests: any;
+  baseUrl = environment.baseUrl;
+  modalConfig: any;
+  userInfo: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private requestService: RequestService
+            , private modalService: ModalService, private userService: UserService) { }
 
   ngOnInit() {
-    this.getValues();
+    this.getUserInfo();
+    this.getRequests();
   }
 
-  getValues() {
-    this.http.get('http://localhost:5000/Requests').subscribe(response => {
-      this.values = response;
+  getUserInfo() {
+    this.userService.getUserInfo().subscribe(response => {
+      this.userInfo = response;
       console.log(response);
     }, error => {
       console.log(error);
     });
+  }
+
+  getRequests() {
+    this.requestService.getRequests().subscribe(response => {
+      this.requests = response;
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  displayCreate() {
+    this.modalConfig = {display: true, content: ''};
+    this.modalService.toggleDisplay(this.modalConfig);
   }
 
 }
