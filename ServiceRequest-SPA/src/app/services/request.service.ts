@@ -19,4 +19,16 @@ constructor(private http: HttpClient) { }
   getLocations(): Observable<any> {
     return this.http.get(this.baseUrl + 'Requests/locations');
   }
+
+  postRequest(request: any): Observable<any> {
+    return this.http.post(this.baseUrl + 'Requests', request);
+  }
+
+  postAttachment(attachment: any, id: string): Observable<any> {
+
+    const formData = new FormData();
+    formData.append('uploadFile', attachment);
+
+    return this.http.post(this.baseUrl + 'Attachments/' + id, formData);
+  }
 }

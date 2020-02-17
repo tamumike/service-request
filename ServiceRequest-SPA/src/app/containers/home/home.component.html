@@ -2,11 +2,13 @@
   <div class="row">
     <div class="col-8">
       <!-- <router-outlet></router-outlet> -->
-      <app-request-list [requestsFromHome]="requests"></app-request-list>
-      <button class="btn-primary" (click)="displayCreate()">Create</button>
+      <!-- <app-request-list [requestsFromHome]="requests"></app-request-list> -->
+      <router-outlet></router-outlet>
+      <!-- <button class="btn-primary" (click)="displayCreate()">Create</button> -->
     </div>
     <div class="col-4 sidebar">
       <app-requests-overview [requestsFromHome]="requests"></app-requests-overview>
+      <!-- <router-outlet name="outlet1"></router-outlet> -->
     </div>
   </div>
 </div>

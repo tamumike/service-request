@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-requests-overview',
@@ -13,7 +14,7 @@ export class RequestsOverviewComponent implements OnInit {
   baseUrl = environment.baseUrl;
   requests: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.getStatusCounts();
@@ -22,11 +23,22 @@ export class RequestsOverviewComponent implements OnInit {
   getStatusCounts() {
     this.http.get(this.baseUrl + 'Requests').subscribe(response => {
       this.requests = response;
+      console.log(response);
       this.requests.forEach(x => {
         this.statusCounts[x.status] += 1;
       });
       console.log(this.statusCounts);
     });
+
+    // this.route.data.subscribe(data => {
+    //   // this.requests = data;
+    //   console.log(data.data);
+    //   // this.requests.forEach(x => {
+    //   //   this.statusCounts[x.status] += 1;
+    //   // });
+    // }, error => {
+    //   console.log(error);
+    // });
 
     // if (this.requestsFromHome) {
     //   this.requestsFromHome.forEach(r => {

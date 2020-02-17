@@ -17,6 +17,7 @@ import { appRoutes } from './routes';
 import { ModalComponent } from './UI/modal/modal.component';
 import { RequestCreateComponent } from './components/request-create/request-create.component';
 import { UserService } from './services/user.service';
+import { GetRequestsResolverService } from './resolvers/get-requests-resolver.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { UserService } from './services/user.service';
   ],
   providers: [
     RequestService,
-    UserService
+    UserService,
+    GetRequestsResolverService
   ],
   bootstrap: [AppComponent]
 })

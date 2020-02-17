@@ -1,4 +1,5 @@
 using System;
+using ServiceRequest.API.Helpers;
 
 namespace ServiceRequest.API.DTOs
 {
@@ -7,6 +8,8 @@ namespace ServiceRequest.API.DTOs
         public string RequestID { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
+        
+        [FutureDateAttribute(ErrorMessage = "Invalid Date")]
         public DateTime RequestDate { get; set; }
         public string Location { get; set; }
         public string Description { get; set; }

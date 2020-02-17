@@ -6,6 +6,7 @@ import { RequestService } from 'src/app/services/request.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { RequestCreateComponent } from '../../components/request-create/request-create.component';
 import { UserService } from 'src/app/services/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   userInfo: any;
 
   constructor(private http: HttpClient, private requestService: RequestService
-            , private modalService: ModalService, private userService: UserService) { }
+            , private modalService: ModalService, private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getUserInfo();
