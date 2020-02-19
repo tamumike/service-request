@@ -12,6 +12,7 @@ namespace ServiceRequest.API.Helpers
             CreateMap<CreateNewRequestDTO, Request>();
             CreateMap<CreateNewCommentDTO, Comment>();
             CreateMap<CreateNewAttachmentDTO, Attachment>();
+            CreateMap<CreateNewUserDTO, User>();
         }
     }
 }

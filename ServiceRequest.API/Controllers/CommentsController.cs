@@ -25,8 +25,9 @@ namespace ServiceRequest.API.Controllers
         [HttpPost("{id}")]
         public async Task<IActionResult> CreateNewComment(string id, CreateNewCommentDTO createNewCommentDTO)
         {
+            var userInfo = _urepo.GetUsername();
             createNewCommentDTO.RequestID = id;
-            createNewCommentDTO.Author = _urepo.GetUsername();
+            createNewCommentDTO.Author = "mlinden";
 
             var commentToCreate = _mapper.Map<Comment>(createNewCommentDTO);
             var createdComment = await _repo.CreateNewComment(commentToCreate);

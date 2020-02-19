@@ -47,7 +47,7 @@ namespace ServiceRequest.API.Controllers
         public async Task<IActionResult> CreateNewRequest(CreateNewRequestDTO createNewRequestDTO)
         {
             createNewRequestDTO.RequestID = await _repo.GenerateRequestID();
-            createNewRequestDTO.CreatedBy = _urepo.GetUsername();
+            // createNewRequestDTO.CreatedBy = _urepo.GetUsername();
 
             var requestToCreate = _mapper.Map<Request>(createNewRequestDTO);
             var createdRequest = await _repo.CreateNewRequest(requestToCreate);

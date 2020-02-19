@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -23,11 +23,9 @@ export class RequestsOverviewComponent implements OnInit {
   getStatusCounts() {
     this.http.get(this.baseUrl + 'Requests').subscribe(response => {
       this.requests = response;
-      console.log(response);
       this.requests.forEach(x => {
         this.statusCounts[x.status] += 1;
       });
-      console.log(this.statusCounts);
     });
 
     // this.route.data.subscribe(data => {

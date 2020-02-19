@@ -2,6 +2,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <th scope="col">View</th>
         <th scope="col">Request ID</th>
         <th scope="col">Requested By</th>
         <th scope="col">Request Date</th>
@@ -13,6 +14,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let request of requests">
+        <td><button class="btn-sm" [routerLink]="['/request-detail/', request.requestID]">+</button></td>
         <td>{{ request.requestID }}</td>
         <td>{{ request.createdBy }}</td>
         <td>{{ request.requestDate | date }}</td>
@@ -24,15 +26,3 @@
     </tbody>
   </table>
 </div>
-
-
-
-
-<!-- <div class="request-on-home" *ngFor="let request of requests">
-  <h3>{{ request.requestID }}</h3>
-  <p>Created By: {{ request.createdBy }}</p>
-  <p>Created Date: {{ request.createdDate | date }}</p>
-  <p>Location: {{ request.location }}</p>
-  <p>Request Date: {{ request.requestDate | date }}</p>
-  <p>Description: {{ request.description }}</p>
-</div> -->

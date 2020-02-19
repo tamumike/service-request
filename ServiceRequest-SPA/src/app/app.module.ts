@@ -7,17 +7,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './containers/home/home.component';
-import { RequestListComponent } from './components/request-list/request-list.component';
-import { RequestQueueComponent } from './components/request-queue/request-queue.component';
+import { RequestListComponent } from './components/request/request-list/request-list.component';
+import { RequestQueueComponent } from './components/request/request-queue/request-queue.component';
 import { SidebarComponent } from './containers/sidebar/sidebar.component';
-import { RequestsOverviewComponent } from './components/requests-overview/requests-overview.component';
+import { RequestsOverviewComponent } from './components/request/requests-overview/requests-overview.component';
 import { RequestService } from './services/request.service';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { ModalComponent } from './UI/modal/modal.component';
-import { RequestCreateComponent } from './components/request-create/request-create.component';
+import { RequestCreateComponent } from './components/request/request-create/request-create.component';
 import { UserService } from './services/user.service';
 import { GetRequestsResolverService } from './resolvers/get-requests-resolver.service';
+import { RequestDetailComponent } from './components/request/request-detail/request-detail.component';
+import { RequestDetailResolverService } from './resolvers/request-detail-resolver.service';
+import { CommentListComponent } from './components/comment/comment-list/comment-list.component';
+import { CommentCreateComponent } from './components/comment/comment-create/comment-create.component';
+import { CommentService } from './services/comment.service';
+import { NavComponent } from './UI/nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +34,11 @@ import { GetRequestsResolverService } from './resolvers/get-requests-resolver.se
     RequestQueueComponent,
     RequestsOverviewComponent,
     RequestCreateComponent,
-    ModalComponent
+    ModalComponent,
+    RequestDetailComponent,
+    CommentListComponent,
+    CommentCreateComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
@@ -36,12 +46,14 @@ import { GetRequestsResolverService } from './resolvers/get-requests-resolver.se
     HttpClientModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' })
   ],
   providers: [
     RequestService,
     UserService,
-    GetRequestsResolverService
+    GetRequestsResolverService,
+    RequestDetailResolverService,
+    CommentService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,10 @@
+<div class="container">
+  <h4>Comments</h4>
+  <div class="container Comment" *ngFor="let comment of CommentsFromRequest">
+    <!-- <p>{{ comment.requestID }}</p> -->
+    <p>{{ comment.author }}</p>
+    <p>{{ comment.content }}</p>
+    <p>{{ comment.createdDate | date }}</p>
+  </div>
+</div>
+

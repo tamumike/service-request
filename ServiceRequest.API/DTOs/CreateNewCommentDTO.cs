@@ -11,7 +11,7 @@ namespace ServiceRequest.API.DTOs
 
         public CreateNewCommentDTO()
         {
-            CreatedDate = DateTime.Now.Date;
+            CreatedDate = DateTime.Now;
         }
     }
 }

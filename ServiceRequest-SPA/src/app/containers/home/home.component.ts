@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { RequestService } from 'src/app/services/request.service';
 import { ModalService } from 'src/app/services/modal.service';
-import { RequestCreateComponent } from '../../components/request-create/request-create.component';
 import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -30,7 +29,6 @@ export class HomeComponent implements OnInit {
   getUserInfo() {
     this.userService.getUserInfo().subscribe(response => {
       this.userInfo = response;
-      console.log(response);
     }, error => {
       console.log(error);
     });
