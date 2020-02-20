@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RequestService } from 'src/app/services/request.service';
 
 import { requestDateValidator } from '../../../validators/requestDateValidator';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-request-create',
@@ -14,10 +16,13 @@ export class RequestCreateComponent implements OnInit {
   locations: any;
   idForAttachment: string;
   fileToUpload: File = null;
+  userInfo: User;
+  @Output() requestCreated = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder, private requestService: RequestService) { }
+  constructor(private formBuilder: FormBuilder, private requestService: RequestService, private userService: UserService) { }
 
   ngOnInit() {
+    this.getUserInfo();
     this.initializeRequestForm();
     this.getLocationsForForm();
   }
@@ -32,8 +37,17 @@ export class RequestCreateComponent implements OnInit {
     });
   }
 
+  getUserInfo() {
+    this.userService.getUserInfo().subscribe(response => {
+      this.userInfo = response;
+    }, error => {
+      console.log('request create, user info', error);
+    });
+  }
+
   createRequest() {
     console.log('create request');
+    this.createRequestForm.value.createdBy = this.userInfo.username;
 
     this.requestService.postRequest(this.createRequestForm.value).subscribe(response => {
       console.log(response);
@@ -43,6 +57,8 @@ export class RequestCreateComponent implements OnInit {
       }, error => {
         console.log(error);
       });
+
+      this.requestCreated.emit(true);
 
     }, error => {
       console.log(error);

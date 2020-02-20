@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './containers/home/home.component';
@@ -12,7 +14,6 @@ import { RequestQueueComponent } from './components/request/request-queue/reques
 import { SidebarComponent } from './containers/sidebar/sidebar.component';
 import { RequestsOverviewComponent } from './components/request/requests-overview/requests-overview.component';
 import { RequestService } from './services/request.service';
-import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { ModalComponent } from './UI/modal/modal.component';
 import { RequestCreateComponent } from './components/request/request-create/request-create.component';
@@ -24,6 +25,7 @@ import { CommentListComponent } from './components/comment/comment-list/comment-
 import { CommentCreateComponent } from './components/comment/comment-create/comment-create.component';
 import { CommentService } from './services/comment.service';
 import { NavComponent } from './UI/nav/nav.component';
+import { RequestReviewComponent } from './components/request/request-review/request-review.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { NavComponent } from './UI/nav/nav.component';
     RequestDetailComponent,
     CommentListComponent,
     CommentCreateComponent,
-    NavComponent
+    NavComponent,
+    RequestReviewComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { NavComponent } from './UI/nav/nav.component';
     HttpClientModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' })
+    RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' }),
+    TabsModule.forRoot()
   ],
   providers: [
     RequestService,

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../environments/environment';
 import { RequestService } from 'src/app/services/request.service';
-import { ModalService } from 'src/app/services/modal.service';
 import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { TabsetComponent } from 'ngx-bootstrap/tabs/public_api';
 
 @Component({
   selector: 'app-home',
@@ -15,11 +16,11 @@ import { ActivatedRoute } from '@angular/router';
 export class HomeComponent implements OnInit {
   requests: any;
   baseUrl = environment.baseUrl;
-  modalConfig: any;
-  userInfo: any;
+  userInfo: User;
+  @ViewChild('homeTabs', { static: false }) homeTabs: TabsetComponent;
 
   constructor(private http: HttpClient, private requestService: RequestService
-            , private modalService: ModalService, private userService: UserService, private route: ActivatedRoute) { }
+            , private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getUserInfo();
@@ -40,11 +41,6 @@ export class HomeComponent implements OnInit {
     }, error => {
       console.log(error);
     });
-  }
-
-  displayCreate() {
-    this.modalConfig = {display: true, content: ''};
-    this.modalService.toggleDisplay(this.modalConfig);
   }
 
 }

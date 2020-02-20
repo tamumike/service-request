@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ServiceRequest.API.Data;
 
 namespace ServiceRequest.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200220185603_Cascade")]
+    partial class Cascade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,21 +83,6 @@ namespace ServiceRequest.API.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("ServiceRequest.API.Models.PropertyCode", b =>
-                {
-                    b.Property<int>("Code")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Code");
-
-                    b.ToTable("PropertyCodes");
                 });
 
             modelBuilder.Entity("ServiceRequest.API.Models.Request", b =>
@@ -196,14 +183,16 @@ namespace ServiceRequest.API.Migrations
                 {
                     b.HasOne("ServiceRequest.API.Models.Request", null)
                         .WithMany("Attachments")
-                        .HasForeignKey("RequestID");
+                        .HasForeignKey("RequestID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ServiceRequest.API.Models.Comment", b =>
                 {
                     b.HasOne("ServiceRequest.API.Models.Request", "Request")
                         .WithMany("Comments")
-                        .HasForeignKey("RequestID");
+                        .HasForeignKey("RequestID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

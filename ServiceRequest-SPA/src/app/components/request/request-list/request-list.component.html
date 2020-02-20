@@ -1,4 +1,4 @@
-<div class="RequestList">
+<div class="RequestList" *ngIf="!detailMode">
   <table class="table table-striped">
     <thead>
       <tr>
@@ -26,3 +26,9 @@
     </tbody>
   </table>
 </div>
+<!--
+<div class="container" *ngIf="detailMode">
+  <button class="btn btn-primary" (click)="toggleViewDetail()">Go Back</button>
+  <app-request-detail [idFromHome]="idForDetailView"></app-request-detail>
+</div> -->
+

@@ -8,13 +8,16 @@ import { RequestDetailComponent } from './components/request/request-detail/requ
 import { RequestDetailResolverService } from './resolvers/request-detail-resolver.service';
 import { CommentCreateComponent } from './components/comment/comment-create/comment-create.component';
 import { CreateCommentResolverService } from './resolvers/create-comment-resolver.service';
+import { RequestReviewComponent } from './components/request/request-review/request-review.component';
 
 export const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: 'request-list', pathMatch: 'full' },
+  // { path: 'home', component: HomeComponent },
   { path: 'request-create', component: RequestCreateComponent },
   { path: 'request-list', resolve: { data: GetRequestsResolverService }, component: RequestListComponent },
   { path: 'request-overview', resolve: { data: GetRequestsResolverService }, component: RequestsOverviewComponent },
   { path: 'request-detail/:requestID', resolve: { data: RequestDetailResolverService }, component: RequestDetailComponent },
+  { path: 'request-review/:requestID', resolve: { data: RequestDetailResolverService }, component: RequestReviewComponent },
   { path: 'comment-create/:requestID', resolve: { data: CreateCommentResolverService }, component: CommentCreateComponent },
-  { path: '', redirectTo: 'request-list', pathMatch: 'full'}
+  { path: '**', redirectTo: 'request-list', pathMatch: 'full'}
 ];

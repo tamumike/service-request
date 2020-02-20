@@ -14,7 +14,6 @@ export class NavComponent implements OnInit {
   ngOnInit() {
     this.userService.getUserInfo().subscribe(response => {
       this.user = response;
-      console.log(response);
     }, error => {
       console.log('nav, user', error);
     });

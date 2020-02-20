@@ -17,6 +17,7 @@ namespace ServiceRequest.API.DTOs
         public decimal ApprovedBudget { get; set; }
         public bool Submitted { get; set; }
         public string Status { get; set; }
+        public string Owner { get; set; }
 
         public CreateNewRequestDTO()
         {
@@ -24,6 +25,7 @@ namespace ServiceRequest.API.DTOs
             CreatedDate = DateTime.Now.Date;
             Submitted = true;
             Status = "Open";
+            Owner = "Admin";
         }
     }
 }

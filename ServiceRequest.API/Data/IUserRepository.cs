@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ServiceRequest.API.Models;
 using ServiceRequest.API.DTOs;
+using ServiceRequest.API.Helpers;
 
 namespace ServiceRequest.API.Data
 {
@@ -10,10 +11,11 @@ namespace ServiceRequest.API.Data
         void ClearCookies();
         string GetUsername();
         Task<bool> UserExists(string username);
-        UserInfoDTO GetUserInfo(string username);
+        UserInfo GetUserInfo(string username);
         bool CheckUserRole(string username);
         Task<User> CreateNewUser(User user);
         Task<User> GetUser(string username);
         Task<bool> SaveAll();
+        IEnumerable<GroupMember> GetGroupMembers();
     }
 }

@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <button class="btn btn-primary" [routerLink]="['request-list']">Go Back</button>
+  <h1>{{ request?.requestID }}</h1>
+  <p>Created By: {{ request?.createdBy }}</p>
+  <p>Created Date: {{ request?.createdDate | date }}</p>
+  <p>Request Date: {{ request?.coupaDate }}</p>
+  <p>Location: {{ request?.location }}</p>
+  <p>Description: {{ request?.description }}</p>
+  <p>Deliverables: {{ request?.deliverables }}</p>
+</div>
+
+<div class="container">
+  <form [formGroup]="reviewRequestForm" (ngSubmit)="submitRequestReview()">
+
+    <div class="form-group">
+      <label for="afe">AFE</label>
+      <input type="text"
+      class="form-control"
+      formControlName="afe"
+      [ngClass]="{'is-invalid': reviewRequestForm.get('afe').errors && reviewRequestForm.get('afe').touched}">
+      <div class="invalid-feedback">Please provide the AFE number.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="engineerAssigned">Assigned Engineer</label>
+      <select
+      formControlName="engineerAssigned"
+      class="form-control"
+      [ngClass]="{'is-invalid': reviewRequestForm.get('engineerAssigned').errors && reviewRequestForm.get('engineerAssigned').touched}">
+      <option *ngFor="let member of groupMembers" value="{{ member.username }}">{{ member.fullName }}</option>
+      </select>
+      <div class="invalid-feedback">Please assign an engineer to the request.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="coupaDate">Coupa Approved Date:</label>
+      <input type="text"
+      autocomplete="off"
+      formControlName="coupaDate"
+      class="form-control"
+      bsDatepicker
+      [ngClass]="{'is-invalid': reviewRequestForm.get('coupaDate').errors && reviewRequestForm.get('coupaDate').touched}"
+      [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true, isAnimated: false }">
+      <div class="invalid-feedback">Date is invalid.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="propertyCode">Property Code</label>
+      <select
+      formControlName="propertyCode"
+      class="form-control"
+      [ngClass]="{'is-invalid': reviewRequestForm.get('propertyCode').errors && reviewRequestForm.get('propertyCode').touched}">
+      <option *ngFor="let propCode of propCodes" value="{{ propCode.code }}">{{ propCode.propertyName }}</option>
+      </select>
+      <div class="invalid-feedback">Please select a property code.</div>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+</div>
+
+<!-- <div class="container-fluid">
+  <app-comment-list [CommentsFromRequest]="request.comments"></app-comment-list>
+  <app-comment-create [requestID]="idToCommentCreate" (commentSubmitted)="refreshComponent($event)"></app-comment-create>
+</div> -->
+

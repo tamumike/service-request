@@ -35,4 +35,8 @@ constructor(private http: HttpClient) { }
 
     return this.http.post(this.baseUrl + 'Attachments/' + id, formData);
   }
+
+  getPropertyCodes(): Observable<any> {
+    return this.http.get(this.baseUrl + 'Requests/propcodes');
+  }
 }

@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ServiceRequest.API.Data;
 using ServiceRequest.API.DTOs;
+using ServiceRequest.API.Helpers;
 using ServiceRequest.API.Models;
 
 namespace ServiceRequest.API.Controllers
@@ -34,6 +35,14 @@ namespace ServiceRequest.API.Controllers
             var user = await _repo.GetUser(username);
 
             return Ok(user);
+        }
+
+        [HttpGet("group")]
+        public IEnumerable<GroupMember> GetMembers()
+        {
+            var members = _repo.GetGroupMembers();
+
+            return members;
         }
 
         [HttpPost]

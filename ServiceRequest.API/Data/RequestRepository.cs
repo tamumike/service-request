@@ -80,6 +80,12 @@ namespace ServiceRequest.API.Data
             return locations;
         }
 
+        public async Task<IEnumerable<PropertyCode>> GetPropertyCodes()
+        {
+            var propCodes = await _context.PropertyCodes.AsQueryable().OrderBy(p => p.PropertyName).ToListAsync();
+            return propCodes;
+        }
+
         public async Task<Request> GetRequest(string id)
         {
             var request = _context.Requests

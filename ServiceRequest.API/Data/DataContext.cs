@@ -13,6 +13,7 @@ namespace ServiceRequest.API.Data
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<PropertyCode> PropertyCodes { get; set; }
         
     }
 }

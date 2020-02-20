@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using ServiceRequest.API.DTOs;
+using ServiceRequest.API.Helpers;
 using ServiceRequest.API.Models;
 
 namespace ServiceRequest.API.Data
@@ -51,6 +52,28 @@ namespace ServiceRequest.API.Data
             return user;
         }
 
+        public IEnumerable<GroupMember> GetGroupMembers()
+        {
+            var groupName = _config.GetSection("UserInformation:Group").Get<string>();
+            List<GroupMember> memberList = new List<GroupMember>();
+            PrincipalContext principalContext = new PrincipalContext(ContextType.Domain);
+            GroupPrincipal groupPrincipal = GroupPrincipal.FindByIdentity(principalContext, groupName);
+            var members = groupPrincipal.GetMembers(true);
+
+            foreach (UserPrincipal member in members)
+            {
+                GroupMember groupMember = new GroupMember();
+                groupMember.Username = member.SamAccountName;
+                groupMember.FullName = member.DisplayName;
+
+                memberList.Add(groupMember);
+                // memberList.Add(["fullName", user.DisplayName]);
+                // memberList.Add(new KeyValuePair<string, string>("username", user.SamAccountName));
+            }
+
+            return memberList;
+        }
+
         public Task<User> GetUser(string username)
         {
             var user = _context.Users.FirstOrDefaultAsync(u => u.Username == username);
@@ -58,30 +81,30 @@ namespace ServiceRequest.API.Data
             return user;
         }
 
-        public UserInfoDTO GetUserInfo(string username)
+        public UserInfo GetUserInfo(string username)
         {
-            UserInfoDTO userInfoDTO = new UserInfoDTO();
+            UserInfo userInfo = new UserInfo();
             PrincipalContext principalContext = new PrincipalContext(ContextType.Domain);
             UserPrincipal userPrincipal = UserPrincipal.FindByIdentity(principalContext, username);
 
             if (!string.IsNullOrEmpty(userPrincipal.SamAccountName))
             {
-                userInfoDTO.Username = userPrincipal.SamAccountName;
+                userInfo.Username = userPrincipal.SamAccountName;
             }
             if (!string.IsNullOrEmpty(userPrincipal.DisplayName))
             {
-                userInfoDTO.DisplayName = userPrincipal.DisplayName;
+                userInfo.DisplayName = userPrincipal.DisplayName;
             }
             if (!string.IsNullOrEmpty(userPrincipal.EmailAddress))
             {
-                userInfoDTO.Email = userPrincipal.EmailAddress;
+                userInfo.Email = userPrincipal.EmailAddress;
             }
             if (this.CheckUserRole(username))
             {
-                userInfoDTO.Role = 2;
+                userInfo.Role = 2;
             }
 
-            return userInfoDTO;
+            return userInfo;
         }
 
         public string GetUsername()
