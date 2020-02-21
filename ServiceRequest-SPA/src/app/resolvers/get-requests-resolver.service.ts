@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class GetRequestsResolverService implements Resolve<any> {
 
-constructor(private requestService: RequestService, private router: Router) { }
+constructor(private requestService: RequestService) { }
 
   resolve(route: ActivatedRouteSnapshot) {
     return this.requestService.getRequests()

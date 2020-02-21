@@ -24,7 +24,7 @@ namespace ServiceRequest.API.DTOs
             ApprovedBudget = 25000.00M;
             CreatedDate = DateTime.Now.Date;
             Submitted = true;
-            Status = "Open";
+            Status = "Submitted";
             Owner = "Admin";
         }
     }

@@ -9,15 +9,17 @@ import { RequestDetailResolverService } from './resolvers/request-detail-resolve
 import { CommentCreateComponent } from './components/comment/comment-create/comment-create.component';
 import { CreateCommentResolverService } from './resolvers/create-comment-resolver.service';
 import { RequestReviewComponent } from './components/request/request-review/request-review.component';
+import { UserInfoResolverService } from './resolvers/user-info-resolver.service';
+import { SidebarComponent } from './containers/sidebar/sidebar.component';
 
 export const appRoutes: Routes = [
-  { path: '', redirectTo: 'request-list', pathMatch: 'full' },
-  // { path: 'home', component: HomeComponent },
+  // { path: '', redirectTo: 'request-list', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
   { path: 'request-create', component: RequestCreateComponent },
-  { path: 'request-list', resolve: { data: GetRequestsResolverService }, component: RequestListComponent },
-  { path: 'request-overview', resolve: { data: GetRequestsResolverService }, component: RequestsOverviewComponent },
+  { path: 'request-list', resolve: { user: UserInfoResolverService }, component: RequestListComponent },
   { path: 'request-detail/:requestID', resolve: { data: RequestDetailResolverService }, component: RequestDetailComponent },
   { path: 'request-review/:requestID', resolve: { data: RequestDetailResolverService }, component: RequestReviewComponent },
   { path: 'comment-create/:requestID', resolve: { data: CreateCommentResolverService }, component: CommentCreateComponent },
+  { path: 'requests-overview', resolve: { user: UserInfoResolverService }, component: RequestsOverviewComponent, outlet: 'sidebar' },
   { path: '**', redirectTo: 'request-list', pathMatch: 'full'}
 ];

@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { RequestService } from 'src/app/services/request.service';
 
 @Component({
   selector: 'app-requests-overview',
@@ -9,42 +10,43 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./requests-overview.component.css']
 })
 export class RequestsOverviewComponent implements OnInit {
-  @Input() requestsFromHome;
-  statusCounts = {Open: 0, Pending: 0, 'Under Review': 0 };
+  statusCounts = {Open: 0, Pending: 0, 'Under Review': 0, Approved: 0 };
   baseUrl = environment.baseUrl;
   requests: any;
+  userInfo: User;
+  requestParams: any = {};
+  numberOfNewRequests = 0;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestService) { }
 
   ngOnInit() {
-    this.getStatusCounts();
+    this.route.data.subscribe(data => {
+      this.userInfo = data.user;
+      if (this.userInfo.role === 2) {
+        this.requestParams.owner = 'Admin';
+      } else {
+        this.requestParams.owner = this.userInfo.username;
+      }
+    });
+    this.getUserRequests();
   }
 
-  getStatusCounts() {
-    this.http.get(this.baseUrl + 'Requests').subscribe(response => {
+  getUserRequests() {
+    this.requestService.getRequests(this.requestParams).subscribe(response => {
       this.requests = response;
       this.requests.forEach(x => {
         this.statusCounts[x.status] += 1;
+        if (!x.acknowledged) {
+          this.numberOfNewRequests += 1;
+        }
       });
+    }, error => {
+      console.log('requests-overview, get user requests', error);
     });
+  }
 
-    // this.route.data.subscribe(data => {
-    //   // this.requests = data;
-    //   console.log(data.data);
-    //   // this.requests.forEach(x => {
-    //   //   this.statusCounts[x.status] += 1;
-    //   // });
-    // }, error => {
-    //   console.log(error);
-    // });
-
-    // if (this.requestsFromHome) {
-    //   this.requestsFromHome.forEach(r => {
-    //     this.statusCounts[r.status] += 1;
-    //   });
-    //   console.log(this.statusCounts);
-    // }
-
+  showNewRequests() {
+    this.router.navigate(['/request-detail/20-001']);
   }
 
 }

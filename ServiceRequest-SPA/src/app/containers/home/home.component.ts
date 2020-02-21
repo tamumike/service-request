@@ -17,14 +17,13 @@ export class HomeComponent implements OnInit {
   requests: any;
   baseUrl = environment.baseUrl;
   userInfo: User;
-  @ViewChild('homeTabs', { static: false }) homeTabs: TabsetComponent;
 
   constructor(private http: HttpClient, private requestService: RequestService
             , private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getUserInfo();
-    this.getRequests();
+    // this.getUserInfo();
+    // this.getRequests();
   }
 
   getUserInfo() {

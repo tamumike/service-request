@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ServiceRequest.API.Models;
+using ServiceRequest.API.Helpers;
 
 namespace ServiceRequest.API.Data
 {
@@ -56,11 +57,19 @@ namespace ServiceRequest.API.Data
             return generatedRequestNumber;
         }
 
-        public async Task<IEnumerable<Request>> Get()
+        public async Task<IEnumerable<Request>> Get(RequestParams requestParams)
         {
             var requests = _context.Requests
                 .Include(r => r.Comments)
-                .Include(r => r.Attachments);
+                .Include(r => r.Attachments)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(requestParams.Owner))
+            {
+                requests = requests.Where(r => r.Owner == requestParams.Owner);
+            }
+
+
 
             return await requests.ToListAsync();
         }
@@ -80,6 +89,15 @@ namespace ServiceRequest.API.Data
             return locations;
         }
 
+        public async Task<IEnumerable<Request>> GetOwnedRequests(string username)
+        {
+            var requests = await _context.Requests
+                .Where(r => r.Owner == username)
+                .ToListAsync();
+
+            return requests;
+        }
+
         public async Task<IEnumerable<PropertyCode>> GetPropertyCodes()
         {
             var propCodes = await _context.PropertyCodes.AsQueryable().OrderBy(p => p.PropertyName).ToListAsync();
@@ -94,6 +112,11 @@ namespace ServiceRequest.API.Data
                 .Where(r => r.RequestID == id);
 
             return await request.FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> SaveAll()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<Attachment> UploadAttachment(Attachment attachment)

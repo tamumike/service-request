@@ -21,9 +21,6 @@ export class CommentCreateComponent implements OnInit {
               private route: ActivatedRoute, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-
-    console.log(this.requestID);
-
     this.userService.getUserInfo().subscribe(response => {
       this.user = response;
     }, error => {

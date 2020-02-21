@@ -1,13 +1,14 @@
 <div class="container-fluid">
   <button class="btn btn-primary" [routerLink]="['request-list']">Go Back</button>
-  <button class="btn btn-success" [routerLink]="['/request-review/', request.requestID]">Review</button>
-  <h1>{{ request?.requestID }}</h1>
-  <p>Created By: {{ request?.createdBy }}</p>
-  <p>Created Date: {{ request?.createdDate | date }}</p>
-  <p>Request Date: {{ request?.requestDate }}</p>
-  <p>Location: {{ request?.location }}</p>
-  <p>Description: {{ request?.description }}</p>
-  <p>Deliverables: {{ request?.deliverables }}</p>
+  <button class="btn btn-success" *ngIf="!request.approved" [routerLink]="['/request-review/', request.requestID]">Review</button>
+  <h1>{{ request.requestID }}</h1>
+  <p>Created By: {{ request.createdBy }}</p>
+  <p>Created Date: {{ request.createdDate | date }}</p>
+  <p>Request Date: {{ request.requestDate }}</p>
+  <p>Location: {{ request.location }}</p>
+  <p>Description: {{ request.description }}</p>
+  <p>Deliverables: {{ request.deliverables }}</p>
+  <p>Status: {{ request.status }}</p>
 </div>
 
 <div class="container-fluid">

@@ -1,4 +1,10 @@
-<div class="container d-flex" *ngFor="let status of statusCounts | keyvalue">
-  <h5>{{ status.value }}</h5>
-    <h6>{{ status.key }}</h6>
+<div class="container d-flex">
+  <!-- <h5>{{ status.value }}</h5>
+    <h6>{{ status.key }}</h6> -->
+    <p>New Requests: {{ numberOfNewRequests }}</p>
+    <button class="btn btn-primary" (click)="showNewRequests()">Click Me</button>
 </div>
+
+<!-- *ngFor="let status of statusCounts | keyvalue" -->
+
+

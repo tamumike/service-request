@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { Request } from '../models/request';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +14,23 @@ export class RequestService {
 
 constructor(private http: HttpClient) { }
 
-  getRequests(): Observable<any> {
-    return this.http.get(this.baseUrl + 'Requests');
+  getRequests(requestParams?: any): Observable<Request[]> {
+    let requestResult = null;
+
+    let params = new HttpParams();
+
+    if (requestParams != null) {
+      console.log(requestParams);
+      params = params.append('owner', requestParams.owner);
+    }
+
+    return this.http.get(this.baseUrl + 'Requests', { observe: 'response', params })
+      .pipe(
+        map(response => {
+          requestResult = response.body;
+          return requestResult;
+        })
+      );
   }
 
   getRequest(id: string): Observable<any> {
@@ -38,5 +55,13 @@ constructor(private http: HttpClient) { }
 
   getPropertyCodes(): Observable<any> {
     return this.http.get(this.baseUrl + 'Requests/propcodes');
+  }
+
+  submitReviewedRequest(id: string, request: Request): Observable<any> {
+    return this.http.put(this.baseUrl + 'Requests/reviewed/' + id, request);
+  }
+
+  updateRequest(id: string, request: Request): Observable<any> {
+    return this.http.put(this.baseUrl + 'Requests/' + id, request);
   }
 }

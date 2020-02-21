@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
+import { Component, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
+import { Request } from 'src/app/models/request';
 
 @Component({
   selector: 'app-request-detail',
@@ -8,7 +9,7 @@ import { RequestService } from 'src/app/services/request.service';
   styleUrls: ['./request-detail.component.css']
 })
 export class RequestDetailComponent implements OnInit {
-  request: any;
+  request: Request;
   @Output() idToCommentCreate: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestService) { }
@@ -20,6 +21,19 @@ export class RequestDetailComponent implements OnInit {
     }, error => {
       console.log('request-detail resolve', error);
     });
+
+    if (!this.request.acknowledged) {
+      this.request.acknowledged = true;
+      this.requestService.updateRequest(this.request.requestID, this.request).subscribe(response => {
+        this.request = response;
+      }, error => {
+        console.log('request detail, update request', error);
+      });
+    }
+  }
+
+  isAcknowledged() {
+    return this.request.acknowledged;
   }
 
   refreshComponent(refresh: boolean) {

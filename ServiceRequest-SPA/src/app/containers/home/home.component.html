@@ -1,11 +1,13 @@
 <div class="Home container-fluid">
   <div class="row">
     <div class="col-8">
+      <!-- <app-request-list></app-request-list> -->
         <router-outlet></router-outlet>
     </div>
     <div class="col-4 sidebar">
-      <button class="btn btn-success" [routerLink]="['request-create']">Create Request</button>
-      <app-requests-overview [requestsFromHome]="requests"></app-requests-overview>
+      <router-outlet name="sidebar"></router-outlet>
+      <!-- <button class="btn btn-success" [routerLink]="['request-create']">Create Request</button>
+      <app-requests-overview [userFromHome]="userInfo"></app-requests-overview> -->
     </div>
   </div>
 </div>

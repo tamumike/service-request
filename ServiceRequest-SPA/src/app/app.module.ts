@@ -26,6 +26,7 @@ import { CommentCreateComponent } from './components/comment/comment-create/comm
 import { CommentService } from './services/comment.service';
 import { NavComponent } from './UI/nav/nav.component';
 import { RequestReviewComponent } from './components/request/request-review/request-review.component';
+import { UserInfoResolverService } from './resolvers/user-info-resolver.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { RequestReviewComponent } from './components/request/request-review/requ
     UserService,
     GetRequestsResolverService,
     RequestDetailResolverService,
-    CommentService
+    CommentService,
+    UserInfoResolverService
   ],
   bootstrap: [AppComponent]
 })

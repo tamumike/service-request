@@ -13,6 +13,7 @@ export class UserService {
 constructor(private http: HttpClient) { }
 
 getUserInfo(): Observable<any> {
+  console.log('user service, getuser info');
   return this.http.get(this.baseUrl + 'User');
 }
 
