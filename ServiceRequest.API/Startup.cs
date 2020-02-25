@@ -42,6 +42,7 @@ namespace ServiceRequest.API
             services.AddHttpContextAccessor();
             services.AddAutoMapper(typeof(RequestRepository).Assembly);
             services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.AddScoped<IRequestRepository, RequestRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
         }

@@ -6,7 +6,7 @@ import { RequestService } from 'src/app/services/request.service';
 import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { TabsetComponent } from 'ngx-bootstrap/tabs/public_api';
+import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-home',
@@ -19,11 +19,9 @@ export class HomeComponent implements OnInit {
   userInfo: User;
 
   constructor(private http: HttpClient, private requestService: RequestService
-            , private userService: UserService, private route: ActivatedRoute) { }
+            , private userService: UserService, private route: ActivatedRoute, private modalService: ModalService) { }
 
   ngOnInit() {
-    // this.getUserInfo();
-    // this.getRequests();
   }
 
   getUserInfo() {

@@ -17,7 +17,11 @@ export const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'request-create', component: RequestCreateComponent },
   { path: 'request-list', resolve: { user: UserInfoResolverService }, component: RequestListComponent },
-  { path: 'request-detail/:requestID', resolve: { data: RequestDetailResolverService }, component: RequestDetailComponent },
+  {
+    path: 'request-detail/:requestID',
+    resolve: { user: UserInfoResolverService , data: RequestDetailResolverService },
+    component: RequestDetailComponent
+  },
   { path: 'request-review/:requestID', resolve: { data: RequestDetailResolverService }, component: RequestReviewComponent },
   { path: 'comment-create/:requestID', resolve: { data: CreateCommentResolverService }, component: CommentCreateComponent },
   { path: 'requests-overview', resolve: { user: UserInfoResolverService }, component: RequestsOverviewComponent, outlet: 'sidebar' },

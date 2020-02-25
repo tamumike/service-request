@@ -20,8 +20,9 @@ constructor(private http: HttpClient) { }
     let params = new HttpParams();
 
     if (requestParams != null) {
-      console.log(requestParams);
-      params = params.append('owner', requestParams.owner);
+      Object.keys(requestParams).forEach(x =>{
+        params = params.append(x, requestParams[x]);
+      });
     }
 
     return this.http.get(this.baseUrl + 'Requests', { observe: 'response', params })

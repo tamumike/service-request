@@ -12,11 +12,11 @@ export class NavComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.getUserInfo().subscribe(response => {
-      this.user = response;
-    }, error => {
-      console.log('nav, user', error);
-    });
+    // this.userService.getUserInfo().subscribe(response => {
+    //   this.user = response;
+    // }, error => {
+    //   console.log('nav, user', error);
+    // });
   }
 
 }

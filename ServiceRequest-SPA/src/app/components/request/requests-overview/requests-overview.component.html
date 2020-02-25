@@ -1,10 +1,10 @@
-<div class="container d-flex">
-  <!-- <h5>{{ status.value }}</h5>
-    <h6>{{ status.key }}</h6> -->
-    <p>New Requests: {{ numberOfNewRequests }}</p>
-    <button class="btn btn-primary" (click)="showNewRequests()">Click Me</button>
+<div class="card">
+  <h2 class="card-header">For You</h2>
+  <div class="card-body">
+    <p>Hello {{ userInfo.displayName }}, you have {{ numberOfNewRequests }} new request{{ numberOfNewRequests > 1 || numberOfNewRequests == 0 ? 's' : '' }}.</p>
+    <ul>
+      <li><a href="" (click)="navToCreate($event)">Create New Request</a></li>
+      <li><a href="">Help</a></li>
+    </ul>
+  </div>
 </div>
-
-<!-- *ngFor="let status of statusCounts | keyvalue" -->
-
-

@@ -6,6 +6,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { MatSortModule } from '@angular/material/sort';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './containers/home/home.component';
@@ -27,6 +28,11 @@ import { CommentService } from './services/comment.service';
 import { NavComponent } from './UI/nav/nav.component';
 import { RequestReviewComponent } from './components/request/request-review/request-review.component';
 import { UserInfoResolverService } from './resolvers/user-info-resolver.service';
+import { RequestDeadlinePipe } from './pipes/request-deadline.pipe';
+import { ModalBodyDirective } from './directives/modal-body.directive';
+import { SuccessModalComponent } from './UI/modal/sub-modal/success-modal/success-modal.component';
+import { ErrorModalComponent } from './UI/modal/sub-modal/error-modal/error-modal.component';
+import { ErrorInterceptorProvider } from './services/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -42,7 +48,11 @@ import { UserInfoResolverService } from './resolvers/user-info-resolver.service'
     CommentListComponent,
     CommentCreateComponent,
     NavComponent,
-    RequestReviewComponent
+    RequestReviewComponent,
+    RequestDeadlinePipe,
+    ModalBodyDirective,
+    SuccessModalComponent,
+    ErrorModalComponent
   ],
   imports: [
     BrowserModule,
@@ -51,9 +61,11 @@ import { UserInfoResolverService } from './resolvers/user-info-resolver.service'
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' }),
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    MatSortModule
   ],
   providers: [
+    ErrorInterceptorProvider,
     RequestService,
     UserService,
     GetRequestsResolverService,
@@ -61,6 +73,7 @@ import { UserInfoResolverService } from './resolvers/user-info-resolver.service'
     CommentService,
     UserInfoResolverService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [SuccessModalComponent]
 })
 export class AppModule { }

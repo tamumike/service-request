@@ -29,14 +29,21 @@ namespace ServiceRequest.API.Data
 
         }
 
-        public bool CheckUserRole(string username)
+        public int CheckUserRole(string username)
         {
             var administrators = _config.GetSection("UserInformation:Administrators").Get<string[]>();
+            var engineers = this.GetGroupMembers();
 
-            if (administrators.Contains("mlinden"))
-                return true;
+            foreach (var engineer in engineers)
+            {
+                if (engineer.Username == username)
+                    return 3;
+            }
 
-            return false;
+            if (administrators.Contains(username))
+                return 2;
+
+            return 1;
         }
 
         public void ClearCookies()
@@ -99,10 +106,7 @@ namespace ServiceRequest.API.Data
             {
                 userInfo.Email = userPrincipal.EmailAddress;
             }
-            if (this.CheckUserRole(username))
-            {
-                userInfo.Role = 2;
-            }
+                userInfo.Role = this.CheckUserRole(username);
 
             return userInfo;
         }

@@ -68,8 +68,22 @@ namespace ServiceRequest.API.Data
             {
                 requests = requests.Where(r => r.Owner == requestParams.Owner);
             }
-
-
+            if (!string.IsNullOrEmpty(requestParams.CreatedBy))
+            {
+                requests = requests.Where(r => r.CreatedBy == requestParams.CreatedBy);
+            }
+            if (!string.IsNullOrEmpty(requestParams.Location))
+            {
+                requests = requests.Where(r => r.Location == requestParams.Location);
+            }
+            if (!string.IsNullOrEmpty(requestParams.Status))
+            {
+                requests = requests.Where(r => r.Status == requestParams.Status);
+            }
+            if (!string.IsNullOrEmpty(requestParams.RequestID))
+            {
+                requests = requests.Where(r => r.RequestID == requestParams.RequestID);
+            }
 
             return await requests.ToListAsync();
         }

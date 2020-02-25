@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, Input } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
+import { ModalBodyDirective } from 'src/app/directives/modal-body.directive';
+import { ModalBodyItem } from 'src/app/models/modalBodyItem';
+import { SuccessModalComponent } from './sub-modal/success-modal/success-modal.component';
+import { ModalBodyComponent } from 'src/app/models/modalBodyComponent';
 
 @Component({
   selector: 'app-modal',
@@ -8,14 +12,28 @@ import { ModalService } from 'src/app/services/modal.service';
 })
 export class ModalComponent implements OnInit {
   modalConfig: any;
-  constructor(private modalService: ModalService) { }
+  @ViewChild(ModalBodyDirective, { static: true }) modalBody: ModalBodyDirective;
+  @Input() modals: {success: ModalBodyItem, error: ModalBodyItem};
+
+  constructor(private modalService: ModalService, private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
     this.modalService.displayModal.subscribe(modalConfig => this.modalConfig = modalConfig);
+    this.loadComponent(this.modals[this.modalConfig.type]);
+  }
+
+  loadComponent(template: ModalBodyItem) {
+
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(template.component);
+
+    const viewContainerRef = this.modalBody.viewContainerRef;
+    viewContainerRef.clear();
+
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    (componentRef.instance as ModalBodyComponent).data = template.data;
   }
 
   hideModal() {
-    this.modalService.toggleDisplay({display: false, content: ''});
+    this.modalService.toggleDisplay({display: false});
   }
-
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ getUserInfo(): Observable<any> {
 
 getGroupMembers(): Observable<any> {
   return this.http.get(this.baseUrl + 'User/group');
+}
+
+isAdministrator(user: User): boolean {
+  return user.role === 3;
 }
 
 }

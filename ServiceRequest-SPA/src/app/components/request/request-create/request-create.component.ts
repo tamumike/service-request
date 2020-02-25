@@ -5,6 +5,7 @@ import { RequestService } from 'src/app/services/request.service';
 import { requestDateValidator } from '../../../validators/requestDateValidator';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-request-create',
@@ -18,8 +19,10 @@ export class RequestCreateComponent implements OnInit {
   fileToUpload: File = null;
   userInfo: User;
   @Output() requestCreated = new EventEmitter();
+  modalConfig: any;
 
-  constructor(private formBuilder: FormBuilder, private requestService: RequestService, private userService: UserService) { }
+  constructor(private formBuilder: FormBuilder, private requestService: RequestService,
+              private userService: UserService, private modalService: ModalService) { }
 
   ngOnInit() {
     this.getUserInfo();
@@ -48,9 +51,9 @@ export class RequestCreateComponent implements OnInit {
   createRequest() {
     console.log('create request');
     this.createRequestForm.value.createdBy = this.userInfo.username;
+    this.modalService.toggleDisplay({display: true, type: 'loading'});
 
     this.requestService.postRequest(this.createRequestForm.value).subscribe(response => {
-      console.log(response);
 
       this.requestService.postAttachment(this.fileToUpload, response.requestID).subscribe(res => {
         console.log(res);
@@ -59,6 +62,7 @@ export class RequestCreateComponent implements OnInit {
       });
 
       this.requestCreated.emit(true);
+      this.modalService.toggleDisplay({display: true, type: 'success'});
 
     }, error => {
       console.log(error);
@@ -76,6 +80,10 @@ export class RequestCreateComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  toggleModal() {
+    this.modalConfig.display = !this.modalConfig.display;
   }
 
 }

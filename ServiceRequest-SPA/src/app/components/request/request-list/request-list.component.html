@@ -1,35 +1,73 @@
-<div class="RequestList" *ngIf="!detailMode">
-  <button class="btn btn-dark" (click)="clearFilter()">View All</button>
-  <table class="table table-striped">
+<div matSort class="RequestList" (matSortChange)="sortData($event)" *ngIf="!detailMode">
+  <h1>Active Requests</h1>
+
+  <div class="container m-2">
+    <button class="btn btn-sm btn-dark mt-3" (click)="toggleFilterMode()">Filters</button>
+    <form *ngIf="filterMode" [formGroup]="filterRequestsForm" (ngSubmit)="filterRequests()">
+      <div class="row d-inline-flex align-items-center m-3">
+
+        <label for="field">Field: </label>
+        <div class="form-group m-2">
+
+          <select
+          (change)="checkFilterInputType()"
+          formControlName="field"
+          class="form-control">
+            <option *ngFor="let field of fieldsForFilter" value="{{ field.value }}">{{ field.display }}</option>
+          </select>
+        </div>
+
+        <label for="fieldValue">Value: </label>
+        <div  class="form-group m-2">
+
+          <input *ngIf="!toggleFilterInputType" type="text"
+          class="form-control"
+          placeholder="Enter filter value..."
+          formControlName="fieldValue">
+
+          <select
+          *ngIf="toggleFilterInputType"
+          formControlName="fieldValue2"
+          class="form-control">
+            <option *ngFor="let location of locations" value="{{ location.name }}">{{ location.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="container d-inline-flex">
+        <button type="submit" class="btn btn-sm btn-dark m-2">Apply</button>
+        <button class="btn btn-sm btn-dark m-2" (click)="clearFilter($event)">Clear</button>
+      </div>
+
+    </form>
+  </div>
+
+  <table class="table table-striped table-hover">
     <thead>
       <tr>
         <th scope="col">View</th>
-        <th scope="col">Request ID</th>
-        <th scope="col">Requested By</th>
-        <th scope="col">Request Date</th>
-        <th scope="col">Location</th>
-        <th scope="col">Status</th>
-        <th scope="col">Submitted</th>
-        <th scope="col">Approved</th>
+        <th mat-sort-header="requestID" scope="col">Request ID</th>
+        <th mat-sort-header="createdBy" scope="col">Requested By</th>
+        <th mat-sort-header="requestDate" scope="col">Request Date</th>
+        <th mat-sort-header="location" scope="col">Location</th>
+        <th mat-sort-header="status" scope="col">Status</th>
+        <th mat-sort-header="approved" scope="col">Approved</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let request of requests">
-        <td><button class="btn-sm" [routerLink]="['/request-detail/', request.requestID]">+</button></td>
+      <tr *ngFor="let request of sortedData" class="{{ request.requestDate | requestDeadline }}">
+        <td><button class="btn btn-sm btn-dark" [routerLink]="['/request-detail/', request.requestID]">+</button></td>
         <td>{{ request.requestID }}</td>
         <td>{{ request.createdBy }}</td>
         <td>{{ request.requestDate | date }}</td>
         <td>{{ request.location }}</td>
         <td>{{ request.status }}</td>
-        <td>{{ request.submitted }}</td>
         <td>{{ request.approved }}</td>
       </tr>
     </tbody>
   </table>
+
+
+
 </div>
-<!--
-<div class="container" *ngIf="detailMode">
-  <button class="btn btn-primary" (click)="toggleViewDetail()">Go Back</button>
-  <app-request-detail [idFromHome]="idForDetailView"></app-request-detail>
-</div> -->
 

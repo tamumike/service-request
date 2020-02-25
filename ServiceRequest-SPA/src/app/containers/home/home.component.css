@@ -1,6 +1,7 @@
 .Home {
   border: 1px solid black;
-  min-height: 99vh;
+  min-height: 90vh;
+  margin-top: 30px;
 }
 
 .sidebar {

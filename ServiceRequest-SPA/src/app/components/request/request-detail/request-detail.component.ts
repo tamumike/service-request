@@ -2,6 +2,8 @@ import { Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from 'src/app/services/request.service';
 import { Request } from 'src/app/models/request';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-request-detail',
@@ -11,12 +13,15 @@ import { Request } from 'src/app/models/request';
 export class RequestDetailComponent implements OnInit {
   request: Request;
   @Output() idToCommentCreate: any;
+  userInfo: User;
 
-  constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestService) { }
+  constructor(private route: ActivatedRoute, private router: Router,
+              private requestService: RequestService, private userService: UserService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.request = data.data;
+      this.userInfo = data.user;
       this.idToCommentCreate = this.request.requestID;
     }, error => {
       console.log('request-detail resolve', error);

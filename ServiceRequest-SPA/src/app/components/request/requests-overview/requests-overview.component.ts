@@ -3,6 +3,7 @@ import { environment } from '../../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { RequestService } from 'src/app/services/request.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-requests-overview',
@@ -17,12 +18,13 @@ export class RequestsOverviewComponent implements OnInit {
   requestParams: any = {};
   numberOfNewRequests = 0;
 
-  constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestService,
+              private userService: UserService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.userInfo = data.user;
-      if (this.userInfo.role === 2) {
+      if (this.userService.isAdministrator(this.userInfo)) {
         this.requestParams.owner = 'Admin';
       } else {
         this.requestParams.owner = this.userInfo.username;
@@ -47,6 +49,11 @@ export class RequestsOverviewComponent implements OnInit {
 
   showNewRequests() {
     this.router.navigate(['/request-detail/20-001']);
+  }
+
+  navToCreate(event: any) {
+    event.preventDefault();
+    this.router.navigate([{ outlets: { primary: 'request-create', sidebar: 'requests-overview' }}]);
   }
 
 }
