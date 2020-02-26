@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   }
 
   getUserInfo() {
-    this.userService.getUserInfo().subscribe(response => {
+    this.userService.getUserInfo(this.userService.getUserIdentifier()).subscribe(response => {
       this.userInfo = response;
     }, error => {
       console.log(error);

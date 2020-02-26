@@ -82,7 +82,21 @@ namespace ServiceRequest.API.Controllers
             if (await _repo.SaveAll())
                 return Ok(requestFromDB);
 
-            throw new Exception($"Error updating the status.");
+            throw new Exception($"Error submitting the request.");
+        }
+
+        [HttpPut("ereviewed/{ID}")]
+        public async Task<IActionResult> SubmitAfterEngineerReview([FromRoute]string ID, EngineerReviewedRequestDTO engineerReviewedRequestDTO)
+        {
+            Console.WriteLine(engineerReviewedRequestDTO.ExpectedCost);
+            var requestFromDB = await _repo.GetRequest(ID);
+
+            var requestToUpdate = _mapper.Map(engineerReviewedRequestDTO, requestFromDB);
+
+            if (await _repo.SaveAll())
+                return Ok(requestFromDB);
+            
+            throw new Exception($"Error submitting the request.");
         }
 
         [HttpPut("{ID}")]

@@ -11,6 +11,7 @@ import { CreateCommentResolverService } from './resolvers/create-comment-resolve
 import { RequestReviewComponent } from './components/request/request-review/request-review.component';
 import { UserInfoResolverService } from './resolvers/user-info-resolver.service';
 import { SidebarComponent } from './containers/sidebar/sidebar.component';
+import { EngineerRequestReviewComponent } from './components/request/engineer-request-review/engineer-request-review.component';
 
 export const appRoutes: Routes = [
   // { path: '', redirectTo: 'request-list', pathMatch: 'full' },
@@ -24,6 +25,7 @@ export const appRoutes: Routes = [
   },
   { path: 'request-review/:requestID', resolve: { data: RequestDetailResolverService }, component: RequestReviewComponent },
   { path: 'comment-create/:requestID', resolve: { data: CreateCommentResolverService }, component: CommentCreateComponent },
+  { path: 'e-request-review/:requestID', resolve: { data: RequestDetailResolverService }, component: EngineerRequestReviewComponent },
   { path: 'requests-overview', resolve: { user: UserInfoResolverService }, component: RequestsOverviewComponent, outlet: 'sidebar' },
   { path: '**', redirectTo: 'request-list', pathMatch: 'full'}
 ];

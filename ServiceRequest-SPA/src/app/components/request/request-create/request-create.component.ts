@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RequestService } from 'src/app/services/request.service';
 
-import { requestDateValidator } from '../../../validators/requestDateValidator';
+import { requestDateValidator } from 'src/app/validators/requestDateValidator';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { ModalService } from 'src/app/services/modal.service';
@@ -20,11 +20,13 @@ export class RequestCreateComponent implements OnInit {
   userInfo: User;
   @Output() requestCreated = new EventEmitter();
   modalConfig: any;
+  private sessionID: any;
 
   constructor(private formBuilder: FormBuilder, private requestService: RequestService,
               private userService: UserService, private modalService: ModalService) { }
 
   ngOnInit() {
+    this.sessionID = this.userService.getUserIdentifier();
     this.getUserInfo();
     this.initializeRequestForm();
     this.getLocationsForForm();
@@ -41,7 +43,7 @@ export class RequestCreateComponent implements OnInit {
   }
 
   getUserInfo() {
-    this.userService.getUserInfo().subscribe(response => {
+    this.userService.getUserInfo(this.sessionID).subscribe(response => {
       this.userInfo = response;
     }, error => {
       console.log('request create, user info', error);

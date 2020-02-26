@@ -14,6 +14,8 @@ export class RequestDetailComponent implements OnInit {
   request: Request;
   @Output() idToCommentCreate: any;
   userInfo: User;
+  isAdmin: boolean;
+  isEngineer: boolean;
 
   constructor(private route: ActivatedRoute, private router: Router,
               private requestService: RequestService, private userService: UserService) { }
@@ -23,6 +25,8 @@ export class RequestDetailComponent implements OnInit {
       this.request = data.data;
       this.userInfo = data.user;
       this.idToCommentCreate = this.request.requestID;
+      this.isAdmin = this.userInfo.role === 3;
+      this.isEngineer = this.userInfo.role === 3;   /// THIS IS USED FOR TESTING....SHOULD BE 2
     }, error => {
       console.log('request-detail resolve', error);
     });

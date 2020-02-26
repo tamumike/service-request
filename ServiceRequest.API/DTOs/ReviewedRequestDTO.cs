@@ -15,7 +15,15 @@ namespace ServiceRequest.API.DTOs
 
         public ReviewedRequestDTO()
         {
-            Status = "Approved";
+            if (Approved) 
+            {
+                Status = "Approved";
+            } 
+            else
+            {
+                Status = "Open";
+            }
+            
         }
     }
 }

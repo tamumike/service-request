@@ -24,6 +24,7 @@ export class RequestsOverviewComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.userInfo = data.user;
+      // console.log(this.userInfo);
       if (this.userService.isAdministrator(this.userInfo)) {
         this.requestParams.owner = 'Admin';
       } else {

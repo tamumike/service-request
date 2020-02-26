@@ -77,7 +77,10 @@ namespace ServiceRequest.API
             app.UseAuthorization();
             app.UseAuthentication();
 
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());            
+            string[] origins = new string[] {"http://localhost:4200"};
+
+            // app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors(x => x.AllowAnyMethod().AllowAnyHeader().WithOrigins(origins).AllowCredentials());
 
             app.UseEndpoints(endpoints =>
             {

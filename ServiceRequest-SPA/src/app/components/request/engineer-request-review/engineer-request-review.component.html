@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <button class="btn btn-primary" [routerLink]="['/request-detail/', request.requestID]">Go Back</button>
+  <h1>{{ request.requestID }}</h1>
+  <p>Created By: {{ request.createdBy }}</p>
+  <p>Created Date: {{ request.createdDate | date }}</p>
+  <p>Request Date: {{ request.requestDate }}</p>
+  <p>Location: {{ request.location }}</p>
+  <p>Description: {{ request.description }}</p>
+  <p>Deliverables: {{ request.deliverables }}</p>
+
+  <div class="container">
+    <form [formGroup]="reviewRequestForm" (submit)="submit()">
+
+      <div class="form-group">
+        <label for="promiseDate">Promise Date:</label>
+        <input type="text"
+        autocomplete="off"
+        formControlName="promiseDate"
+        class="form-control"
+        bsDatepicker
+        [ngClass]="{'is-invalid': reviewRequestForm.get('promiseDate').errors && reviewRequestForm.get('promiseDate').touched}"
+        [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true, isAnimated: false }">
+        <div class="invalid-feedback">Date is invalid.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="expectedCost">Expected Cost:</label>
+        <input type="number"
+        class="form-control"
+        formControlName="expectedCost"
+        [ngClass]="{'is-invalid': reviewRequestForm.get('expectedCost').errors && reviewRequestForm.get('expectedCost').touched}">
+        <div class="invalid-feedback">Expected cost must be less than $25,000.</div>
+      </div>
+
+      <button class="btn btn-primary" type="Submit">Submit</button>
+
+    </form>
+  </div>
+
+
+  <div class="container-fluid">
+    <app-comment-list [CommentsFromRequest]="request.comments"></app-comment-list>
+    <app-comment-create [requestID]="request.requestID"></app-comment-create>
+  </div>
+
+</div>
+

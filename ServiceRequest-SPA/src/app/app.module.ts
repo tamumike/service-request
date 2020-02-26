@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { MatSortModule } from '@angular/material/sort';
+import { CookieService } from 'ngx-cookie-service';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './containers/home/home.component';
@@ -33,6 +35,7 @@ import { ModalBodyDirective } from './directives/modal-body.directive';
 import { SuccessModalComponent } from './UI/modal/sub-modal/success-modal/success-modal.component';
 import { ErrorModalComponent } from './UI/modal/sub-modal/error-modal/error-modal.component';
 import { ErrorInterceptorProvider } from './services/error.interceptor';
+import { EngineerRequestReviewComponent } from './components/request/engineer-request-review/engineer-request-review.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,8 @@ import { ErrorInterceptorProvider } from './services/error.interceptor';
     RequestDeadlinePipe,
     ModalBodyDirective,
     SuccessModalComponent,
-    ErrorModalComponent
+    ErrorModalComponent,
+    EngineerRequestReviewComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +66,8 @@ import { ErrorInterceptorProvider } from './services/error.interceptor';
     BsDatepickerModule.forRoot(),
     RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' }),
     TabsModule.forRoot(),
-    MatSortModule
+    MatSortModule,
+    NgxCurrencyModule
   ],
   providers: [
     ErrorInterceptorProvider,
@@ -71,7 +76,8 @@ import { ErrorInterceptorProvider } from './services/error.interceptor';
     GetRequestsResolverService,
     RequestDetailResolverService,
     CommentService,
-    UserInfoResolverService
+    UserInfoResolverService,
+    CookieService
   ],
   bootstrap: [AppComponent],
   entryComponents: [SuccessModalComponent]

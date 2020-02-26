@@ -12,7 +12,9 @@ export class UserInfoResolverService implements Resolve<any> {
 constructor(private userService: UserService) { }
 
 resolve(route: ActivatedRouteSnapshot) {
-  return this.userService.getUserInfo()
+  const sessionID = this.userService.getUserIdentifier();
+  console.log('user info resolver', sessionID);
+  return this.userService.getUserInfo(sessionID)
   .pipe(
     catchError(error => {
       console.log('user-info-resolver', error);

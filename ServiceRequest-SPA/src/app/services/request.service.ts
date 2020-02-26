@@ -62,6 +62,10 @@ constructor(private http: HttpClient) { }
     return this.http.put(this.baseUrl + 'Requests/reviewed/' + id, request);
   }
 
+  submitEngineerReviewedRequest(id: string, request: Request): Observable<any> {
+    return this.http.put(this.baseUrl + 'Requests/ereviewed/' + id, request);
+  }
+
   updateRequest(id: string, request: Request): Observable<any> {
     return this.http.put(this.baseUrl + 'Requests/' + id, request);
   }

@@ -10,11 +10,17 @@ namespace ServiceRequest.API.DTOs
         public DateTime DateCreated { get; set; }
         public DateTime LastLogin { get; set; }
         public int Role { get; set; }
+        public Guid SessionID { get; set; }
 
-        public CreateNewUserDTO()
+        public CreateNewUserDTO(string username, string displayName, string email, int role)
         {
+            Username = username;
+            DisplayName = displayName;
+            Email = email;
+            Role = role;
             DateCreated = DateTime.Now;
-            LastLogin = DateTime.Now;
+            // LastLogin = DateTime.Now;
+            // SessionID = Guid.NewGuid();
         }
     }
 }

@@ -1,11 +1,6 @@
-.RequestList {
+/* .RequestList {
   border: 1px solid black;
-}
-
-.request-on-home {
-  border: 1px solid black;
-  margin: 2px;
-}
+} */
 
 .deadline-danger {
   background-color: rgba(255, 0, 0, 0.3) !important;

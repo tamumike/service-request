@@ -11,5 +11,6 @@ namespace ServiceRequest.API.Models
         public DateTime DateCreated { get; set; }
         public DateTime LastLogin { get; set; }
         public int Role { get; set; }
+        public Guid SessionID { get; set; }
     }
 }

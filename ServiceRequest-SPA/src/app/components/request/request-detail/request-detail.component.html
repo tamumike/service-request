@@ -1,6 +1,7 @@
 <div class="container-fluid">
   <button class="btn btn-primary" [routerLink]="['request-list']">Go Back</button>
-  <button class="btn btn-success" *ngIf="!request.approved" [routerLink]="['/request-review/', request.requestID]">Review</button>
+  <button class="btn btn-success" *ngIf="!request.approved && isAdmin" [routerLink]="['/request-review/', request.requestID]">Review</button>
+  <button class="btn btn-success" *ngIf="request.approved && isEngineer" [routerLink]="['/e-request-review/', request.requestID]">Engineer Review</button>
   <h1>{{ request.requestID }}</h1>
   <p>Created By: {{ request.createdBy }}</p>
   <p>Created Date: {{ request.createdDate | date }}</p>

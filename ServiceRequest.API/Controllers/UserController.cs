@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceRequest.API.Data;
 using ServiceRequest.API.DTOs;
@@ -16,14 +17,17 @@ namespace ServiceRequest.API.Controllers
     {
         private readonly IUserRepository _repo;
         private readonly IMapper _mapper;
-        public UserController(IUserRepository repo, IMapper mapper)
+        private readonly IHttpContextAccessor _http;
+        private readonly string _cookie = "esr-session";
+        public UserController(IUserRepository repo, IMapper mapper, IHttpContextAccessor http)
         {
+            _http = http;
             _mapper = mapper;
             _repo = repo;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(Guid sessionID)
         {
             var username = _repo.GetUsername();
 
@@ -45,42 +49,60 @@ namespace ServiceRequest.API.Controllers
             return members;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateNewUser()
+        [HttpPost("login")]
+        public async Task<IActionResult> Login()
         {
-            var username = _repo.GetUsername();
+            User user = null;
 
-            if (await _repo.UserExists(username))
+            // Check if cookie exists
+            IRequestCookieCollection requestCookies = _http.HttpContext.Request.Cookies;
+            IResponseCookies responseCookies = _http.HttpContext.Response.Cookies;
+            if (requestCookies.ContainsKey(_cookie))
             {
-                return Accepted("User already exists");
+                requestCookies.TryGetValue(_cookie, out string sessionIDFromCookie);
+                Guid sessionIDAsGuid = Guid.Parse(sessionIDFromCookie);
+
+                user = await _repo.GetUser(sessionIDAsGuid);
+
+                // responseCookies.Delete(_cookie);
+            }
+            else {
+
+                // Check if user exists
+                string username = _repo.GetUsername();
+
+                if (await _repo.UserExists(username))
+                {
+                    user = await _repo.GetUser(username);
+                }
+                else // if user does not exist
+                {
+                    UserInfo userInfo = _repo.GetUserInfo(username);
+                    CreateNewUserDTO createNewUserDTO = new CreateNewUserDTO(userInfo.Username, userInfo.DisplayName, userInfo.Email, userInfo.Role);
+                    var userToCreate = _mapper.Map<User>(createNewUserDTO);
+                    user = await _repo.CreateNewUser(userToCreate);
+                }
+
             }
 
-            var createNewUserDTO = new CreateNewUserDTO();
-            var userInfo = _repo.GetUserInfo(username);
+            user.LastLogin = DateTime.Now;
+            user.SessionID = Guid.NewGuid();
 
-            createNewUserDTO.Username = userInfo.Username;
-            createNewUserDTO.DisplayName = userInfo.DisplayName;
-            createNewUserDTO.Email = userInfo.Email;
-            createNewUserDTO.Role = userInfo.Role;
-
-            var userToCreate = _mapper.Map<User>(createNewUserDTO);
-            var createdUser = await _repo.CreateNewUser(userToCreate);
-
-            return Ok(createdUser);
-        }
-
-        [HttpPut("lastlogin")]
-        public async Task<IActionResult> UpdateLastLogin()
-        {
-            var username = _repo.GetUsername();
-            var userToUpdate = await _repo.GetUser(username);
-
-            userToUpdate.LastLogin = DateTime.Now;
+            // _http.HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:4200");
 
             if (await _repo.SaveAll())
-                return Ok(userToUpdate);
+            {
+                CookieOptions cookieOptions = new CookieOptions();
+                cookieOptions.Path = "/";
+                cookieOptions.HttpOnly = false;
+                cookieOptions.Secure = false;
+                cookieOptions.Domain = "localhost";
+                responseCookies.Append(_cookie, user.SessionID.ToString(), cookieOptions);
+                return Ok(user);
+            }
 
-            throw new Exception($"Error updating the login time");
+            throw new Exception($"Error in login.");
+
         }
 
     }

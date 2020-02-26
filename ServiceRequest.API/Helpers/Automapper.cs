@@ -15,6 +15,7 @@ namespace ServiceRequest.API.Helpers
             CreateMap<CreateNewUserDTO, User>();
             CreateMap<ReviewedRequestDTO, Request>();
             CreateMap<UpdateRequestDTO, Request>();
+            CreateMap<EngineerReviewedRequestDTO, Request>();
         }
     }
 }
