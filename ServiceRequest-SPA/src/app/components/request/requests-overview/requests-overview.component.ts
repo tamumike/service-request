@@ -17,6 +17,7 @@ export class RequestsOverviewComponent implements OnInit {
   userInfo: User;
   requestParams: any = {};
   numberOfNewRequests = 0;
+  private isAdmin = false;
 
   constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestService,
               private userService: UserService) { }
@@ -24,12 +25,17 @@ export class RequestsOverviewComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.userInfo = data.user;
-      // console.log(this.userInfo);
-      if (this.userService.isAdministrator(this.userInfo)) {
+    });
+
+    this.userService.isAdministrator().subscribe(response => {
+      this.isAdmin = response;
+      if (this.isAdmin) {
         this.requestParams.owner = 'Admin';
       } else {
         this.requestParams.owner = this.userInfo.username;
       }
+    }, error => {
+      console.log('request- overview, admin', error);
     });
     this.getUserRequests();
   }

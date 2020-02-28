@@ -22,7 +22,7 @@ namespace ServiceRequest.API.DTOs
         public CreateNewRequestDTO()
         {
             ApprovedBudget = 25000.00M;
-            CreatedDate = DateTime.Now.Date;
+            CreatedDate = DateTime.Now;
             Submitted = true;
             Status = "Submitted";
             Owner = "Admin";

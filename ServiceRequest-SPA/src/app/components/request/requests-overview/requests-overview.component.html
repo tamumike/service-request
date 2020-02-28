@@ -1,10 +1,13 @@
-<div class="card">
-  <h2 class="card-header">For You</h2>
-  <div class="card-body">
-    <p>Hello {{ userInfo.displayName }}, you have {{ numberOfNewRequests }} new request{{ numberOfNewRequests > 1 || numberOfNewRequests == 0 ? 's' : '' }}.</p>
-    <ul>
-      <li><a href="" (click)="navToCreate($event)">Create New Request</a></li>
-      <li><a href="">Help</a></li>
-    </ul>
+<div class="container-fluid">
+  <div class="card">
+    <h2 class="card-header">For You</h2>
+    <div class="card-body">
+      <p>Hello {{ userInfo.displayName }}, you have {{ numberOfNewRequests }} new request{{ numberOfNewRequests > 1 || numberOfNewRequests == 0 ? 's' : '' }}.</p>
+      <ul>
+        <li><a href="" (click)="navToCreate($event)">Create New Request</a></li>
+        <li><a href="">Help</a></li>
+      </ul>
+    </div>
   </div>
+
 </div>

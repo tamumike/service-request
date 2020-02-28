@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
 
     this.userService.login().subscribe(response => {
       this.user = response;
+      this.userService.setSessionID();
     }, error => {
       console.log('app component, login', error);
     });

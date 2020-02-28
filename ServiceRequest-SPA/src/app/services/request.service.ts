@@ -20,7 +20,7 @@ constructor(private http: HttpClient) { }
     let params = new HttpParams();
 
     if (requestParams != null) {
-      Object.keys(requestParams).forEach(x =>{
+      Object.keys(requestParams).forEach(x => {
         params = params.append(x, requestParams[x]);
       });
     }

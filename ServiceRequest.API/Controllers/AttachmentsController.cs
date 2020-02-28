@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -29,11 +30,12 @@ namespace ServiceRequest.API.Controllers
         [HttpPost("{id}")]
         public async Task<IActionResult> UploadAsync([FromForm]CreateNewAttachmentDTO createNewAttachmentDTO, [FromRoute]string id)
         {
-            var file = createNewAttachmentDTO.File;
-            
+            var fileObj = createNewAttachmentDTO;
+            var file = fileObj.File;
+
             if (file == null || file.Length == 0) 
             {
-                throw new System.NullReferenceException("No file");
+                throw new System.NullReferenceException("No File");
             }
 
             if (file.Length > 0)
@@ -49,8 +51,10 @@ namespace ServiceRequest.API.Controllers
                 }
             }
 
-            createNewAttachmentDTO.RequestID = id;
-            var attachmentToCreate = _mapper.Map<Attachment>(createNewAttachmentDTO);
+            fileObj.RequestID = id;
+            fileObj.FileName = file.FileName;
+            fileObj.URL = _targetFilePath + $"/{fileObj.FileName}";
+            var attachmentToCreate = _mapper.Map<Attachment>(fileObj);
             var createdAttachment = await _repo.UploadAttachment(attachmentToCreate);
 
             return Ok(createdAttachment);

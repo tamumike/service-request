@@ -11,29 +11,31 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class UserService {
   baseUrl = environment.baseUrl;
-  private sessionID: string;
+  private sessionID: any;
 
 constructor(private http: HttpClient, private cookieService: CookieService) { }
 
 getUserInfo(sessionID: any): Observable<any> {
-  return this.http.get(this.baseUrl + 'User', sessionID);
+  return this.http.get(this.baseUrl + 'User', this.sessionID);
 }
 
 getGroupMembers(): Observable<any> {
   return this.http.get(this.baseUrl + 'User/group');
 }
 
-isAdministrator(user: User): boolean {
-  return user.role === 3;
+isAdministrator(): Observable<any> {
+  return this.http.get(this.baseUrl + 'User/checkprivs/' + this.cookieService.get('esr-session').toString());
+}
+
+setSessionID(): void {
+  this.sessionID = this.cookieService.get('esr-session').toString();
 }
 
 getUserIdentifier(): any {
-  return this.cookieService.get('esr-session');
+  return this.cookieService.get('esr-session').toString();
 }
 
 login(): Observable<any> {
-  this.sessionID = this.cookieService.get('esr-session');
-  // console.log(this.sessionID);
   return this.http.post(this.baseUrl + 'User/login', null, { withCredentials: true });
 }
 

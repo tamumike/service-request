@@ -16,7 +16,7 @@ export class RequestCreateComponent implements OnInit {
   createRequestForm: FormGroup;
   locations: any;
   idForAttachment: string;
-  fileToUpload: File = null;
+  fileToUpload: File[] = null;
   userInfo: User;
   @Output() requestCreated = new EventEmitter();
   modalConfig: any;
@@ -56,15 +56,27 @@ export class RequestCreateComponent implements OnInit {
     this.modalService.toggleDisplay({display: true, type: 'loading'});
 
     this.requestService.postRequest(this.createRequestForm.value).subscribe(response => {
+      // was a single file, now array of files
 
-      this.requestService.postAttachment(this.fileToUpload, response.requestID).subscribe(res => {
-        console.log(res);
-      }, error => {
-        console.log(error);
-      });
+      for(const i of this.fileToUpload) {
+        this.requestService.postAttachment(i, response.requestID).subscribe(res => {
+          console.log(res);
+          console.log('Succesful file upload!');
+        }, error => {
+          console.log('error inspect', error);
+        })
+      }
 
+      // for (var i = 0; i < this.fileToUpload.length; i++) {
+      //   this.requestService.postAttachment(this.fileToUpload, response.requestID).subscribe(res => {
+      //     console.log(res);
+      //   }, error => {
+      //     console.log(error);
+      //   });
+      // }
       this.requestCreated.emit(true);
-      this.modalService.toggleDisplay({display: true, type: 'success'});
+      this.modalService.toggleDisplay({display: false, type: ''});
+      // this.modalService.toggleDisplay({display: true, type: 'success'});
 
     }, error => {
       console.log(error);
@@ -73,7 +85,8 @@ export class RequestCreateComponent implements OnInit {
   }
 
   handleInputFile(files: FileList) {
-    this.fileToUpload = files[0];
+    console.log('from files', files);
+    this.fileToUpload = Object.values(files);
   }
 
   getLocationsForForm() {

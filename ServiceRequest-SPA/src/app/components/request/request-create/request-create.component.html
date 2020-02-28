@@ -52,7 +52,7 @@
 
     <div class="form-group">
       <label for="attachments">Attachments:</label>
-      <input type="file" class="form-control" formControlName="attachments"(change)="handleInputFile($event.target.files)"
+      <input type="file" multiple="true" class="form-control" formControlName="attachments"(change)="handleInputFile($event.target.files)"
       [ngClass]="{'is-invalid': createRequestForm.get('attachments').errors && createRequestForm.get('attachments').touched}">
       <div class="invalid-feedback">Please include attachments with your request.</div>
     </div>

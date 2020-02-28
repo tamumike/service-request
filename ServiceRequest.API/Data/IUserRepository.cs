@@ -19,5 +19,6 @@ namespace ServiceRequest.API.Data
         Task<bool> SaveAll();
         IEnumerable<GroupMember> GetGroupMembers();
         Task<User> Login();
+        Task<bool> IsAdministrator(Guid sessionID);
     }
 }

@@ -49,6 +49,14 @@ namespace ServiceRequest.API.Controllers
             return members;
         }
 
+        [HttpGet("checkprivs/{sessionID}")]
+        public async Task<IActionResult> IsAdministrator([FromRoute]string sessionID)
+        {
+            var sessionIDAsGuid = Guid.Parse(sessionID);
+            return Ok(await _repo.IsAdministrator(sessionIDAsGuid));
+            
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login()
         {
@@ -59,6 +67,9 @@ namespace ServiceRequest.API.Controllers
             IResponseCookies responseCookies = _http.HttpContext.Response.Cookies;
             if (requestCookies.ContainsKey(_cookie))
             {
+                Console.WriteLine("\n\n\n\n\n\n");
+                Console.WriteLine("\n\n\n\n\n\nWe Good Bra");
+                Console.WriteLine("\n\n\n\n\n\n");
                 requestCookies.TryGetValue(_cookie, out string sessionIDFromCookie);
                 Guid sessionIDAsGuid = Guid.Parse(sessionIDFromCookie);
 

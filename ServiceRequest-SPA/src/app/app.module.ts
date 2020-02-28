@@ -14,7 +14,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './containers/home/home.component';
 import { RequestListComponent } from './components/request/request-list/request-list.component';
 import { RequestQueueComponent } from './components/request/request-queue/request-queue.component';
-import { SidebarComponent } from './containers/sidebar/sidebar.component';
 import { RequestsOverviewComponent } from './components/request/requests-overview/requests-overview.component';
 import { RequestService } from './services/request.service';
 import { appRoutes } from './routes';
@@ -41,7 +40,6 @@ import { EngineerRequestReviewComponent } from './components/request/engineer-re
   declarations: [
     AppComponent,
     HomeComponent,
-    SidebarComponent,
     RequestListComponent,
     RequestQueueComponent,
     RequestsOverviewComponent,

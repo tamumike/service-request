@@ -8,6 +8,11 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   constructor() {}
 
+  // this says if an error happens on the http request,
+  // here's how i want you to handle this (handle -> pipe)
+  // if there is an error, find out what the error is from the headers
+  // log an error to the console, and then return an http event error to the client
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError(error => {

@@ -85,9 +85,9 @@ namespace ServiceRequest.API.Data
             return user;
         }
 
-        public Task<User> GetUser(Guid sessionID) {
+        public async Task<User> GetUser(Guid sessionID) {
 
-            var user = _context.Users.FirstOrDefaultAsync(u => u.SessionID == sessionID);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.SessionID == sessionID);
 
             return user;
         }
@@ -128,6 +128,13 @@ namespace ServiceRequest.API.Data
             }
 
             return username;
+        }
+
+        public async Task<bool> IsAdministrator(Guid sessionID)
+        {
+            var user = await GetUser(sessionID);
+
+            return user.Role == 3;
         }
 
         public async Task<User> Login()
