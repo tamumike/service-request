@@ -12,6 +12,7 @@ export class GetRequestsResolverService implements Resolve<any> {
 constructor(private requestService: RequestService) { }
 
   resolve(route: ActivatedRouteSnapshot) {
+    console.log('get requests resolver');
     return this.requestService.getRequests()
       .pipe(
         catchError(error => {

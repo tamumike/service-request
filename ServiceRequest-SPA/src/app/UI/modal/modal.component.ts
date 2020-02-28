@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ComponentFactoryResolver, Input } from '@
 import { ModalService } from 'src/app/services/modal.service';
 import { ModalBodyDirective } from 'src/app/directives/modal-body.directive';
 import { ModalBodyItem } from 'src/app/models/modalBodyItem';
-import { SuccessModalComponent } from './sub-modal/success-modal/success-modal.component';
 import { ModalBodyComponent } from 'src/app/models/modalBodyComponent';
 
 @Component({
@@ -13,7 +12,7 @@ import { ModalBodyComponent } from 'src/app/models/modalBodyComponent';
 export class ModalComponent implements OnInit {
   modalConfig: any;
   @ViewChild(ModalBodyDirective, { static: true }) modalBody: ModalBodyDirective;
-  @Input() modals: {success: ModalBodyItem, error: ModalBodyItem};
+  @Input() modals: any;
 
   constructor(private modalService: ModalService, private componentFactoryResolver: ComponentFactoryResolver) { }
 
@@ -35,5 +34,9 @@ export class ModalComponent implements OnInit {
 
   hideModal() {
     this.modalService.toggleDisplay({display: false});
+  }
+
+  cancel(cancelMode: boolean) {
+    console.log('hey hey');
   }
 }

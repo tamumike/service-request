@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { ModalBodyComponent } from 'src/app/models/modalBodyComponent';
 
 @Component({
-  selector: 'app-loading-modal',
-  templateUrl: './loading-modal.component.html',
-  styleUrls: ['./loading-modal.component.css']
+  selector: 'app-confirm-modal',
+  templateUrl: './confirm-modal.component.html',
+  styleUrls: ['./confirm-modal.component.css']
 })
-export class LoadingModalComponent implements ModalBodyComponent {
+export class ConfirmModalComponent implements ModalBodyComponent {
   @Input() data: any;
 
   close() {

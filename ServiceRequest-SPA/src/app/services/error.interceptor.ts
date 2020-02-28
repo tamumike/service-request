@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+  count = 0;
 
   constructor() {}
 
@@ -14,6 +15,8 @@ export class ErrorInterceptor implements HttpInterceptor {
   // log an error to the console, and then return an http event error to the client
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    this.count += 1;
+    console.log(this.count);
     return next.handle(req).pipe(
       catchError(error => {
         if (error instanceof HttpErrorResponse) {

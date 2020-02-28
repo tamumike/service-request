@@ -84,6 +84,19 @@ namespace ServiceRequest.API.Data
             {
                 requests = requests.Where(r => r.RequestID == requestParams.RequestID);
             }
+            if (!string.IsNullOrEmpty(requestParams.EngineerAssigned))
+            {
+                requests = requests.Where(r => r.EngineerAssigned == requestParams.EngineerAssigned);
+            }
+            if (!string.IsNullOrEmpty(requestParams.PropertyCode))
+            {
+                var propertyCodeToInt = Int32.Parse(requestParams.PropertyCode);
+                requests = requests.Where(r => r.PropertyCode == propertyCodeToInt);
+            }
+            if (requestParams.Acknowledged == true)
+            {
+                requests = requests.Where(r => r.Acknowledged == true);
+            }
 
             return await requests.ToListAsync();
         }

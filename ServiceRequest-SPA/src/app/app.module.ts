@@ -13,7 +13,6 @@ import { NgxCurrencyModule } from 'ngx-currency';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './containers/home/home.component';
 import { RequestListComponent } from './components/request/request-list/request-list.component';
-import { RequestQueueComponent } from './components/request/request-queue/request-queue.component';
 import { RequestsOverviewComponent } from './components/request/requests-overview/requests-overview.component';
 import { RequestService } from './services/request.service';
 import { appRoutes } from './routes';
@@ -35,13 +34,13 @@ import { SuccessModalComponent } from './UI/modal/sub-modal/success-modal/succes
 import { ErrorModalComponent } from './UI/modal/sub-modal/error-modal/error-modal.component';
 import { ErrorInterceptorProvider } from './services/error.interceptor';
 import { EngineerRequestReviewComponent } from './components/request/engineer-request-review/engineer-request-review.component';
+import { ConfirmModalComponent } from './UI/modal/sub-modal/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     RequestListComponent,
-    RequestQueueComponent,
     RequestsOverviewComponent,
     RequestCreateComponent,
     ModalComponent,
@@ -54,7 +53,8 @@ import { EngineerRequestReviewComponent } from './components/request/engineer-re
     ModalBodyDirective,
     SuccessModalComponent,
     ErrorModalComponent,
-    EngineerRequestReviewComponent
+    EngineerRequestReviewComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,

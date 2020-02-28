@@ -11,7 +11,10 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class UserService {
   baseUrl = environment.baseUrl;
-  private sessionID: any;
+  sessionID: any;
+  user: User;
+  groupMembers: any;
+  isAdmin = false;
 
 constructor(private http: HttpClient, private cookieService: CookieService) { }
 

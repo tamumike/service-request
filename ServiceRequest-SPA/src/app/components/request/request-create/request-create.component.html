@@ -1,6 +1,7 @@
 <div class="RequestCreate">
   <button class="btn btn-primary" [routerLink]="['request-list']">Go Back</button>
   <h3>Create New Request</h3>
+  <button class="btn btn-danger" (click)="testConfirm()">Test Modal</button>
   <form [formGroup]="createRequestForm" (ngSubmit)="createRequest()">
 
     <div class="form-group">

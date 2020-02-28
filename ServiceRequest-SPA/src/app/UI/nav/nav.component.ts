@@ -7,16 +7,10 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  user: any;
 
-  constructor(private userService: UserService) { }
+  constructor() { }
 
   ngOnInit() {
-    // this.userService.getUserInfo().subscribe(response => {
-    //   this.user = response;
-    // }, error => {
-    //   console.log('nav, user', error);
-    // });
   }
 
 }

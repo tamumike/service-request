@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RequestService } from 'src/app/services/request.service';
 
@@ -15,10 +15,8 @@ import { ModalService } from 'src/app/services/modal.service';
 export class RequestCreateComponent implements OnInit {
   createRequestForm: FormGroup;
   locations: any;
-  idForAttachment: string;
   fileToUpload: File[] = null;
   userInfo: User;
-  @Output() requestCreated = new EventEmitter();
   modalConfig: any;
   private sessionID: any;
 
@@ -30,6 +28,10 @@ export class RequestCreateComponent implements OnInit {
     this.getUserInfo();
     this.initializeRequestForm();
     this.getLocationsForForm();
+  }
+
+  testConfirm() {
+    this.modalService.toggleDisplay({ display: true, type: 'confirm'});
   }
 
   initializeRequestForm() {
@@ -56,49 +58,27 @@ export class RequestCreateComponent implements OnInit {
     this.modalService.toggleDisplay({display: true, type: 'loading'});
 
     this.requestService.postRequest(this.createRequestForm.value).subscribe(response => {
-      // was a single file, now array of files
 
-      for(const i of this.fileToUpload) {
+      for (const i of this.fileToUpload) {
         this.requestService.postAttachment(i, response.requestID).subscribe(res => {
           console.log(res);
           console.log('Succesful file upload!');
         }, error => {
           console.log('error inspect', error);
-        })
+        });
       }
-
-      // for (var i = 0; i < this.fileToUpload.length; i++) {
-      //   this.requestService.postAttachment(this.fileToUpload, response.requestID).subscribe(res => {
-      //     console.log(res);
-      //   }, error => {
-      //     console.log(error);
-      //   });
-      // }
-      this.requestCreated.emit(true);
       this.modalService.toggleDisplay({display: false, type: ''});
-      // this.modalService.toggleDisplay({display: true, type: 'success'});
-
     }, error => {
       console.log(error);
     });
-
   }
 
   handleInputFile(files: FileList) {
-    console.log('from files', files);
     this.fileToUpload = Object.values(files);
   }
 
   getLocationsForForm() {
-    this.requestService.getLocations().subscribe(response => {
-      this.locations = response;
-    }, error => {
-      console.log(error);
-    });
-  }
-
-  toggleModal() {
-    this.modalConfig.display = !this.modalConfig.display;
+    this.locations = this.requestService.locations;
   }
 
 }

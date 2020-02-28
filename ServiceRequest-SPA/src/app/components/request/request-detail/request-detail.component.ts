@@ -21,9 +21,10 @@ export class RequestDetailComponent implements OnInit {
               private requestService: RequestService, private userService: UserService) { }
 
   ngOnInit() {
+    this.userInfo = this.userService.user;
     this.route.data.subscribe(data => {
       this.request = data.data;
-      this.userInfo = data.user;
+      // this.userInfo = data.user;
       this.idToCommentCreate = this.request.requestID;
       this.isAdmin = this.userInfo.role === 3;
       this.isEngineer = this.userInfo.role === 3;   /// THIS IS USED FOR TESTING....SHOULD BE 2

@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, Output, ViewChild, ElementRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, Output } from '@angular/core';
 
 import { environment } from '../../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +7,9 @@ import { User } from 'src/app/models/user';
 import { Sort } from '@angular/material/sort';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ModalService } from 'src/app/services/modal.service';
+import { UserService } from 'src/app/services/user.service';
+import { creds } from 'src/app/helpers/creds';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-request-list',
@@ -17,84 +19,83 @@ import { ModalService } from 'src/app/services/modal.service';
 export class RequestListComponent implements OnInit {
   baseUrl = environment.baseUrl;
   requests: any;
-  detailMode = false;
-  @Output() idForDetailView: any;
   userInfo: User;
   requestParams: any = {};
   sortedData: any;
   fieldsForFilter = [
-                    {display: 'Request ID', value: 'requestID'},
-                    {display: 'Requested By', value: 'createdBy'},
-                    {display: 'Location', value: 'location'},
-                    {display: 'Status', value: 'status'},
-                    ];
+    { display: 'Request ID', value: 'requestID', toggleType: false},
+    { display: 'Requested By', value: 'createdBy', toggleType: false },
+    { display: 'Location', value: 'location', toggleType: true },
+    { display: 'Status', value: 'status', toggleType: false },
+    { display: 'AFE', value: 'afe', toggleType: false},
+    { display: 'Property Code', value: 'propertyCode', toggleType: true },
+    { display: 'Engineer', value: 'engineerAssigned', toggleType: true }
+  ];
   filterRequestsForm: FormGroup;
   toggleFilterInputType = false;
   locations: any;
+  groupMembers: any;
+  propCodes: any;
   filterMode = false;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router, private formBuilder: FormBuilder,
-              private requestService: RequestService, private modalService: ModalService) { }
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,
+              private requestService: RequestService, private modalService: ModalService,
+              private userService: UserService) { }
 
   ngOnInit() {
 
     this.filterRequestsForm = this.formBuilder.group({
       field: [null],
-      fieldValue: [''],
-      fieldValue2: ['']
+      fieldValue: ['']
     });
 
-    this.route.data.subscribe(data => {
-      this.userInfo = data.user;
-      if (this.userInfo.role === 3) {
-        this.requestParams.owner = 'Admin';
-      } else {
-        this.requestParams.owner = this.userInfo.username;
-      }
-    }, error => {
-      console.log('request list', error);
-    });
+    this.userInfo = this.userService.user;
 
     this.getRequests();
     this.getLocations();
-  }
-
-  toggleViewDetail() {
-    this.detailMode = !this.detailMode;
+    this.getGroupMembers();
+    this.getPropCodes();
   }
 
   clearFilter(event: any) {
     event.preventDefault();
-    this.requestParams = {};
+    this.resetRequestParams();
 
-    if (this.userInfo.role !== 3) {
-      this.requestParams.owner = this.userInfo.username;
-    } else {
-      this.requestParams.owner = 'Admin';
-    }
-
-    this.filterRequestsForm.reset();
+    this.getRequestParamsOwner();
+    this.filterRequestsForm.get('fieldValue').setValue('');
     this.getRequests();
   }
 
-  checkFilterInputType() {
-    if (this.filterRequestsForm.value.field === 'location') {
-      this.toggleFilterInputType = true;
+  getRequestParamsOwner() {
+    if (this.userService.isAdministrator()) {
+      this.requestParams.owner = creds;
     } else {
-      this.toggleFilterInputType = false;
+      this.requestParams.owner = this.userInfo.username;
+    }
+  }
+
+  resetRequestParams() {
+    console.log(this.requestParams);
+    this.requestParams =  {owner: this.requestParams.owner};
+  }
+
+  checkFilterInputType() {
+    this.filterRequestsForm.value.fieldValue = '';
+    this.filterRequestsForm.get('fieldValue').setValue('');
+
+    for (const value of this.fieldsForFilter) {
+      if (value.value === this.filterRequestsForm.value.field) {
+        this.toggleFilterInputType = value.toggleType;
+      }
     }
   }
 
   filterRequests() {
-    this.requestParams = {};
-    if (this.filterRequestsForm.value.field !== null) {
+    this.resetRequestParams();
 
-      if (this.filterRequestsForm.value.field === 'location') {
-        this.requestParams[this.filterRequestsForm.value.field] = this.filterRequestsForm.value.fieldValue2;
-      } else {
-        this.requestParams[this.filterRequestsForm.value.field] = this.filterRequestsForm.value.fieldValue;
-      }
+    if (this.filterRequestsForm.value.field !== null && this.filterRequestsForm.value.fieldValue.length > 0) {
+
+      this.requestParams[this.filterRequestsForm.value.field] = this.filterRequestsForm.value.fieldValue;
 
       this.getRequests();
     }
@@ -113,17 +114,16 @@ export class RequestListComponent implements OnInit {
     });
   }
 
-  getLocations() {
-    this.requestService.getLocations().subscribe(response => {
-      this.locations = response;
-    }, error => {
-      console.log('request-list, locations', error);
-    });
+  getPropCodes() {
+    this.propCodes = this.requestService.propCodes;
   }
 
-  viewDetailHandler(id: string) {
-    this.idForDetailView = id;
-    this.toggleViewDetail();
+  getLocations() {
+    this.locations = this.requestService.locations;
+  }
+
+  getGroupMembers() {
+    this.groupMembers = this.userService.groupMembers;
   }
 
   sortData(sort: Sort) {

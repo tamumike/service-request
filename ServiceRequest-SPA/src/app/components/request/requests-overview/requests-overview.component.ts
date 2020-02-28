@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { RequestService } from 'src/app/services/request.service';
 import { UserService } from 'src/app/services/user.service';
+import { creds } from 'src/app/helpers/creds';
 
 @Component({
   selector: 'app-requests-overview',
@@ -11,40 +12,42 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./requests-overview.component.css']
 })
 export class RequestsOverviewComponent implements OnInit {
-  statusCounts = {Open: 0, Pending: 0, 'Under Review': 0, Approved: 0 };
   baseUrl = environment.baseUrl;
   requests: any;
   userInfo: User;
   requestParams: any = {};
   numberOfNewRequests = 0;
   private isAdmin = false;
+  creds: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private requestService: RequestService,
               private userService: UserService) { }
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
-      this.userInfo = data.user;
-    });
+    this.userInfo = this.userService.user;
 
     this.userService.isAdministrator().subscribe(response => {
       this.isAdmin = response;
-      if (this.isAdmin) {
-        this.requestParams.owner = 'Admin';
-      } else {
-        this.requestParams.owner = this.userInfo.username;
-      }
+      this.getRequestParamsOwner();
     }, error => {
       console.log('request- overview, admin', error);
     });
     this.getUserRequests();
   }
 
+  getRequestParamsOwner() {
+    if (this.userService.isAdministrator()) {
+      this.requestParams.owner = creds;
+    } else {
+      this.requestParams.owner = this.userInfo.username;
+    }
+  }
+
+
   getUserRequests() {
     this.requestService.getRequests(this.requestParams).subscribe(response => {
       this.requests = response;
       this.requests.forEach(x => {
-        this.statusCounts[x.status] += 1;
         if (!x.acknowledged) {
           this.numberOfNewRequests += 1;
         }
@@ -52,10 +55,6 @@ export class RequestsOverviewComponent implements OnInit {
     }, error => {
       console.log('requests-overview, get user requests', error);
     });
-  }
-
-  showNewRequests() {
-    this.router.navigate(['/request-detail/20-001']);
   }
 
   navToCreate(event: any) {

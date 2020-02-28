@@ -9,4 +9,7 @@ import { ModalBodyComponent } from 'src/app/models/modalBodyComponent';
 export class ErrorModalComponent implements ModalBodyComponent {
   @Input() data: any;
 
+  close() {
+    this.data.close();
+  }
 }

@@ -1,4 +1,4 @@
-<div matSort class="RequestList" (matSortChange)="sortData($event)" *ngIf="!detailMode">
+<div matSort class="RequestList" (matSortChange)="sortData($event)">
   <h1>Active Requests</h1>
 
   <div class="container m-2">
@@ -26,10 +26,23 @@
           formControlName="fieldValue">
 
           <select
-          *ngIf="toggleFilterInputType"
-          formControlName="fieldValue2"
+          *ngIf="filterRequestsForm.value.field == 'location'"
+          formControlName="fieldValue"
           class="form-control">
             <option *ngFor="let location of locations" value="{{ location.name }}">{{ location.name }}</option>
+          </select>
+
+          <select
+          *ngIf="filterRequestsForm.value.field == 'engineerAssigned'"
+          formControlName="fieldValue"
+          class="form-control">
+            <option *ngFor="let member of groupMembers" value="{{ member.username }}">{{ member.fullName }}</option>
+          </select>
+          <select
+          *ngIf="filterRequestsForm.value.field == 'propertyCode'"
+          formControlName="fieldValue"
+          class="form-control">
+            <option *ngFor="let propCode of propCodes" value="{{ propCode.code }}">{{ propCode.propertyName }}</option>
           </select>
         </div>
       </div>

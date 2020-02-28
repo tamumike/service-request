@@ -44,19 +44,11 @@ export class RequestReviewComponent implements OnInit {
   }
 
   getGroupMembers() {
-    this.userService.getGroupMembers().subscribe(response => {
-      this.groupMembers = response;
-    }, error => {
-      console.log('request-review, group members', error);
-    });
+    this.groupMembers = this.userService.groupMembers;
   }
 
   getPropertyCodes() {
-    this.requestService.getPropertyCodes().subscribe(response => {
-      this.propCodes = response;
-    }, error => {
-      console.log('review request, prop codes', error);
-    });
+    this.propCodes = this.requestService.propCodes;
   }
 
   submitRequestReview() {

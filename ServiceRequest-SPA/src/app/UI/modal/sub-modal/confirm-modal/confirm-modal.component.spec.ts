@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { RequestQueueComponent } from './request-queue.component';
+import { ConfirmModalComponent } from './confirm-modal.component';
 
-describe('RequestQueueComponent', () => {
-  let component: RequestQueueComponent;
-  let fixture: ComponentFixture<RequestQueueComponent>;
+describe('ConfirmModalComponent', () => {
+  let component: ConfirmModalComponent;
+  let fixture: ComponentFixture<ConfirmModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RequestQueueComponent ]
+      declarations: [ ConfirmModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RequestQueueComponent);
+    fixture = TestBed.createComponent(ConfirmModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

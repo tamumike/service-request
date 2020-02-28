@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ModalBodyComponent } from 'src/app/models/modalBodyComponent';
 
 @Component({
@@ -8,4 +8,14 @@ import { ModalBodyComponent } from 'src/app/models/modalBodyComponent';
 })
 export class SuccessModalComponent implements ModalBodyComponent {
   @Input() data: any;
+
+  constructor() {
+    setTimeout(() => {
+      this.close();
+    }, 10000);
+  }
+
+  close() {
+    this.data.close();
+  }
 }

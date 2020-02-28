@@ -11,8 +11,12 @@ import { map } from 'rxjs/operators';
 })
 export class RequestService {
   baseUrl = environment.baseUrl;
+  locations: any;
+  propCodes: any;
+  groupMembers: any;
 
-constructor(private http: HttpClient) { }
+constructor(private http: HttpClient) {
+ }
 
   getRequests(requestParams?: any): Observable<Request[]> {
     let requestResult = null;
