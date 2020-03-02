@@ -21,31 +21,29 @@ export class CommentCreateComponent implements OnInit {
               private route: ActivatedRoute, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    this.userService.getUserInfo(this.userService.getUserIdentifier()).subscribe(response => {
-      this.user = response;
-    }, error => {
-      console.log('comment-create, username', error);
-    });
-
+    this.user = this.userService.user;
     this.initializeCommentForm();
   }
 
   initializeCommentForm() {
     this.createCommentForm = this.formBuilder.group({
       requestID: [this.requestID, Validators.required],
-      content: ['', Validators.required]
+      content: [, Validators.required]
     });
   }
 
   createComment() {
-    this.createCommentForm.value.author = this.user.username;
-    this.commentService.postComment(this.createCommentForm.value).subscribe(response => {
-      console.log('create-comment, post', response);
-      this.createCommentForm.reset();
-      this.commentSubmitted.emit(true);
-    }, error => {
-      console.log('create-comment, post', error);
-    });
+    if (this.createCommentForm.value.content !== null) {
+      this.createCommentForm.value.author = this.user.username;
+      this.commentService.postComment(this.createCommentForm.value).subscribe(response => {
+        console.log('create-comment, post', response);
+        this.createCommentForm.reset();
+        this.commentSubmitted.emit(true);
+      }, error => {
+        console.log('create-comment, post', error);
+      });
+    }
+
   }
 
 }

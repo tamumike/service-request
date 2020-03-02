@@ -1,7 +1,7 @@
 <div class="RequestCreate">
   <button class="btn btn-primary" [routerLink]="['request-list']">Go Back</button>
   <h3>Create New Request</h3>
-  <button class="btn btn-danger" (click)="testConfirm()">Test Modal</button>
+
   <form [formGroup]="createRequestForm" (ngSubmit)="createRequest()">
 
     <div class="form-group">
@@ -22,7 +22,7 @@
       class="form-control"
       formControlName="location"
       [ngClass]="{'is-invalid': createRequestForm.get('location').errors && createRequestForm.get('location').touched}">
-        <option *ngFor="let location of locations" value="{{ location.name }}">{{ location.name }}</option>
+        <option *ngFor="let location of locations" value="{{ location.code }}">{{ location.propertyName }}</option>
       </select>
       <div class="invalid-feedback">Please choose a location for the request.</div>
     </div>

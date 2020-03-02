@@ -37,6 +37,8 @@ export class RequestListComponent implements OnInit {
   groupMembers: any;
   propCodes: any;
   filterMode = false;
+  showAllMode = false;
+  requestsCount = 0;
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,
               private requestService: RequestService, private modalService: ModalService,
@@ -44,39 +46,45 @@ export class RequestListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.filterRequestsForm = this.formBuilder.group({
-      field: [null],
-      fieldValue: ['']
-    });
+    this.initializeFilterRequestsForm();
 
     this.userInfo = this.userService.user;
 
     this.getRequests();
-    this.getLocations();
-    this.getGroupMembers();
-    this.getPropCodes();
+    this.locations = this.requestService.locations;
+    this.groupMembers = this.userService.groupMembers;
+    this.propCodes = this.requestService.propCodes;
+  }
+
+  initializeFilterRequestsForm() {
+    this.filterRequestsForm = this.formBuilder.group({
+      field: [null],
+      fieldValue: ['']
+    });
   }
 
   clearFilter(event: any) {
     event.preventDefault();
     this.resetRequestParams();
 
-    this.getRequestParamsOwner();
     this.filterRequestsForm.get('fieldValue').setValue('');
     this.getRequests();
   }
 
   getRequestParamsOwner() {
     if (this.userService.isAdministrator()) {
-      this.requestParams.owner = creds;
+      return creds;
     } else {
-      this.requestParams.owner = this.userInfo.username;
+      return this.userInfo.username;
     }
   }
 
   resetRequestParams() {
-    console.log(this.requestParams);
-    this.requestParams =  {owner: this.requestParams.owner};
+    if (this.showAllMode) {
+      this.requestParams = {};
+    } else {
+      this.requestParams =  {owner: this.getRequestParamsOwner()};
+    }
   }
 
   checkFilterInputType() {
@@ -105,25 +113,21 @@ export class RequestListComponent implements OnInit {
     this.filterMode = !this.filterMode;
   }
 
+  toggleShowAll() {
+    this.showAllMode = !this.showAllMode;
+    this.resetRequestParams();
+    console.log(this.requestParams);
+    this.getRequests();
+  }
+
   getRequests() {
     this.requestService.getRequests(this.requestParams).subscribe(response => {
       this.requests = response;
       this.sortedData = this.requests.slice();
+      this.requestsCount = this.requests.length;
     }, error => {
       console.log('request list, get user requests', error);
     });
-  }
-
-  getPropCodes() {
-    this.propCodes = this.requestService.propCodes;
-  }
-
-  getLocations() {
-    this.locations = this.requestService.locations;
-  }
-
-  getGroupMembers() {
-    this.groupMembers = this.userService.groupMembers;
   }
 
   sortData(sort: Sort) {

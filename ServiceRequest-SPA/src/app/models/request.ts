@@ -19,4 +19,5 @@ export interface Request {
   acknowledged?: boolean;
   owner?: string;
   comments?: any;
+  attachments?: any;
 }

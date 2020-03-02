@@ -1,14 +1,27 @@
-/* .RequestList {
-  border: 1px solid black;
-} */
+.RequestList {
+  /* background-color: #fafafa; */
+  border-radius: 0.25rem;
+  box-shadow: 2px 2px 5px 0px grey;
+  /* padding: 5px; */
+  overflow-x: clip;
+}
+
+.RequestList th {
+  /* font-size: 14px; */
+  padding: 5px;
+  text-align: center;
+  /* margin-left: 31px; */
+}
+
+.RequestList td {
+  font-size: 14px;
+  padding: 5px;
+  text-align: center;
+}
 
 .deadline-danger {
   background-color: rgba(255, 0, 0, 0.3) !important;
 }
-/*
-.deadline-success {
-  background-color: rgba(26, 206, 26, 0.5) !important;
-} */
 
 .deadline-warning {
   background-color: rgba(255, 255, 0, 0.3) !important;

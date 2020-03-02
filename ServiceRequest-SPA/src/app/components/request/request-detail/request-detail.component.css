@@ -1,0 +1,30 @@
+.RequestDetail {
+  background-color: #fafafa;
+  padding: 15px;
+  border-radius: 0.25rem;
+  max-width: 90%;
+  box-shadow: 2px 2px 5px 0px grey;
+  min-height: 40vh;
+  margin: 0px 40px;
+}
+
+.request-detail-header {
+  font-weight: bold;
+  font-size: 28px;
+  margin: 40px 10px;
+}
+
+.request-detail-box {
+  margin-bottom: 10px;
+}
+
+.request-detail-field {
+  /*   margin-right: 5px; */
+    font-size: 16px;
+    font-weight: bold;
+    max-width: 25%;
+  }
+
+  .request-detail-value {
+    max-width: 75%;
+  }

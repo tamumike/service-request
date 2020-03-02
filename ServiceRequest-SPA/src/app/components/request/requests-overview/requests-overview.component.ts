@@ -26,17 +26,19 @@ export class RequestsOverviewComponent implements OnInit {
   ngOnInit() {
     this.userInfo = this.userService.user;
 
-    this.userService.isAdministrator().subscribe(response => {
-      this.isAdmin = response;
-      this.getRequestParamsOwner();
-    }, error => {
-      console.log('request- overview, admin', error);
-    });
+    // this.userService.isAdministrator().subscribe(response => {
+    //   this.isAdmin = response;
+    //   this.getRequestParamsOwner();
+    // }, error => {
+    //   console.log('request- overview, admin', error);
+    // });
+    this.isAdmin = this.userService.isAdministrator();
+    this.getRequestParamsOwner();
     this.getUserRequests();
   }
 
   getRequestParamsOwner() {
-    if (this.userService.isAdministrator()) {
+    if (this.isAdmin) {
       this.requestParams.owner = creds;
     } else {
       this.requestParams.owner = this.userInfo.username;

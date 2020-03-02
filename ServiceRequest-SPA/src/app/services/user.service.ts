@@ -26,8 +26,13 @@ getGroupMembers(): Observable<any> {
   return this.http.get(this.baseUrl + 'User/group');
 }
 
-isAdministrator(): Observable<any> {
-  return this.http.get(this.baseUrl + 'User/checkprivs/' + this.cookieService.get('esr-session').toString());
+isAdministrator(): boolean {
+  return this.user.role === 3;
+  // return this.http.get(this.baseUrl + 'User/checkprivs/' + this.cookieService.get('esr-session').toString());
+}
+
+isEngineer(): boolean {
+  return this.user.role === 2;
 }
 
 setSessionID(): void {

@@ -24,13 +24,14 @@ export class RequestDetailComponent implements OnInit {
     this.userInfo = this.userService.user;
     this.route.data.subscribe(data => {
       this.request = data.data;
-      // this.userInfo = data.user;
       this.idToCommentCreate = this.request.requestID;
-      this.isAdmin = this.userInfo.role === 3;
-      this.isEngineer = this.userInfo.role === 3;   /// THIS IS USED FOR TESTING....SHOULD BE 2
+      console.log(this.request);
     }, error => {
       console.log('request-detail resolve', error);
     });
+
+    this.isAdmin = this.userService.isAdministrator();
+    this.isEngineer = this.userService.isEngineer();
 
     if (!this.request.acknowledged) {
       this.request.acknowledged = true;

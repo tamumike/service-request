@@ -1,0 +1,14 @@
+.CommentCreate {
+  max-width: 50%;
+  padding: 0;
+}
+
+.comment-btn {
+  background-color: #5c5c5c;
+  color: white;
+}
+
+.comment-btn:hover {
+  background-color: #8c8c8c;
+  color: white;
+}

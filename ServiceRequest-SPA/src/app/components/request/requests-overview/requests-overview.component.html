@@ -1,11 +1,11 @@
-<div class="container-fluid">
+<div class="RequestsOverview container-fluid">
   <div class="card">
-    <h2 class="card-header">For You</h2>
+    <h1 class="card-header">For You</h1>
     <div class="card-body">
-      <p>Hello {{ userInfo.displayName }}, you have {{ numberOfNewRequests }} new request{{ numberOfNewRequests > 1 || numberOfNewRequests == 0 ? 's' : '' }}.</p>
+      <h3 class="mb-5">Hello {{ userInfo.displayName }}, you have {{ numberOfNewRequests }} new request{{ numberOfNewRequests > 1 || numberOfNewRequests == 0 ? 's' : '' }}.</h3>
       <ul>
-        <li><a href="" (click)="navToCreate($event)">Create New Request</a></li>
-        <li><a href="">Help</a></li>
+        <li><i class="far fa-file-alt mr-2"></i><a href="" (click)="navToCreate($event)">Create New Request</a></li>
+        <li><i class="far fa-question-circle mr-2"></i><a href="">Help</a></li>
       </ul>
     </div>
   </div>

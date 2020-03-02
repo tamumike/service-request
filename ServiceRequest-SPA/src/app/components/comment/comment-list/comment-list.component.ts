@@ -7,10 +7,12 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CommentListComponent implements OnInit {
   @Input() CommentsFromRequest: any;
+  commentCount = 0;
 
   constructor() { }
 
   ngOnInit() {
+    this.commentCount = this.CommentsFromRequest.length;
   }
 
 }

@@ -1,15 +1,53 @@
-<div class="container-fluid">
-  <button class="btn btn-primary" [routerLink]="['request-list']">Go Back</button>
+<div class="container-fluid d-flex mb-3">
+  <button class="btn btn-primary mr-2" [routerLink]="['request-list']">Go Back</button>
   <button class="btn btn-success" *ngIf="!request.approved && isAdmin" [routerLink]="['/request-review/', request.requestID]">Review</button>
-  <button class="btn btn-success" *ngIf="request.approved && isEngineer" [routerLink]="['/e-request-review/', request.requestID]">Engineer Review</button>
-  <h1>{{ request.requestID }}</h1>
-  <p>Created By: {{ request.createdBy }}</p>
-  <p>Created Date: {{ request.createdDate | date }}</p>
-  <p>Request Date: {{ request.requestDate }}</p>
-  <p>Location: {{ request.location }}</p>
-  <p>Description: {{ request.description }}</p>
-  <p>Deliverables: {{ request.deliverables }}</p>
-  <p>Status: {{ request.status }}</p>
+  <button class="btn btn-success" *ngIf="request.approved" [routerLink]="['/e-request-review/', request.requestID]">Engineer Review</button>
+</div>
+
+<div class="container-fluid RequestDetail">
+
+  <h1 class="request-detail-header">Service Request #{{ request.requestID }}</h1>
+
+  <div class="container d-flex p-0 request-detail-box">
+    <div class="flex-fill request-detail-field">Created By:</div>
+    <div class="flex-fill request-detail-value">{{ request.createdBy }}</div>
+  </div>
+
+  <div class="container d-flex p-0 request-detail-box">
+    <div class="flex-fill request-detail-field">Created Date:</div>
+    <div class="flex-fill request-detail-value">{{ request.createdDate | date }}</div>
+  </div>
+
+  <div class="container d-flex p-0 request-detail-box">
+    <div class="flex-fill request-detail-field">Request Date:</div>
+    <div class="flex-fill request-detail-value">{{ request.requestDate | date}}</div>
+  </div>
+
+  <div class="container d-flex p-0 request-detail-box">
+    <div class="flex-fill request-detail-field">Location:</div>
+    <div class="flex-fill request-detail-value">{{ request.location }}</div>
+  </div>
+
+  <div class="container d-flex p-0 request-detail-box">
+    <div class="flex-fill request-detail-field">Description:</div>
+    <div class="flex-fill request-detail-value">{{ request.description }}</div>
+  </div>
+
+  <div class="container d-flex p-0 request-detail-box">
+    <div class="flex-fill request-detail-field">Deliverables:</div>
+    <div class="flex-fill request-detail-value">{{ request.deliverables }}</div>
+  </div>
+
+  <div class="container d-flex p-0 request-detail-box">
+    <div class="flex-fill request-detail-field">Status:</div>
+    <div class="flex-fill request-detail-value">{{ request.status }}</div>
+  </div>
+
+  <div class="container d-flex p-0 request-detail-box flex-column">
+    <div class="flex-fill request-detail-field">Attachments:</div>
+    <div *ngFor="let file of request.attachments" class="ml-5 flex-fill request-detail-value">{{ file.fileName }}</div>
+  </div>
+
 </div>
 
 <div class="container-fluid">

@@ -8,7 +8,6 @@ import { RouterModule } from '@angular/router';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { MatSortModule } from '@angular/material/sort';
 import { CookieService } from 'ngx-cookie-service';
-import { NgxCurrencyModule } from 'ngx-currency';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './containers/home/home.component';
@@ -35,6 +34,7 @@ import { ErrorModalComponent } from './UI/modal/sub-modal/error-modal/error-moda
 import { ErrorInterceptorProvider } from './services/error.interceptor';
 import { EngineerRequestReviewComponent } from './components/request/engineer-request-review/engineer-request-review.component';
 import { ConfirmModalComponent } from './UI/modal/sub-modal/confirm-modal/confirm-modal.component';
+import { LoadingModalComponent } from './UI/modal/sub-modal/loading-modal/loading-modal.component';
 
 @NgModule({
   declarations: [
@@ -64,8 +64,7 @@ import { ConfirmModalComponent } from './UI/modal/sub-modal/confirm-modal/confir
     BsDatepickerModule.forRoot(),
     RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' }),
     TabsModule.forRoot(),
-    MatSortModule,
-    NgxCurrencyModule
+    MatSortModule
   ],
   providers: [
     ErrorInterceptorProvider,
@@ -77,7 +76,7 @@ import { ConfirmModalComponent } from './UI/modal/sub-modal/confirm-modal/confir
     UserInfoResolverService,
     CookieService
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [SuccessModalComponent]
+  bootstrap: [AppComponent]
+  // entryComponents: [SuccessModalComponent, LoadingModalComponent]
 })
 export class AppModule { }

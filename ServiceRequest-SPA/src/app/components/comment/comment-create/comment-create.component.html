@@ -1,9 +1,9 @@
-<div class="CommentCreate">
+<div class="CommentCreate container-fluid">
 
   <form [formGroup]="createCommentForm" (ngSubmit)="createComment()">
 
     <div class="form-group">
-      <!-- <label for="content">Content: </label> -->
+
       <textarea
       class="form-control"
       formControlName="content"
@@ -13,9 +13,8 @@
       <div class="invalid-feedback">The comment cannot be empty.</div>
     </div>
 
-    <div class="container">
-      <button class="btn btn-primary btn-sm m-2" type="submit">Submit Comment</button>
-      <!-- <button class="btn btn-danger m-2">Cancel</button> -->
+    <div class="container d-flex justify-content-end">
+      <button class="btn btn-sm comment-btn" type="submit">Post Comment</button>
     </div>
 
   </form>

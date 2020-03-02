@@ -6,6 +6,7 @@ import { requestDateValidator } from 'src/app/validators/requestDateValidator';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { ModalService } from 'src/app/services/modal.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-request-create',
@@ -21,7 +22,7 @@ export class RequestCreateComponent implements OnInit {
   private sessionID: any;
 
   constructor(private formBuilder: FormBuilder, private requestService: RequestService,
-              private userService: UserService, private modalService: ModalService) { }
+              private userService: UserService, private modalService: ModalService, private router: Router) { }
 
   ngOnInit() {
     this.sessionID = this.userService.getUserIdentifier();
@@ -63,6 +64,7 @@ export class RequestCreateComponent implements OnInit {
         this.requestService.postAttachment(i, response.requestID).subscribe(res => {
           console.log(res);
           console.log('Succesful file upload!');
+          this.router.navigate(['request-detail/' + response.requestID]);
         }, error => {
           console.log('error inspect', error);
         });
@@ -78,7 +80,7 @@ export class RequestCreateComponent implements OnInit {
   }
 
   getLocationsForForm() {
-    this.locations = this.requestService.locations;
+    this.locations = this.requestService.propCodes;
   }
 
 }

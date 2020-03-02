@@ -1,4 +1,23 @@
 .Comment {
-  border: 1px black solid;
-  margin: 3px;
+/*   border: 1px solid black; */
+  border-radius: 0.25rem;
+  max-width: 75%;
+  box-shadow: 2px 2px 5px 0px grey;
+}
+
+.comment-author {
+  margin-left: 5px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.comment-date {
+  color: blue;
+  margin-left: 5px;
+}
+
+.comment-content {
+  margin: 5px 10px;
+  color: #4a4a4a;
+  font-size: 16px;
 }
