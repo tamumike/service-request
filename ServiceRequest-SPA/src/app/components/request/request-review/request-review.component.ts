@@ -12,7 +12,6 @@ import { RequestService } from 'src/app/services/request.service';
 export class RequestReviewComponent implements OnInit {
   request: any;
   groupMembers: any;
-  propCodes: any;
   reviewRequestForm: FormGroup;
 
   constructor(private route: ActivatedRoute, private userService: UserService,
@@ -27,7 +26,6 @@ export class RequestReviewComponent implements OnInit {
     });
 
     this.getGroupMembers();
-    this.getPropertyCodes();
     this.initializeReviewRequestForm();
   }
 
@@ -36,7 +34,6 @@ export class RequestReviewComponent implements OnInit {
       engineerAssigned: ['', Validators.required],
       afe: ['', Validators.required],
       coupaDate: ['', Validators.required],
-      propertyCode: ['', Validators.required],
       approved: [],
       createdBy: [this.request.createdBy, Validators.required],
       acknowledged: [false, Validators.required]
@@ -47,12 +44,9 @@ export class RequestReviewComponent implements OnInit {
     this.groupMembers = this.userService.groupMembers;
   }
 
-  getPropertyCodes() {
-    this.propCodes = this.requestService.propCodes;
-  }
-
   submitRequestReview() {
     console.log('submit request review');
+    this.reviewRequestForm.value.propertyCode = 0;
     this.requestService.submitReviewedRequest(this.request.requestID, this.reviewRequestForm.value).subscribe(response => {
       this.router.navigate(['request-detail/' + response.requestID]);
     }, error => {

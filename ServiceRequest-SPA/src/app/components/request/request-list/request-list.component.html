@@ -39,12 +39,6 @@
           class="form-control">
             <option *ngFor="let member of groupMembers" value="{{ member.username }}">{{ member.fullName }}</option>
           </select>
-          <select
-          *ngIf="filterRequestsForm.value.field == 'propertyCode'"
-          formControlName="fieldValue"
-          class="form-control">
-            <option *ngFor="let propCode of propCodes" value="{{ propCode.code }}">{{ propCode.propertyName }}</option>
-          </select>
         </div>
       </div>
 

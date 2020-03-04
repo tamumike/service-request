@@ -28,14 +28,12 @@ export class RequestListComponent implements OnInit {
     { display: 'Location', value: 'location', toggleType: true },
     { display: 'Status', value: 'status', toggleType: false },
     { display: 'AFE', value: 'afe', toggleType: false},
-    { display: 'Property Code', value: 'propertyCode', toggleType: true },
     { display: 'Engineer', value: 'engineerAssigned', toggleType: true }
   ];
   filterRequestsForm: FormGroup;
   toggleFilterInputType = false;
   locations: any;
   groupMembers: any;
-  propCodes: any;
   filterMode = false;
   showAllMode = false;
   requestsCount = 0;
@@ -53,7 +51,6 @@ export class RequestListComponent implements OnInit {
     this.getRequests();
     this.locations = this.requestService.locations;
     this.groupMembers = this.userService.groupMembers;
-    this.propCodes = this.requestService.propCodes;
   }
 
   initializeFilterRequestsForm() {

@@ -45,17 +45,6 @@
       </div>
 
       <div class="form-group">
-        <label for="propertyCode">Property Code</label>
-        <select
-        formControlName="propertyCode"
-        class="form-control"
-        [ngClass]="{'is-invalid': reviewRequestForm.get('propertyCode').errors && reviewRequestForm.get('propertyCode').touched}">
-        <option *ngFor="let propCode of propCodes" value="{{ propCode.code }}">{{ propCode.propertyName }}</option>
-        </select>
-        <div class="invalid-feedback">Please select a property code.</div>
-      </div>
-
-      <div class="form-group">
         <label for="approved">Approve: </label>
         <input type="checkbox" class="form-control" formControlName="approved">
       </div>

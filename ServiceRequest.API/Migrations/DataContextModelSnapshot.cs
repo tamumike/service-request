@@ -73,7 +73,7 @@ namespace ServiceRequest.API.Migrations
 
             modelBuilder.Entity("ServiceRequest.API.Models.Location", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("PropertyCode")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -81,24 +81,9 @@ namespace ServiceRequest.API.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("PropertyCode");
 
                     b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("ServiceRequest.API.Models.PropertyCode", b =>
-                {
-                    b.Property<int>("Code")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("PropertyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Code");
-
-                    b.ToTable("PropertyCodes");
                 });
 
             modelBuilder.Entity("ServiceRequest.API.Models.Request", b =>

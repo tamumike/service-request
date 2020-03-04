@@ -15,7 +15,6 @@ namespace ServiceRequest.API.Data
         Task<IEnumerable<Comment>> GetComments(string id);
         Task<Attachment> UploadAttachment(Attachment attachment);
         Task<IEnumerable<Location>> GetLocations();
-        Task<IEnumerable<PropertyCode>> GetPropertyCodes();
         Task<bool> SaveAll();
         Task<IEnumerable<Request>> GetOwnedRequests(string username);
     }

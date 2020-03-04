@@ -33,7 +33,6 @@ export class AppComponent implements OnInit {
     forkJoin([
       this.userService.login().pipe(tap(res => this.userService.user = res, res => this.userService.sessionID = res.sessionID)),
       this.requestService.getLocations().pipe(tap(res => this.requestService.locations = res)),
-      this.requestService.getPropertyCodes().pipe(tap(res => this.requestService.propCodes = res)),
       this.userService.getGroupMembers().pipe(tap(res => this.userService.groupMembers = res))
     ]).subscribe(() => {
       this.appReady = true;

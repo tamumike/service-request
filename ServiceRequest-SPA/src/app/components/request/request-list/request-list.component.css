@@ -9,14 +9,14 @@
 .RequestList th {
   /* font-size: 14px; */
   padding: 5px;
-  text-align: center;
+  text-align: left;
   /* margin-left: 31px; */
 }
 
 .RequestList td {
   font-size: 14px;
   padding: 5px;
-  text-align: center;
+  text-align: left;
 }
 
 .deadline-danger {

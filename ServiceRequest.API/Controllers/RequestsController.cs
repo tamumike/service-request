@@ -45,13 +45,6 @@ namespace ServiceRequest.API.Controllers
             return Ok(locations);
         }
 
-        [HttpGet("propcodes")]
-        public async Task<IActionResult> GetPropertyCodes()
-        {
-            var propCodes = await _repo.GetPropertyCodes();
-            return Ok(propCodes);
-        }
-
         [HttpPost]
         public async Task<IActionResult> CreateNewRequest(CreateNewRequestDTO createNewRequestDTO)
         {

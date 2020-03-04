@@ -12,7 +12,6 @@ import { map } from 'rxjs/operators';
 export class RequestService {
   baseUrl = environment.baseUrl;
   locations: any;
-  propCodes: any;
   groupMembers: any;
 
 constructor(private http: HttpClient) {
@@ -56,10 +55,6 @@ constructor(private http: HttpClient) {
     formData.append('uploadFile', attachment);
 
     return this.http.post(this.baseUrl + 'Attachments/' + id, formData);
-  }
-
-  getPropertyCodes(): Observable<any> {
-    return this.http.get(this.baseUrl + 'Requests/propcodes');
   }
 
   submitReviewedRequest(id: string, request: Request): Observable<any> {

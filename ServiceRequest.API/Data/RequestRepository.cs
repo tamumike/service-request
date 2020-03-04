@@ -88,11 +88,6 @@ namespace ServiceRequest.API.Data
             {
                 requests = requests.Where(r => r.EngineerAssigned == requestParams.EngineerAssigned);
             }
-            if (!string.IsNullOrEmpty(requestParams.PropertyCode))
-            {
-                var propertyCodeToInt = Int32.Parse(requestParams.PropertyCode);
-                requests = requests.Where(r => r.PropertyCode == propertyCodeToInt);
-            }
             if (requestParams.Acknowledged == true)
             {
                 requests = requests.Where(r => r.Acknowledged == true);
@@ -123,12 +118,6 @@ namespace ServiceRequest.API.Data
                 .ToListAsync();
 
             return requests;
-        }
-
-        public async Task<IEnumerable<PropertyCode>> GetPropertyCodes()
-        {
-            var propCodes = await _context.PropertyCodes.AsQueryable().OrderBy(p => p.PropertyName).ToListAsync();
-            return propCodes;
         }
 
         public async Task<Request> GetRequest(string id)

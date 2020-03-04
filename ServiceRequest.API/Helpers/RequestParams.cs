@@ -8,7 +8,6 @@ namespace ServiceRequest.API.Helpers
         public string Status { get; set; }
         public string RequestID { get; set; }
         public string EngineerAssigned { get; set; }
-        public string PropertyCode { get; set; }
         public bool Acknowledged { get; set; }
     }
 }

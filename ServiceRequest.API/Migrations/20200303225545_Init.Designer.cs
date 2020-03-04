@@ -10,8 +10,8 @@ using ServiceRequest.API.Data;
 namespace ServiceRequest.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200214220852_AddLocations")]
-    partial class AddLocations
+    [Migration("20200303225545_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,6 +30,9 @@ namespace ServiceRequest.API.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RequestID")
                         .HasColumnType("nvarchar(450)");
@@ -76,6 +79,9 @@ namespace ServiceRequest.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -126,6 +132,9 @@ namespace ServiceRequest.API.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Owner")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("PromiseDate")
                         .HasColumnType("datetime2");
 
@@ -144,6 +153,39 @@ namespace ServiceRequest.API.Migrations
                     b.HasKey("RequestID");
 
                     b.ToTable("Requests");
+                });
+
+            modelBuilder.Entity("ServiceRequest.API.Models.User", b =>
+                {
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastLogin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("SessionID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ServiceRequest.API.Models.Attachment", b =>

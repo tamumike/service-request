@@ -27,8 +27,8 @@ export class RequestCreateComponent implements OnInit {
   ngOnInit() {
     this.sessionID = this.userService.getUserIdentifier();
     this.getUserInfo();
+    this.locations = this.requestService.locations;
     this.initializeRequestForm();
-    this.getLocationsForForm();
   }
 
   testConfirm() {
@@ -41,7 +41,7 @@ export class RequestCreateComponent implements OnInit {
       location: ['', Validators.required],
       description: ['', Validators.required],
       deliverables: ['', Validators.required],
-      attachments: ['', Validators.required]
+      attachments: ['']
     });
   }
 
@@ -60,15 +60,16 @@ export class RequestCreateComponent implements OnInit {
 
     this.requestService.postRequest(this.createRequestForm.value).subscribe(response => {
 
-      for (const i of this.fileToUpload) {
-        this.requestService.postAttachment(i, response.requestID).subscribe(res => {
-          console.log(res);
-          console.log('Succesful file upload!');
-          this.router.navigate(['request-detail/' + response.requestID]);
-        }, error => {
-          console.log('error inspect', error);
-        });
+      if (this.fileToUpload) {
+        for (const i of this.fileToUpload) {
+          this.requestService.postAttachment(i, response.requestID).subscribe(res => {
+            console.log('Succesful file upload!');
+          }, error => {
+            console.log('error inspect', error);
+          });
+        }
       }
+      this.router.navigate(['request-detail/' + response.requestID]);
       this.modalService.toggleDisplay({display: false, type: ''});
     }, error => {
       console.log(error);
@@ -77,10 +78,6 @@ export class RequestCreateComponent implements OnInit {
 
   handleInputFile(files: FileList) {
     this.fileToUpload = Object.values(files);
-  }
-
-  getLocationsForForm() {
-    this.locations = this.requestService.propCodes;
   }
 
 }
