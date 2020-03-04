@@ -28,15 +28,14 @@ export class CommentCreateComponent implements OnInit {
   initializeCommentForm() {
     this.createCommentForm = this.formBuilder.group({
       requestID: [this.requestID, Validators.required],
-      content: [, Validators.required]
+      content: [, Validators.required],
+      author: [this.user.displayName]
     });
   }
 
   createComment() {
     if (this.createCommentForm.value.content !== null) {
-      this.createCommentForm.value.author = this.user.username;
       this.commentService.postComment(this.createCommentForm.value).subscribe(response => {
-        console.log('create-comment, post', response);
         this.createCommentForm.reset();
         this.commentSubmitted.emit(true);
       }, error => {

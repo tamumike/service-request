@@ -16,7 +16,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.count += 1;
-    console.log(this.count);
+    // console.log(this.count);
     return next.handle(req).pipe(
       catchError(error => {
         if (error instanceof HttpErrorResponse) {

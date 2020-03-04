@@ -12,7 +12,6 @@ export class RequestDetailResolverService implements Resolve<any> {
 constructor(private requestService: RequestService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot) {
-    console.log('request detail resolver');
     return this.requestService.getRequest(route.params.requestID)
     .pipe(
       catchError(error => {

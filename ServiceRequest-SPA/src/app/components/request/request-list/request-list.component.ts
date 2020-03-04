@@ -48,6 +48,8 @@ export class RequestListComponent implements OnInit {
 
     this.userInfo = this.userService.user;
 
+    this.initializeRequestParams();
+
     this.getRequests();
     this.locations = this.requestService.locations;
     this.groupMembers = this.userService.groupMembers;
@@ -60,9 +62,20 @@ export class RequestListComponent implements OnInit {
     });
   }
 
+  initializeRequestParams() {
+    if (!this.showAllMode) {
+      this.requestParams = { owner: this.getRequestParamsOwner() };
+    }
+  }
+
   clearFilter(event: any) {
     event.preventDefault();
-    this.resetRequestParams();
+
+    for (const key of Object.keys(this.requestParams)) {
+      if (key !== 'owner') {
+        delete this.requestParams[key];
+      }
+    }
 
     this.filterRequestsForm.get('fieldValue').setValue('');
     this.getRequests();
@@ -73,14 +86,6 @@ export class RequestListComponent implements OnInit {
       return creds;
     } else {
       return this.userInfo.username;
-    }
-  }
-
-  resetRequestParams() {
-    if (this.showAllMode) {
-      this.requestParams = {};
-    } else {
-      this.requestParams =  {owner: this.getRequestParamsOwner()};
     }
   }
 
@@ -96,7 +101,6 @@ export class RequestListComponent implements OnInit {
   }
 
   filterRequests() {
-    this.resetRequestParams();
 
     if (this.filterRequestsForm.value.field !== null && this.filterRequestsForm.value.fieldValue.length > 0) {
 
@@ -111,9 +115,14 @@ export class RequestListComponent implements OnInit {
   }
 
   toggleShowAll() {
+
     this.showAllMode = !this.showAllMode;
-    this.resetRequestParams();
-    console.log(this.requestParams);
+    if (this.showAllMode) {
+      delete this.requestParams.owner;
+    } else {
+      this.requestParams.owner = this.getRequestParamsOwner();
+    }
+
     this.getRequests();
   }
 

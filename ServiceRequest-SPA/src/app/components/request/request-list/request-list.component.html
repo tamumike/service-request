@@ -1,11 +1,24 @@
 <div matSort class="RequestList card" (matSortChange)="sortData($event)">
   <h1 class="card-header">Active Requests</h1>
 
-  <div class="container m-2">
-    <button *ngIf="requestsCount > 0" class="btn btn-sm btn-dark mt-3" (click)="toggleFilterMode()">Filters</button>
-    <!-- <button class="btn btn-sm btn-light mt-3" (click)="toggleShowAll()">Show All</button> -->
+  <div class="container m-2 d-flex flex-column">
+    <div class="container d-flex justify-content-between mb-2">
+      <button *ngIf="requestsCount > 0" class="btn btn-sm btn-dark btn-toggle-filter" (click)="toggleFilterMode()"><i class="fas fa-filter mr-2"></i>Filters</button>
+      <!-- <button class="btn btn-sm btn-dark">Show All</button> -->
+
+    </div>
+    <div class="container-fluid d-flex justify-content-end p-0">
+      <div class="form-check">
+        <input class="form-check-input" (change)="toggleShowAll()" type="checkbox" value="" id="showAllToggle">
+        <label class="form-check-label" for="showAllToggle">
+          Show All Requests
+        </label>
+      </div>
+    </div>
+
+
     <form *ngIf="filterMode" [formGroup]="filterRequestsForm" (ngSubmit)="filterRequests()">
-      <div class="row d-inline-flex align-items-center m-3">
+      <div class="d-inline-flex align-items-baseline m-3">
 
         <label for="field">Field: </label>
         <div class="form-group m-2">
@@ -43,8 +56,8 @@
       </div>
 
       <div class="container d-inline-flex">
-        <button type="submit" class="btn btn-sm btn-dark m-2">Apply</button>
-        <button class="btn btn-sm btn-dark m-2" (click)="clearFilter($event)">Clear</button>
+        <button type="submit" class="btn btn-sm btn-dark mr-2">Apply</button>
+        <button class="btn btn-sm btn-dark mr-2" (click)="clearFilter($event)">Clear</button>
       </div>
 
     </form>
@@ -71,7 +84,7 @@
       <tr *ngFor="let request of sortedData" class="{{ request.requestDate | requestDeadline }}">
         <td><a [routerLink]="['/request-detail/', request.requestID]"><i class="fas fa-eye"></i></a></td>
         <!-- <td><button class="view-btn btn btn-sm btn-dark" [routerLink]="['/request-detail/', request.requestID]"><i class="fas fa-eye"></i></button></td> -->
-        <td>{{ request.requestID }}</td>
+        <td><i *ngIf="!request.acknowledged" class="fas fa-exclamation-triangle mr-2"></i>{{ request.requestID }}</td>
         <td>{{ request.createdBy }}</td>
         <td>{{ request.requestDate | date }}</td>
         <td>{{ request.afe }}</td>

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ServiceRequest.API.Helpers;
 
 namespace ServiceRequest.API.DTOs
 {
@@ -13,6 +14,7 @@ namespace ServiceRequest.API.DTOs
         public DateTime CreatedDate { get; set; }
 
         [FromForm(Name = "uploadFile")]
+        [AllowedExtensionsAttribute(new string[] { ".txt", ".pdf", ".doc", ".docx" })]
         public IFormFile File { get; set; }
 
         public CreateNewAttachmentDTO()

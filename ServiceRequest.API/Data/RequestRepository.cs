@@ -107,7 +107,7 @@ namespace ServiceRequest.API.Data
 
         public async Task<IEnumerable<Location>> GetLocations()
         {
-            var locations = await _context.Locations.ToListAsync();
+            var locations = await _context.Locations.OrderBy(x => x.Name).ToListAsync();
             return locations;
         }
 

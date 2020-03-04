@@ -25,16 +25,12 @@ export class RequestsOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.userInfo = this.userService.user;
-
-    // this.userService.isAdministrator().subscribe(response => {
-    //   this.isAdmin = response;
-    //   this.getRequestParamsOwner();
-    // }, error => {
-    //   console.log('request- overview, admin', error);
-    // });
     this.isAdmin = this.userService.isAdministrator();
     this.getRequestParamsOwner();
     this.getUserRequests();
+    this.requestService.newRequestCount.subscribe(x => {
+      this.numberOfNewRequests = x;
+    });
   }
 
   getRequestParamsOwner() {
@@ -45,15 +41,17 @@ export class RequestsOverviewComponent implements OnInit {
     }
   }
 
+  getNewRequestCount() {
+    this.requests.forEach(x => {
+      if (!x.acknowledged) {
+        this.numberOfNewRequests += 1;
+      }
+    });
+  }
 
   getUserRequests() {
     this.requestService.getRequests(this.requestParams).subscribe(response => {
       this.requests = response;
-      this.requests.forEach(x => {
-        if (!x.acknowledged) {
-          this.numberOfNewRequests += 1;
-        }
-      });
     }, error => {
       console.log('requests-overview, get user requests', error);
     });

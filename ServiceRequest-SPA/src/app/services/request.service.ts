@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Request } from '../models/request';
 import { map } from 'rxjs/operators';
+import { User } from '../models/user';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +15,9 @@ export class RequestService {
   baseUrl = environment.baseUrl;
   locations: any;
   groupMembers: any;
+  newRequestCount = new BehaviorSubject(0);
 
-constructor(private http: HttpClient) {
+constructor(private http: HttpClient, private userService: UserService) {
  }
 
   getRequests(requestParams?: any): Observable<Request[]> {
@@ -32,9 +35,21 @@ constructor(private http: HttpClient) {
       .pipe(
         map(response => {
           requestResult = response.body;
+          this.newRequestCount.next(this.getNewRequestsCount(requestResult));
           return requestResult;
         })
       );
+  }
+
+  getNewRequestsCount(requests: any) {
+    let numberOfNewRequests = 0;
+    requests.forEach(x => {
+      if (!x.acknowledged && this.isRequestOwnedByUser(x)) {
+        numberOfNewRequests += 1;
+      }
+    });
+
+    return numberOfNewRequests;
   }
 
   getRequest(id: string): Observable<any> {
@@ -45,7 +60,7 @@ constructor(private http: HttpClient) {
     return this.http.get(this.baseUrl + 'Requests/locations');
   }
 
-  postRequest(request: any): Observable<any> {
+  postRequest(request: Request): Observable<any> {
     return this.http.post(this.baseUrl + 'Requests', request);
   }
 
@@ -67,5 +82,15 @@ constructor(private http: HttpClient) {
 
   updateRequest(id: string, request: Request): Observable<any> {
     return this.http.put(this.baseUrl + 'Requests/' + id, request);
+  }
+
+  isRequestOwnedByUser(request: Request): boolean {
+    const user = this.userService.user;
+    const isAdmin = this.userService.isAdministrator();
+    if ((request.owner === user.username) || (isAdmin && request.owner === 'Admin')) {
+      return true;
+    }
+
+    return false;
   }
 }
