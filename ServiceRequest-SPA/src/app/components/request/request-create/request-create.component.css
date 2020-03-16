@@ -1,0 +1,30 @@
+.RequestCreate {
+  background-color: #fafafa;
+  padding: 30px;
+  border-radius: 0.25rem;
+  /* max-width: 60%; */
+  box-shadow: 2px 2px 5px 0px grey;
+  min-height: 40vh;
+  margin: 40px;
+}
+
+.RequestCreate form {
+  max-width: 70%;
+  margin-left: 40px;
+}
+
+.RequestCreate label {
+  font-size: 16px;
+  font-weight: bold;
+  max-width: 25%;
+}
+
+.RequestCreate .form-group {
+  margin-top: 30px;
+}
+
+.request-create-header {
+  font-weight: bold;
+  font-size: 28px;
+  margin: 20px 10px 40px 10px;
+}

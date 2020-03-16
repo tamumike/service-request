@@ -3,7 +3,7 @@
 
   <div class="container m-2 d-flex flex-column">
     <div class="container d-flex justify-content-between mb-2">
-      <button *ngIf="requestsCount > 0" class="btn btn-sm btn-dark btn-toggle-filter" (click)="toggleFilterMode()"><i class="fas fa-filter mr-2"></i>Filters</button>
+      <button *ngIf="requestsCount > 0" class="esr-button btn-toggle-filter" (click)="toggleFilterMode()"><i class="fas fa-filter mr-2"></i>Filters</button>
       <!-- <button class="btn btn-sm btn-dark">Show All</button> -->
 
     </div>
@@ -17,7 +17,7 @@
     </div>
 
 
-    <form *ngIf="filterMode" [formGroup]="filterRequestsForm" (ngSubmit)="filterRequests()">
+    <form id="filterForm" *ngIf="filterMode" [formGroup]="filterRequestsForm" (ngSubmit)="filterRequests()">
       <div class="d-inline-flex align-items-baseline m-3">
 
         <label for="field">Field: </label>
@@ -56,8 +56,8 @@
       </div>
 
       <div class="container d-inline-flex">
-        <button type="submit" class="btn btn-sm btn-dark mr-2">Apply</button>
-        <button class="btn btn-sm btn-dark mr-2" (click)="clearFilter($event)">Clear</button>
+        <button type="submit" class="esr-button esr-button-sm esr-button-success mr-2">Apply</button>
+        <button class="esr-button esr-button-sm esr-button-danger mr-2" (click)="clearFilter($event)">Clear</button>
       </div>
 
     </form>

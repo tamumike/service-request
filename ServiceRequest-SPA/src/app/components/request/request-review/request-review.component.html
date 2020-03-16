@@ -1,19 +1,55 @@
-<div class="container-fluid ReviewRequest">
+<div class="container-fluid d-flex mb-3">
   <button class="btn btn-primary" [routerLink]="['/request-detail/', request.requestID]">Go Back</button>
-  <h1>{{ request?.requestID }}</h1>
-  <p>Created By: {{ request?.createdBy }}</p>
-  <p>Created Date: {{ request?.createdDate | date }}</p>
-  <p>Request Date: {{ request?.coupaDate }}</p>
-  <p>Location: {{ request?.location }}</p>
-  <p>Description: {{ request?.description }}</p>
-  <p>Deliverables: {{ request?.deliverables }}</p>
+</div>
+
+<div class="container ReviewRequest">
+
+  <h1 class="request-review-header">Service Request # {{ request.requestID }}</h1>
+  <h2 class="request-review-subheader">{{ request.title }}</h2>
+
+  <div class="container request-review-container-box">
+    <div class="container d-flex p-0 request-review-box">
+      <div class="flex-fill request-review-field">Created By:</div>
+      <div class="flex-fill request-review-value">{{ request.createdBy }}</div>
+    </div>
+
+    <div class="container d-flex p-0 request-review-box">
+      <div class="flex-fill request-review-field">Created Date:</div>
+      <div class="flex-fill request-review-value">{{ request.createdDate | date }}</div>
+    </div>
+
+    <div class="container d-flex p-0 request-review-box">
+      <div class="flex-fill request-review-field">Request Date:</div>
+      <div class="flex-fill request-review-value">{{ request.requestDate | date}}</div>
+    </div>
+
+    <div class="container d-flex p-0 request-review-box">
+      <div class="flex-fill request-review-field">Location:</div>
+      <div class="flex-fill request-review-value">{{ request.location }}</div>
+    </div>
+
+    <div class="container d-flex p-0 request-review-box">
+      <div class="flex-fill request-review-field">Description:</div>
+      <div class="flex-fill request-review-value">{{ request.description }}</div>
+    </div>
+
+    <div class="container d-flex p-0 request-review-box">
+      <div class="flex-fill request-review-field">Deliverables:</div>
+      <div class="flex-fill request-review-value">{{ request.deliverables }}</div>
+    </div>
+
+    <div class="container d-flex p-0 request-review-box">
+      <div class="flex-fill request-review-field">Status:</div>
+      <div class="flex-fill request-review-value">{{ request.status }}</div>
+    </div>
+  </div>
 
 
-  <div class="container">
+  <div class="container request-review-container-box mt-3">
     <form [formGroup]="reviewRequestForm" (ngSubmit)="submitRequestReview()">
 
       <div class="form-group">
-        <label for="afe">AFE</label>
+        <label class="request-review-field" for="afe">AFE:</label>
         <input type="text"
         class="form-control"
         formControlName="afe"
@@ -22,7 +58,7 @@
       </div>
 
       <div class="form-group">
-        <label for="engineerAssigned">Assigned Engineer</label>
+        <label class="request-review-field" for="engineerAssigned">Assigned Engineer:</label>
         <select
         formControlName="engineerAssigned"
         class="form-control"
@@ -33,7 +69,7 @@
       </div>
 
       <div class="form-group">
-        <label for="coupaDate">Coupa Approved Date:</label>
+        <label class="request-review-field" for="coupaDate">Coupa Approved Date:</label>
         <input type="text"
         autocomplete="off"
         formControlName="coupaDate"
@@ -44,18 +80,23 @@
         <div class="invalid-feedback">Date is invalid.</div>
       </div>
 
-      <div class="form-group">
-        <label for="approved">Approve: </label>
-        <input type="checkbox" class="form-control" formControlName="approved">
+      <div class="form-group form-check form-check-inline d-flex align-items-center">
+        <input type="checkbox" class="form-check-input form-control request-checkbox" formControlName="approved">
+        <label class="request-review-field" for="approved">Approved </label>
       </div>
 
-      <button class="btn btn-primary" type="submit">Submit</button>
+      <div class="form-group d-flex justify-content-end">
+        <button class="btn btn-success" type="submit">Submit</button>
+      </div>
+
     </form>
-
-    <div class="container-fluid">
-      <app-comment-list [CommentsFromRequest]="request.comments"></app-comment-list>
-      <app-comment-create [requestID]="request.requestID"></app-comment-create>
-    </div>
-
   </div>
 </div>
+
+  <div class="container-fluid w-75">
+    <app-comment-list [CommentsFromRequest]="request.comments"></app-comment-list>
+    <app-comment-create [requestID]="request.requestID" (commentSubmitted)="refreshComments($event)"></app-comment-create>
+  </div>
+
+
+

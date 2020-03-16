@@ -3,6 +3,7 @@ export interface Request {
   createdBy?: string;
   createdDate?: Date;
   requestDate: Date;
+  title: string;
   location: string;
   description: string;
   deliverables: string;

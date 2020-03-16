@@ -3,4 +3,6 @@
   <app-home></app-home>
   <!-- <router-outlet></router-outlet> -->
 </div>
+<app-greeting *ngIf="!appReady"></app-greeting>
 <app-modal *ngIf="modalConfig.display" [modals]="modals"></app-modal>
+<app-footer></app-footer>

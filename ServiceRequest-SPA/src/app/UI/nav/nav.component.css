@@ -1,8 +1,9 @@
 .navbar {
   background-color: #2d2e2e;
   color: #fff;
+  /* border-radius: 0px 0px 5px 5px; */
 }
 
 .navbar-brand img {
-  width: 40px;
+  width: 120px;
 }

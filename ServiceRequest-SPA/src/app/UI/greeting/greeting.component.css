@@ -1,0 +1,135 @@
+.Greeting {
+  position: fixed;
+  width: 600px;
+  height: 400px;
+  left: 50%;
+  margin-left: -300px;
+  top: 25%;
+  background-color: #2d2e2e;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0;
+  animation: open-expand 0.5s linear;
+}
+
+.bg-stripe-box {
+  padding: 0;
+}
+
+.bg-stripe {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  background-size: cover;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: -2px 2px 5px 0px grey;
+}
+
+.GreetingLogo {
+  margin-bottom: 30px;
+}
+
+.GreetingLogo img {
+  width: 40%;
+  height: auto;
+}
+
+.spinner {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  background-color: none;
+  border: 10px solid #fff;
+  border-right-color: #2d2e2e;
+  border-left-color: #2d2e2e;
+  animation: rotate;
+  animation-duration: 5s;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.loading-text {
+  color: #fff;
+  margin-left: 5px;
+  margin-top: 10px;
+  animation: text-fade 1s infinite ease-in-out;
+}
+
+@keyframes text-fade {
+  0% {
+    opacity: 0.0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1.0;
+  }
+}
+
+@keyframes open-expand {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.2);
+  }
+  25% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(0.75);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1.0);
+  }
+}
+
+@keyframes rotate {
+  10% {
+    transform: rotate(36deg);
+  }
+  20% {
+    transform: rotate(72deg);
+  }
+  25% {
+    border-color: #2d2e2e #fff #2d2e2e #fff;
+  }
+  30% {
+    transform: rotate(108deg);
+  }
+  40% {
+    transform: rotate(144deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    border-color: #fff #2d2e2e #fff #2d2e2e;
+  }
+  60% {
+    transform: rotate(216deg);
+  }
+  70% {
+    transform: rotate(252deg);
+  }
+  75% {
+    border-color: #2d2e2e #fff #2d2e2e #fff;
+  }
+  80% {
+    transform: rotate(288deg);
+  }
+  90% {
+    transform: rotate(324deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    border-color: #fff #2d2e2e #fff #2d2e2e;
+  }
+}

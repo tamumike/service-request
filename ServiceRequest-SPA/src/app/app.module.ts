@@ -35,6 +35,9 @@ import { ErrorInterceptorProvider } from './services/error.interceptor';
 import { EngineerRequestReviewComponent } from './components/request/engineer-request-review/engineer-request-review.component';
 import { ConfirmModalComponent } from './UI/modal/sub-modal/confirm-modal/confirm-modal.component';
 import { LoadingModalComponent } from './UI/modal/sub-modal/loading-modal/loading-modal.component';
+import { ModalInterceptorProvider } from './services/modal.interceptor';
+import { FooterComponent } from './UI/footer/footer.component';
+import { GreetingComponent } from './UI/greeting/greeting.component';
 
 @NgModule({
   declarations: [
@@ -53,8 +56,11 @@ import { LoadingModalComponent } from './UI/modal/sub-modal/loading-modal/loadin
     ModalBodyDirective,
     SuccessModalComponent,
     ErrorModalComponent,
+    LoadingModalComponent,
     EngineerRequestReviewComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    FooterComponent,
+    GreetingComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +74,7 @@ import { LoadingModalComponent } from './UI/modal/sub-modal/loading-modal/loadin
   ],
   providers: [
     ErrorInterceptorProvider,
+    // ModalInterceptorProvider,
     RequestService,
     UserService,
     GetRequestsResolverService,

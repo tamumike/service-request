@@ -11,6 +11,7 @@ namespace ServiceRequest.API.DTOs
         
         [FutureDateAttribute(ErrorMessage = "Invalid Date")]
         public DateTime RequestDate { get; set; }
+        public string Title { get; set; }
         public string Location { get; set; }
         public string Description { get; set; }
         public string Deliverables { get; set; }

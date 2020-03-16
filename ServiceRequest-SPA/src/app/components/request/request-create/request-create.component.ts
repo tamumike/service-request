@@ -39,6 +39,7 @@ export class RequestCreateComponent implements OnInit {
     this.createRequestForm = this.formBuilder.group({
       requestDate: ['', [Validators.required, requestDateValidator]],
       location: ['', Validators.required],
+      title: ['', Validators.required],
       description: ['', Validators.required],
       deliverables: ['', Validators.required],
       attachments: ['']
@@ -56,7 +57,6 @@ export class RequestCreateComponent implements OnInit {
   createRequest() {
     console.log('create request');
     this.createRequestForm.value.createdBy = this.userInfo.username;
-    this.modalService.toggleDisplay({display: true, type: 'loading'});
 
     this.requestService.postRequest(this.createRequestForm.value).subscribe(response => {
 
@@ -70,8 +70,8 @@ export class RequestCreateComponent implements OnInit {
         }
       }
       this.router.navigate(['request-detail/' + response.requestID]);
-      this.modalService.toggleDisplay({display: false, type: ''});
     }, error => {
+      console.log('error from component');
       console.log(error);
     });
   }

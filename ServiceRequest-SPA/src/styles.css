@@ -3,10 +3,11 @@
 @import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
 @import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,100,900');
 
 body {
-  min-height: 100vh;
-  padding: 5px;
+  /* min-height: 100vh; */
+  /* padding: 5px; */
   margin: 0;
   line-height: 1.6;
 }
@@ -15,4 +16,73 @@ html, body { height: 100%; }
 
 .btn {
   box-shadow: 2px 2px 3px 0px grey;
+}
+
+.esr-shadow {
+  box-shadow: 2px 2px 5px 0px grey;
+}
+
+.esr-button {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 200;
+  /* box-shadow: none; */
+  box-shadow: 2px 2px 5px 0px grey;
+  border: none;
+  background-color: #2d2e2e;
+  color: #fff;
+  line-height: 35px;
+  margin: 0 0 2em;
+  max-width: 140px;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 100%;
+  /* border: 1px solid #fff; */
+/*   overflow: hidden; */
+  /* border-style: inset; */
+  user-select: none;
+  letter-spacing: 2px;
+  animation: button-in 1s ease-out;
+}
+
+.esr-button-sm {
+  font-weight: 100;
+  line-height: 25px;
+  max-width: 100px;
+  font-size: 75%;
+}
+
+.esr-button:hover {
+  opacity: 0.9;
+  letter-spacing: 4px;
+  animation: button-out 1s ease-out;
+}
+
+.esr-button:active {
+  opacity: 0.5;
+}
+
+@keyframes button-in {
+  0% {
+    letter-spacing: 4px;
+  }
+  100% {
+    letter-spacing: 2px;
+  }
+}
+
+@keyframes button-out {
+  0% {
+    letter-spacing: 2px;
+  }
+  100% {
+    letter-spacing: 4px;
+  }
+}
+
+.esr-button-success {
+  background-color: #3c6b2b;
+}
+
+.esr-button-danger {
+  background-color: #8c3131;
 }

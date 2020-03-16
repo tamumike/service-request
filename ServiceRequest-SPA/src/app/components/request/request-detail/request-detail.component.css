@@ -11,8 +11,14 @@
 .request-detail-header {
   font-weight: bold;
   font-size: 28px;
-  margin: 40px 10px;
+  margin: 20px 10px 0px 10px;
 }
+
+.request-detail-subheader {
+  color: #a8a8a8;
+  margin-left: 10px;
+}
+
 
 .request-detail-box {
   margin-bottom: 10px;

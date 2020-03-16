@@ -40,7 +40,8 @@ export class RequestDetailComponent implements OnInit {
       this.newRequestCount = x;
     });
 
-    if (!this.request.acknowledged && this.requestService.isRequestOwnedByUser(this.request)) {
+    // tslint:disable-next-line: max-line-length
+    if (!this.request.acknowledged && this.requestService.isRequestOwnedByUser(this.request) && this.request.createdBy !== this.userInfo.username) {
       this.request.acknowledged = true;
       this.newRequestCount -= 1;
       this.requestService.newRequestCount.next(this.newRequestCount);

@@ -6,7 +6,10 @@
 
 <div class="container-fluid RequestDetail">
 
-  <h1 class="request-detail-header">Service Request #{{ request.requestID }}</h1>
+  <h1 class="request-detail-header">Service Request # {{ request.requestID }}</h1>
+  <h2 class="request-detail-subheader">{{ request.title }}</h2>
+
+  <!-- <span class="ml-3 {{ request.acknowledged ? 'far fa-check-circle fa-xs' : 'far fa-times-circle fa-xs' }}"></span> -->
 
   <div class="container d-flex p-0 request-detail-box">
     <div class="flex-fill request-detail-field">Created By:</div>
@@ -48,7 +51,7 @@
     <div *ngFor="let file of request.attachments" class="ml-5 flex-fill request-detail-value">{{ file.fileName }}</div>
   </div>
 
-</div>
+  </div>
 
 <div class="container-fluid">
   <app-comment-list #commentList [CommentsFromRequest]="request.comments"></app-comment-list>

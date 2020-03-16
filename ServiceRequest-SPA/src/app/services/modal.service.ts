@@ -15,8 +15,16 @@ export class ModalService {
   displayModal = this.displaySource.asObservable();
   closeModal = () => this.toggleDisplay({display: false});
 
+  getModal() {
+    return this.displayModal;
+  }
+
   toggleDisplay(config: any) {
     this.displaySource.next(config);
+  }
+
+  hideModal(): void {
+    this.displaySource.next({ display: false, type: '' });
   }
 
   getModals() {

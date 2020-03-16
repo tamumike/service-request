@@ -10,6 +10,7 @@ namespace ServiceRequest.API.Models
         public string CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime RequestDate { get; set; }
+        public string Title { get; set; }
         public string Location { get; set; }
         public string Description { get; set; }
         public string Deliverables { get; set; }

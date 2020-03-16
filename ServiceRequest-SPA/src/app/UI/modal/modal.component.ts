@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, Input, OnDestroy } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
 import { ModalBodyDirective } from 'src/app/directives/modal-body.directive';
 import { ModalBodyItem } from 'src/app/models/modalBodyItem';
@@ -9,7 +9,7 @@ import { ModalBodyComponent } from 'src/app/models/modalBodyComponent';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css']
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent implements OnInit, OnDestroy {
   modalConfig: any;
   @ViewChild(ModalBodyDirective, { static: true }) modalBody: ModalBodyDirective;
   @Input() modals: any;
@@ -32,11 +32,8 @@ export class ModalComponent implements OnInit {
     (componentRef.instance as ModalBodyComponent).data = template.data;
   }
 
-  hideModal() {
-    this.modalService.toggleDisplay({display: false});
-  }
-
-  cancel(cancelMode: boolean) {
-    console.log('hey hey');
+  ngOnDestroy() {
+    const viewContainerRef = this.modalBody.viewContainerRef;
+    viewContainerRef.clear();
   }
 }

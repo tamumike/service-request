@@ -12,10 +12,11 @@ namespace ServiceRequest.API.DTOs
         public bool Approved { get; set; }
         public string Owner { get; set; }
         public string Status { get; set; }
+        public bool Acknowledged { get; set; }
 
         public ReviewedRequestDTO()
         {
-            if (Approved) 
+            if (Approved == true) 
             {
                 Status = "Approved";
             } 
@@ -23,7 +24,7 @@ namespace ServiceRequest.API.DTOs
             {
                 Status = "Open";
             }
-            
+            Acknowledged = false;
         }
     }
 }
