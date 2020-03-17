@@ -1,8 +1,8 @@
 <app-nav *ngIf="appReady"></app-nav>
-<div class="container-fluid" *ngIf="appReady">
+<div class="container-fluid p-0" *ngIf="appReady">
   <app-home></app-home>
-  <!-- <router-outlet></router-outlet> -->
+  <app-footer class="mt-auto"></app-footer>
 </div>
 <app-greeting *ngIf="!appReady"></app-greeting>
 <app-modal *ngIf="modalConfig.display" [modals]="modals"></app-modal>
-<app-footer></app-footer>
+

@@ -1,9 +1,34 @@
 .navbar {
   background-color: #2d2e2e;
   color: #fff;
-  /* border-radius: 0px 0px 5px 5px; */
+  padding: 0;
+}
+
+/* .esr-navbar-box {
+  border-color: #fff;
+  border-style: solid;
+  z-index: 200;
+  position: relative;
+  border: none;
+  border-top: 1px;
+  border-bottom: 1px;
+  box-shadow: 3px 0 2px rgba(255,255,255,0.6);
+  height: 100%;
+  flex-basis: 7%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.navbar-box-alt {
+  background-color: #5a5c5c;
+  box-shadow: none;
 }
 
 .navbar-brand img {
   width: 120px;
-}
+
+} */

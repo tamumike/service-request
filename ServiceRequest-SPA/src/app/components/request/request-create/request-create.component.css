@@ -1,11 +1,9 @@
 .RequestCreate {
-  background-color: #fafafa;
-  padding: 30px;
-  border-radius: 0.25rem;
-  /* max-width: 60%; */
+  background-color: #fff;
+  padding: 30px 0;
+  border-radius: 0;
   box-shadow: 2px 2px 5px 0px grey;
-  min-height: 40vh;
-  margin: 40px;
+  margin-bottom: 100px;
 }
 
 .RequestCreate form {
@@ -13,18 +11,12 @@
   margin-left: 40px;
 }
 
-.RequestCreate label {
+/* .RequestCreate label {
   font-size: 16px;
   font-weight: bold;
   max-width: 25%;
-}
+} */
 
 .RequestCreate .form-group {
   margin-top: 30px;
-}
-
-.request-create-header {
-  font-weight: bold;
-  font-size: 28px;
-  margin: 20px 10px 40px 10px;
 }

@@ -1,9 +1,20 @@
-<nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand" href="#"><img src="../../../assets/img/esr_logo.png"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="container d-flex align-items-center justify-content-end mr-0">
-    <p class="m-0"><i class="fas fa-user-circle mr-2"></i>{{ user.displayName }}</p>
+<nav class="navbar navbar-expand-lg navbar-light esr-navbar">
+
+  <div class="esr-navbar-crate-80">
+
+    <div class="esr-navbar-box">
+      <img src="../../../assets/img/esr_logo.png">
+    </div>
+
+    <div class="esr-navbar-box esr-navbar-box-alt">
+      <h1 class="esr-headline esr-headline-sub esr-headline-sub-alt">Home</h1>
+      <span class="esr-navbar-active-span"></span>
+    </div>
+
   </div>
+
+  <div class="esr-navbar-crate-20">
+    <p><i class="fas fa-user-circle"></i>{{ user.displayName }}</p>
+  </div>
+
 </nav>

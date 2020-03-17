@@ -1,16 +1,17 @@
 <div>
-  <button class="btn btn-primary" [routerLink]="['request-list']">Go Back</button>
+  <button class="esr-button" [routerLink]="['request-list']">Go Back</button>
 
   <div class="container RequestCreate">
-    <h1 class="request-create-header">Create New Request</h1>
+    <h1 class="esr-component-header">Create New Request</h1>
+    <app-divider></app-divider>
     <form [formGroup]="createRequestForm" (ngSubmit)="createRequest()">
 
       <div class="form-group">
-        <label for="requestDate">Request Date:</label>
+        <label class="esr-label" for="requestDate">Request Date:</label>
         <input type="text"
         autocomplete="off"
         formControlName="requestDate"
-        class="form-control"
+        class="form-control esr-text-input"
         bsDatepicker
         [ngClass]="{'is-invalid': createRequestForm.get('requestDate').errors && createRequestForm.get('requestDate').touched}"
         [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true, isAnimated: false }">
@@ -18,19 +19,19 @@
       </div>
 
       <div class="form-group">
-        <label for="title">Title:</label>
+        <label class="esr-label" for="title">Title:</label>
         <input
           type="text"
           formControlName="title"
           [ngClass]="{'is-invalid': createRequestForm.get('title').errors && createRequestForm.get('title').touched}"
-          class="form-control">
+          class="form-control esr-text-input">
           <div class="invalid-feedback">Please enter a title.</div>
       </div>
 
       <div class="form-group">
-        <label for="location">Location:</label>
+        <label class="esr-label" for="location">Location:</label>
         <select
-        class="form-control"
+        class="form-control esr-select"
         formControlName="location"
         [ngClass]="{'is-invalid': createRequestForm.get('location').errors && createRequestForm.get('location').touched}">
           <option *ngFor="let location of locations" value="{{ location.name }}">{{ location.name }}</option>
@@ -39,9 +40,9 @@
       </div>
 
       <div class="form-group">
-        <label for="description">Description: </label>
+        <label class="esr-label" for="description">Description: </label>
         <textarea
-        class="form-control"
+        class="esr-text-area form-control"
         formControlName="description"
         placeholder="Enter Description..."
         [ngClass]="{'is-invalid': createRequestForm.get('description').errors && createRequestForm.get('description').touched}"
@@ -51,9 +52,9 @@
       </div>
 
       <div class="form-group">
-        <label for="deliverables">Deliverables: </label>
+        <label class="esr-label" for="deliverables">Deliverables: </label>
         <textarea
-        class="form-control"
+        class="esr-text-area form-control"
         formControlName="deliverables"
         placeholder="Enter Deliverables..."
         [ngClass]="{'is-invalid': createRequestForm.get('deliverables').errors && createRequestForm.get('deliverables').touched}"
@@ -63,12 +64,12 @@
       </div>
 
       <div class="form-group">
-        <label for="attachments">Attachments:</label>
-        <input type="file" multiple="true" class="form-control" formControlName="attachments"(change)="handleInputFile($event.target.files)"
+        <label class="esr-label" for="attachments">Attachments:</label>
+        <input type="file" multiple="true" class="esr-file-input form-control" formControlName="attachments"(change)="handleInputFile($event.target.files)"
         [ngClass]="{'is-invalid': createRequestForm.get('attachments').errors && createRequestForm.get('attachments').touched}">
         <div class="invalid-feedback">Please include attachments with your request.</div>
       </div>
-      <button class="btn btn-primary" type="submit">Submit</button>
+      <button class="esr-button esr-button-success mt-4" type="submit">Submit</button>
 
     </form>
   </div>

@@ -38,7 +38,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     ]).subscribe(() => {
         setTimeout(() => {
           this.appReady = true;
-        }, 2000);
+        }, 1000);
     });
 
     this.router.navigate([{ outlets: { primary: '', sidebar: 'requests-overview' }}]);

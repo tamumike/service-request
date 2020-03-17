@@ -38,6 +38,7 @@ import { LoadingModalComponent } from './UI/modal/sub-modal/loading-modal/loadin
 import { ModalInterceptorProvider } from './services/modal.interceptor';
 import { FooterComponent } from './UI/footer/footer.component';
 import { GreetingComponent } from './UI/greeting/greeting.component';
+import { DividerComponent } from './UI/divider/divider.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { GreetingComponent } from './UI/greeting/greeting.component';
     EngineerRequestReviewComponent,
     ConfirmModalComponent,
     FooterComponent,
-    GreetingComponent
+    GreetingComponent,
+    DividerComponent
   ],
   imports: [
     BrowserModule,

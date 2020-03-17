@@ -1,9 +1,11 @@
 .RequestList {
-  /* background-color: #fafafa; */
+  background-color: #fafafa;
   border-radius: 0.25rem;
   box-shadow: 2px 2px 5px 0px grey;
-  /* padding: 5px; */
+  padding: 20px;
   overflow-x: clip;
+  display: flex;
+  flex-direction: column;
 }
 
 .RequestList th {
@@ -34,7 +36,7 @@
 .deadline-warning:hover {
   background-color: rgba(255, 255, 0, 0.4) !important;
 }
-/* 
+/*
 .btn-toggle-filter {
   max-height: 32px;
 } */

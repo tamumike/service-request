@@ -1,10 +1,11 @@
-<div matSort class="RequestList card" (matSortChange)="sortData($event)">
-  <h1 class="card-header">Active Requests</h1>
+<div matSort class="RequestList" (matSortChange)="sortData($event)">
+  <div class="esr-headline-box">
+    <h1 class="esr-headline">Active Requests</h1>
+  </div>
 
-  <div class="container m-2 d-flex flex-column">
+  <!-- <div class="container m-2 d-flex flex-column">
     <div class="container d-flex justify-content-between mb-2">
       <button *ngIf="requestsCount > 0" class="esr-button btn-toggle-filter" (click)="toggleFilterMode()"><i class="fas fa-filter mr-2"></i>Filters</button>
-      <!-- <button class="btn btn-sm btn-dark">Show All</button> -->
 
     </div>
     <div class="container-fluid d-flex justify-content-end p-0">
@@ -20,22 +21,22 @@
     <form id="filterForm" *ngIf="filterMode" [formGroup]="filterRequestsForm" (ngSubmit)="filterRequests()">
       <div class="d-inline-flex align-items-baseline m-3">
 
-        <label for="field">Field: </label>
-        <div class="form-group m-2">
+        <label class="esr-label mr-2" for="field">Field: </label>
+        <div class="form-group mr-4">
 
           <select
           (change)="checkFilterInputType()"
           formControlName="field"
-          class="form-control">
-            <option *ngFor="let field of fieldsForFilter" value="{{ field.value }}">{{ field.display }}</option>
+          class="form-control esr-select">
+            <option class="esr-select-option" *ngFor="let field of fieldsForFilter" value="{{ field.value }}">{{ field.display }}</option>
           </select>
         </div>
 
-        <label for="fieldValue">Value: </label>
+        <label class="esr-label" for="fieldValue">Value: </label>
         <div  class="form-group m-2">
 
           <input *ngIf="!toggleFilterInputType" type="text"
-          class="form-control"
+          class="form-control esr-text-input"
           placeholder="Enter filter value..."
           formControlName="fieldValue">
 
@@ -61,7 +62,7 @@
       </div>
 
     </form>
-  </div>
+  </div> -->
 
   <table *ngIf="requestsCount > 0" class="table table-hover">
     <thead>

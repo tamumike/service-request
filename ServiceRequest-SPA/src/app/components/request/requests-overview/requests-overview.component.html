@@ -3,6 +3,7 @@
     <h1 class="card-header">For You</h1>
     <div class="card-body">
       <h3 class="mb-5">Hello {{ userInfo.displayName }}, you have {{ numberOfNewRequests }} new request{{ numberOfNewRequests > 1 || numberOfNewRequests == 0 ? 's' : '' }}.</h3>
+      <app-divider></app-divider>
       <ul>
         <li><i class="far fa-file-alt mr-2"></i><a href="" (click)="navToCreate($event)">Create New Request</a></li>
         <li><i class="far fa-question-circle mr-2"></i><a href="">Help</a></li>
