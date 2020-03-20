@@ -1,4 +1,4 @@
-<div class="RequestsOverview container-fluid">
+<!-- <div class="RequestsOverview container-fluid">
   <div class="card">
     <h1 class="card-header">For You</h1>
     <div class="card-body">
@@ -10,5 +10,40 @@
       </ul>
     </div>
   </div>
+
+</div> -->
+
+<div class="RequestsOverview container-fluid">
+
+  <div class="esr-headline-box">
+    <h1 class="esr-headline">For You</h1>
+  </div>
+
+  <div class="esr-overview-body">
+
+    <div class="esr-overview-showcase">
+      <div class="esr-overview-showcase-box">
+        <p class="esr-overview-greet">Hello Michael Linden, you have </p>
+        <div class="esr-overview-greet-count-box">
+          <span class="esr-overview-greet-count">{{ numberOfNewRequests }}</span>
+        </div>
+          <p class="esr-overview-greet">new requests.</p>
+      </div>
+
+
+
+
+        <app-divider></app-divider>
+    </div>
+
+    <div class="esr-overview-sideshow">
+      <div class="esr-overview-links-box">
+        <a class="esr-overview-link highlight-link" href="" (click)="navToCreate($event)">Create New Request</a>
+        <a class="esr-overview-link" href="">Help</a>
+      </div>
+    </div>
+
+  </div>
+
 
 </div>

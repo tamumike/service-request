@@ -1,10 +1,12 @@
 .RequestsOverview {
-  /* background-color: #fafafa; */
-  border-radius: 0.25rem;
   box-shadow: 2px 2px 5px 0px grey;
   padding: 0px;
+  background-color: #fafafa;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 }
-
+/*
 li {
   list-style-type: none;
-}
+} */

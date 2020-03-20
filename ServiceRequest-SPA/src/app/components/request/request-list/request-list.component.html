@@ -3,18 +3,37 @@
     <h1 class="esr-headline">Active Requests</h1>
   </div>
 
-  <!-- <div class="container m-2 d-flex flex-column">
-    <div class="container d-flex justify-content-between mb-2">
-      <button *ngIf="requestsCount > 0" class="esr-button btn-toggle-filter" (click)="toggleFilterMode()"><i class="fas fa-filter mr-2"></i>Filters</button>
+  <div class="esr-headline-box esr-table-tabs-box">
+
+    <div class="esr-table-tabs-sub-box">
+
+      <div class="esr-headline-box esr-headline-sub-box esr-headline-box-active">
+        <h2 class="esr-headline esr-headline-sub esr-headline-sub-alt">Assigned</h2>
+        <span class="esr-headline-span"></span>
+      </div>
+
+        <div class="esr-headline-box esr-headline-sub-box">
+          <h2 class="esr-headline esr-headline-sub esr-headline-sub-alt">Submitted</h2>
+          <span class="esr-headline-span inactive"></span>
+        </div>
+
+        <div class="esr-headline-box esr-headline-sub-box">
+          <h2 class="esr-headline esr-headline-sub esr-headline-sub-alt">All</h2>
+          <span class="esr-headline-span inactive"></span>
+        </div>
 
     </div>
-    <div class="container-fluid d-flex justify-content-end p-0">
-      <div class="form-check">
-        <input class="form-check-input" (change)="toggleShowAll()" type="checkbox" value="" id="showAllToggle">
-        <label class="form-check-label" for="showAllToggle">
-          Show All Requests
-        </label>
+
+      <div class="esr-table-tabs-sub-box esr-table-buttons-box">
+          <button *ngIf="requestsCount > 0" class="esr-button esr-list-filter-btn" (click)="toggleFilterMode()">Filters</button>
       </div>
+
+
+
+    </div>
+
+  <!-- <div class="container m-2 d-flex flex-column">
+    <div class="container-fluid d-flex justify-content-end p-0">
     </div>
 
 
@@ -64,7 +83,7 @@
     </form>
   </div> -->
 
-  <table *ngIf="requestsCount > 0" class="table table-hover">
+  <!-- <table *ngIf="requestsCount > 0" class="table table-hover">
     <thead>
       <tr>
         <th scope="col">View</th>
@@ -76,7 +95,6 @@
         <th mat-sort-header="promiseDate" scope="col">Promise Date</th>
         <th mat-sort-header="expectedCost" scope="col">Exp. Cost</th>
         <th mat-sort-header="coupaDate" scope="col">Coupa Date</th>
-        <!-- <th mat-sort-header="location" scope="col">Location</th> -->
         <th mat-sort-header="status" scope="col">Status</th>
         <th mat-sort-header="approved" scope="col">Approved</th>
       </tr>
@@ -84,7 +102,6 @@
     <tbody>
       <tr *ngFor="let request of sortedData" class="{{ request.requestDate | requestDeadline }}">
         <td><a [routerLink]="['/request-detail/', request.requestID]"><i class="fas fa-eye"></i></a></td>
-        <!-- <td><button class="view-btn btn btn-sm btn-dark" [routerLink]="['/request-detail/', request.requestID]"><i class="fas fa-eye"></i></button></td> -->
         <td><i *ngIf="!request.acknowledged" class="fas fa-exclamation-triangle mr-2"></i>{{ request.requestID }}</td>
         <td>{{ request.createdBy }}</td>
         <td>{{ request.requestDate | date }}</td>
@@ -93,12 +110,71 @@
         <td>{{ request.promiseDate | date }}</td>
         <td>{{ request.expectedCost | currency }}</td>
         <td>{{ request.coupaDate | date }}</td>
-        <!-- <td>{{ request.location }}</td> -->
         <td>{{ request.status }}</td>
         <td>{{ request.approved }}</td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
+
+  <div class="esr-list-table-body">
+    <div class="esr-list-table-crate">
+
+      <div class="esr-list-table-box">
+
+        <div class="esr-list-table-box-sub">
+          <p class="esr-list-data-id">20-001</p>
+          <div class="esr-list-data-divider"></div>
+          <p class="esr-list-data-title">Red Hills Expansion</p>
+        </div>
+        <div class="esr-list-alert esr-list-alert-red"><p>Overdue</p></div>
+        <div class="esr-list-attr-box">
+          <p class="esr-list-attr esr-list-data-author">mlinden</p>
+          <p class="esr-list-attr esr-list-data-status">Open</p>
+          <p class="esr-list-attr esr-list-data-due">03/25/2020</p>
+        </div>
+
+      </div>
+
+      <div class="esr-list-table-box">
+
+        <div class="esr-list-table-box-sub">
+          <p class="esr-list-data-id">20-002</p>
+          <div class="esr-list-data-divider"></div>
+          <p class="esr-list-data-title">Palo Duro Demolition</p>
+        </div>
+        <div class="esr-list-alert esr-list-alert-yellow"><p>Due Soon</p></div>
+        <div class="esr-list-attr-box">
+          <p class="esr-list-attr esr-list-data-author">ppig</p>
+          <p class="esr-list-attr esr-list-data-status">Under Review</p>
+          <p class="esr-list-attr esr-list-data-due">04/18/2020</p>
+        </div>
+
+      </div>
+
+      <div class="esr-list-table-box">
+
+        <div class="esr-list-table-box-sub">
+          <p class="esr-list-data-id">20-003</p>
+          <div class="esr-list-data-divider"></div>
+          <p class="esr-list-data-title">Bootleg Station Addition</p>
+        </div>
+        <div class="esr-list-attr-box">
+          <p class="esr-list-attr esr-list-data-author">dduck</p>
+          <p class="esr-list-attr esr-list-data-status">Approved</p>
+          <p class="esr-list-attr esr-list-data-due">03/16/2020</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="esr-list-table-crate">
+      <div class="esr-list-table-sidepane">
+
+      </div>
+    </div>
+  </div>
+
+
 
   <div *ngIf="requestsCount == 0" class="container-fluid d-flex justify-content-center align-items-center m-5 flex-column">
     <i class="fas fa-exclamation-circle fa-5x"></i>
@@ -106,3 +182,17 @@
   </div>
 </div>
 
+
+
+
+
+
+
+
+
+      <!-- <div class="form-check">
+        <input class="form-check-input" (change)="toggleShowAll()" type="checkbox" value="" id="showAllToggle">
+        <label class="form-check-label" for="showAllToggle">
+          Show All Requests
+        </label>
+      </div> -->

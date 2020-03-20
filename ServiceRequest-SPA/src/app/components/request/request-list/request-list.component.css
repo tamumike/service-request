@@ -2,23 +2,26 @@
   background-color: #fafafa;
   border-radius: 0.25rem;
   box-shadow: 2px 2px 5px 0px grey;
-  padding: 20px;
   overflow-x: clip;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .RequestList th {
-  /* font-size: 14px; */
   padding: 5px;
   text-align: left;
-  /* margin-left: 31px; */
+  font-family: 'Roboto', sans-serif;
+  /* border: none; */
 }
 
 .RequestList td {
   font-size: 14px;
   padding: 5px;
   text-align: left;
+  font-family: 'Roboto', sans-serif;
+  border: none;
 }
 
 .deadline-danger {
@@ -35,18 +38,4 @@
 
 .deadline-warning:hover {
   background-color: rgba(255, 255, 0, 0.4) !important;
-}
-/*
-.btn-toggle-filter {
-  max-height: 32px;
-} */
-
-@keyframes example {
-  from {height: 0px;}
-  to {height: 100%;}
-}
-
-#filterForm {
-  animation-name: example;
-  animation-duration: 2s;
 }
