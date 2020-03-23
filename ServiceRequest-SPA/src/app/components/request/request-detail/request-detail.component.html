@@ -6,55 +6,77 @@
 
 <div class="container-fluid RequestDetail">
 
-  <h1 class="request-detail-header">Service Request # {{ request.requestID }}</h1>
-  <h2 class="request-detail-subheader">{{ request.title }}</h2>
-
-  <!-- <span class="ml-3 {{ request.acknowledged ? 'far fa-check-circle fa-xs' : 'far fa-times-circle fa-xs' }}"></span> -->
-
-  <div class="container d-flex p-0 request-detail-box">
-    <div class="flex-fill request-detail-field">Created By:</div>
-    <div class="flex-fill request-detail-value">{{ request.createdBy }}</div>
+  <div class="esr-detail-header-box">
+    <h1 class="esr-detail-header-id">20-001</h1>
+    <div class="esr-list-data-divider"></div>
+    <h2 class="esr-detail-header-title">Red Hills Expansion</h2>
   </div>
 
-  <div class="container d-flex p-0 request-detail-box">
-    <div class="flex-fill request-detail-field">Created Date:</div>
-    <div class="flex-fill request-detail-value">{{ request.createdDate | date }}</div>
+  <div class="esr-detail-background">
+    <div class="esr-detail-body">
+
+      <div class="esr-detail-crate">
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Created By:</div>
+          <div class="esr-detail-field-value">PorkyPig</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Created Date:</div>
+          <div class="esr-detail-field-value">03/16/2020</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Request Date:</div>
+          <div class="esr-detail-field-value">05/17/2020</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Location:</div>
+          <div class="esr-detail-field-value">Red Hills Facility</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Description:</div>
+          <div class="esr-detail-field-value">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac ut consequat semper viverra nam libero justo. Dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Libero volutpat sed cras ornare arcu. Massa enim nec dui nunc mattis enim ut tellus elementum. Hendrerit gravida rutrum quisque non tellus orci ac auctor. Varius morbi enim nunc faucibus a pellentesque sit amet. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Sed ullamcorper morbi tincidunt ornare massa eget egestas purus. </div>
+        </div>
+
+
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Deliverables:</div>
+          <div class="esr-detail-field-value">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac placerat vestibulum lectus mauris ultrices eros in cursus. Sodales ut etiam sit amet nisl. Nunc id cursus metus aliquam eleifend mi. Rutrum tellus pellentesque eu tincidunt. Quis risus sed vulputate odio ut enim blandit volutpat. Faucibus interdum posuere lorem ipsum dolor sit amet consectetur. Ullamcorper sit amet risus nullam. Lobortis scelerisque fermentum dui faucibus in.</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Status:</div>
+          <div class="esr-detail-field-value">Open</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field field-attachment">Attachments:</div>
+          <div class="esr-detail-attachment-box">
+            <div class="esr-detail-field-value">document1.txt</div>
+            <div class="esr-detail-field-value">document2.pdf</div>
+            <div class="esr-detail-field-value">document3.png</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="esr-detail-crate">
+
+        <app-comment-list #commentList [CommentsFromRequest]="request.comments"></app-comment-list>
+        <app-comment-create [requestID]="idToCommentCreate" (commentSubmitted)="refreshComments($event)"></app-comment-create>
+
+      </div>
+
+
+
+
+    </div>
+
   </div>
 
-  <div class="container d-flex p-0 request-detail-box">
-    <div class="flex-fill request-detail-field">Request Date:</div>
-    <div class="flex-fill request-detail-value">{{ request.requestDate | date}}</div>
   </div>
-
-  <div class="container d-flex p-0 request-detail-box">
-    <div class="flex-fill request-detail-field">Location:</div>
-    <div class="flex-fill request-detail-value">{{ request.location }}</div>
-  </div>
-
-  <div class="container d-flex p-0 request-detail-box">
-    <div class="flex-fill request-detail-field">Description:</div>
-    <div class="flex-fill request-detail-value">{{ request.description }}</div>
-  </div>
-
-  <div class="container d-flex p-0 request-detail-box">
-    <div class="flex-fill request-detail-field">Deliverables:</div>
-    <div class="flex-fill request-detail-value">{{ request.deliverables }}</div>
-  </div>
-
-  <div class="container d-flex p-0 request-detail-box">
-    <div class="flex-fill request-detail-field">Status:</div>
-    <div class="flex-fill request-detail-value">{{ request.status }}</div>
-  </div>
-
-  <div class="container d-flex p-0 request-detail-box flex-column">
-    <div class="flex-fill request-detail-field">Attachments:</div>
-    <div *ngFor="let file of request.attachments" class="ml-5 flex-fill request-detail-value">{{ file.fileName }}</div>
-  </div>
-
-  </div>
-
-<div class="container-fluid">
-  <app-comment-list #commentList [CommentsFromRequest]="request.comments"></app-comment-list>
-  <app-comment-create [requestID]="idToCommentCreate" (commentSubmitted)="refreshComments($event)"></app-comment-create>
-</div>
-

@@ -40,7 +40,7 @@ export class RequestListComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,
               private requestService: RequestService, private modalService: ModalService,
-              private userService: UserService) { }
+              private userService: UserService, private router: Router) { }
 
   ngOnInit() {
 
@@ -116,14 +116,21 @@ export class RequestListComponent implements OnInit {
 
   toggleShowAll() {
 
-    this.showAllMode = !this.showAllMode;
-    if (this.showAllMode) {
-      delete this.requestParams.owner;
-    } else {
-      this.requestParams.owner = this.getRequestParamsOwner();
-    }
+    const el = document.getElementsByClassName('esr-table-btn-all');
 
-    this.getRequests();
+    if (!this.showAllMode) {
+      this.showAllMode = true;
+      delete this.requestParams.owner;
+      this.getRequests();
+    }
+  }
+
+  toggleShowAssigned() {
+    if (this.showAllMode) {
+      this.showAllMode = false;
+      this.requestParams.owner = this.getRequestParamsOwner();
+      this.getRequests();
+    }
   }
 
   getRequests() {
@@ -134,6 +141,10 @@ export class RequestListComponent implements OnInit {
     }, error => {
       console.log('request list, get user requests', error);
     });
+  }
+
+  navToRequest(id: string) {
+    this.router.navigate(['request-detail/' + id]);
   }
 
   sortData(sort: Sort) {
@@ -153,6 +164,7 @@ export class RequestListComponent implements OnInit {
         case 'status': return compare(a.status, b.status, isAsc);
         case 'submitted': return compare(a.submitted, b.submitted, isAsc);
         case 'approved': return compare(a.approved, b.approved, isAsc);
+        case 'title': return compare(a.title, b.title, isAsc);
         default: return 0;
       }
     });

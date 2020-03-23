@@ -7,7 +7,7 @@
 
     <div class="esr-table-tabs-sub-box">
 
-      <div class="esr-headline-box esr-headline-sub-box esr-headline-box-active">
+      <div class="esr-headline-box esr-headline-sub-box esr-headline-box-active" (click)="toggleShowAssigned()">
         <h2 class="esr-headline esr-headline-sub esr-headline-sub-alt">Assigned</h2>
         <span class="esr-headline-span"></span>
       </div>
@@ -17,7 +17,7 @@
           <span class="esr-headline-span inactive"></span>
         </div>
 
-        <div class="esr-headline-box esr-headline-sub-box">
+        <div class="esr-headline-box esr-headline-sub-box esr-table-btn-all" (click)="toggleShowAll()">
           <h2 class="esr-headline esr-headline-sub esr-headline-sub-alt">All</h2>
           <span class="esr-headline-span inactive"></span>
         </div>
@@ -116,53 +116,35 @@
     </tbody>
   </table> -->
 
-  <div class="esr-list-table-body">
-    <div class="esr-list-table-crate">
 
-      <div class="esr-list-table-box">
+  <div class="esr-list-table-body" >
+    <div class="esr-list-table-crate">
+      <div class="esr-list-table-header-box">
+        <div class="esr-header-box1">
+          <p mat-sort-header="requestID" class="esr-list-header header-id">id</p>
+          <p mat-sort-header="title" class="esr-list-header header-title">Title</p>
+        </div>
+        <div class="esr-header-box2">
+          <p mat-sort-header="createdBy" class="esr-list-header header-requestedby">Requested By</p>
+          <p mat-sort-header="status" class="esr-list-header header-status">Status</p>
+          <p mat-sort-header="requestDate" class="esr-list-header header-duedate">Due Date</p>
+        </div>
+      </div>
+
+      <div class="esr-list-table-box" *ngFor="let request of sortedData" (click)="navToRequest(request.requestID)">
 
         <div class="esr-list-table-box-sub">
-          <p class="esr-list-data-id">20-001</p>
+          <p class="esr-list-data-id">{{ request.requestID }}</p>
           <div class="esr-list-data-divider"></div>
-          <p class="esr-list-data-title">Red Hills Expansion</p>
+          <p class="esr-list-data-title">{{ request.title }}</p>
         </div>
         <div class="esr-list-alert esr-list-alert-red"><p>Overdue</p></div>
         <div class="esr-list-attr-box">
-          <p class="esr-list-attr esr-list-data-author">mlinden</p>
-          <p class="esr-list-attr esr-list-data-status">Open</p>
-          <p class="esr-list-attr esr-list-data-due">03/25/2020</p>
+          <p class="esr-list-attr esr-list-data-author">{{ request.createdBy }}</p>
+          <p class="esr-list-attr esr-list-data-status">{{ request.status }}</p>
+          <p class="esr-list-attr esr-list-data-due">{{ request.requestDate | date: 'LL/dd/yyyy' }}</p>
         </div>
 
-      </div>
-
-      <div class="esr-list-table-box">
-
-        <div class="esr-list-table-box-sub">
-          <p class="esr-list-data-id">20-002</p>
-          <div class="esr-list-data-divider"></div>
-          <p class="esr-list-data-title">Palo Duro Demolition</p>
-        </div>
-        <div class="esr-list-alert esr-list-alert-yellow"><p>Due Soon</p></div>
-        <div class="esr-list-attr-box">
-          <p class="esr-list-attr esr-list-data-author">ppig</p>
-          <p class="esr-list-attr esr-list-data-status">Under Review</p>
-          <p class="esr-list-attr esr-list-data-due">04/18/2020</p>
-        </div>
-
-      </div>
-
-      <div class="esr-list-table-box">
-
-        <div class="esr-list-table-box-sub">
-          <p class="esr-list-data-id">20-003</p>
-          <div class="esr-list-data-divider"></div>
-          <p class="esr-list-data-title">Bootleg Station Addition</p>
-        </div>
-        <div class="esr-list-attr-box">
-          <p class="esr-list-attr esr-list-data-author">dduck</p>
-          <p class="esr-list-attr esr-list-data-status">Approved</p>
-          <p class="esr-list-attr esr-list-data-due">03/16/2020</p>
-        </div>
       </div>
 
     </div>

@@ -1,11 +1,9 @@
-<div class="CommentCreate container-fluid">
-
+<div class="esr-comment-create">
   <form [formGroup]="createCommentForm" (ngSubmit)="createComment()">
 
     <div class="form-group">
-
       <textarea
-      class="form-control"
+      class="esr-comment-text-area"
       formControlName="content"
       [ngClass]="{'is-invalid': createCommentForm.get('content').errors && createCommentForm.get('content').touched}"
       placeholder="Leave comment...."
@@ -13,9 +11,6 @@
       <div class="invalid-feedback">The comment cannot be empty.</div>
     </div>
 
-    <div class="container d-flex justify-content-end">
-      <button class="btn btn-sm comment-btn" type="submit">Post Comment</button>
-    </div>
-
+    <button class="esr-comment-btn" type="submit">Post Comment</button>
   </form>
 </div>

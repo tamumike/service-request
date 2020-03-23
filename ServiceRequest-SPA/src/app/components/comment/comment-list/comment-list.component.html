@@ -1,19 +1,21 @@
-<div class="container mt-5">
-  <h2>Comments</h2>
-  <div class="container Comment p-3 mb-4" *ngFor="let comment of CommentsFromRequest">
-    <div class="container-fluid d-flex align-items-baseline">
-      <i class="fas fa-user-circle"></i>
-      <h6 class="comment-author">{{ comment.author }}</h6>
-    </div>
-    <div class="ml-4 container-fluid d-flex align-items-baseline">
-      <i class="far fa-clock"></i>
-      <p class="comment-date">{{ comment.createdDate | date }}</p>
-    </div>
-      <p class="comment-content">{{ comment.content }}</p>
+<div class="esr-comment" *ngFor="let comment of CommentsFromRequest">
+  <div class="esr-comment-header-box">
+    <i class="fas fa-user-circle esr-comment-user-icon"></i>
+    <div class="esr-list-data-divider"></div>
+    <h6 class="esr-comment-header">{{ comment.author }}</h6>
+  </div>
+  <div class="esr-comment-body">
+    <p class="esr-comment-date"><i class="far fa-clock esr-comment-date-icon"></i>{{ comment.createdDate | date }}</p>
+
+    <p class="esr-comment-content"><i class="fas fa-quote-left esr-comment-content-icon"></i>{{ comment.content }}<i class="fas fa-quote-right esr-comment-content-icon"></i></p>
   </div>
 
+</div>
+
+
+
+<!--
   <div *ngIf="commentCount == 0" class="container-fluid d-flex justify-content-center align-items-center mb-3 flex-column">
     <i class="fas fa-exclamation-circle fa-2x"></i>
     <h3>There aren't any comments, yet.</h3>
-  </div>
-</div>
+  </div> -->
