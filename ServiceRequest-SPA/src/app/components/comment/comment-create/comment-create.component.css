@@ -16,26 +16,51 @@
   margin-top: 20px;
   width: 300px;
   height: 50px;
-  font-size: 11px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.esr-comment-text-area:focus {
+  opacity: 1.0;
 }
 
 .esr-comment-text-area::placeholder {
-  color: #b4b8b8;
-  font-size: 11px;
+  color: #fff;
+  font-size: 12px;
 }
 
 .esr-comment-btn {
-  /* align-self: flex-start; */
+  align-self: flex-start;
   font-family: 'Roboto', sans-serif;
   background-color: #ffb617;
+  animation: comment-btn-fade-in 200ms linear;
   border: none;
-  margin-top: 0;
-  font-size: 14px;
   box-shadow: inset 0 0 0 2px #ffb617, inset 0 0 0 3px #2d2e2e;
   color: #2d2e2e;
+  font-size: 13px;
+  text-transform: uppercase;
 }
 .esr-comment-btn:hover {
-  background-color: #2d2e2e;
+  animation: comment-btn-fade-out 200ms linear;
+  animation-fill-mode: both;
   color: #ffb617;
   box-shadow: inset 0 0 0 2px #2d2e2e, inset 0 0 0 3px #ffb617;
+}
+
+@keyframes comment-btn-fade-in {
+  0% {
+    background-color: #2d2e2e;
+  }
+  100% {
+    background-color: #ffb617;
+  }
+}
+
+@keyframes comment-btn-fade-out {
+  0% {
+    background-color: #ffb617;
+  }
+  100% {
+    background-color: #2d2e2e;
+  }
 }

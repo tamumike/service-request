@@ -9,9 +9,22 @@
 
     <p class="esr-comment-content"><i class="fas fa-quote-left esr-comment-content-icon"></i>{{ comment.content }}<i class="fas fa-quote-right esr-comment-content-icon"></i></p>
   </div>
-
 </div>
 
+<div *ngIf="commentCount == 0" class="esr-comment-alert-box">
+  <div class="esr-comment-alert-headline-box">
+    <i class="fas fa-exclamation-circle esr-comment-alert-icon"></i>
+  </div>
+  <div class="esr-comment-alert-body">
+    <p class="esr-comment-alert">There aren't any comments, yet.</p>
+
+    <div class="esr-flex-row-box">
+      <i class="fas fa-quote-left esr-comment-alert-icon-q"></i>
+      <i class="fas fa-quote-right esr-comment-alert-icon-q"></i>
+    </div>
+
+  </div>
+</div>
 
 
 <!--

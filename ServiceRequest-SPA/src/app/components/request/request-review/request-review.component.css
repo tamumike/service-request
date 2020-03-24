@@ -1,45 +1,385 @@
-.ReviewRequest {
-  background-color: #fafafa;
-  padding: 15px;
-  border-radius: 0.25rem;
-  max-width: 90%;
+.RequestReview {
+  background-color: #2d2e2e;
+  width: 100%;
   box-shadow: 2px 2px 5px 0px grey;
-  min-height: 40vh;
-  margin: 0px 40px;
+  min-height: 70vh;
+  margin: 0 auto;
+  padding: 0;
 }
 
-.request-review-header {
-  font-weight: bold;
-  font-size: 28px;
-  margin: 20px 10px 0px 10px;
+.esr-review-header-box {
+  width: 100%;
+/*   background-color: #2d2e2e; */
+  display: flex;
+  border-bottom: 1px #b4b8b8 solid;
+/*   justify-content: center; */
+  align-items: center;
+  margin: 0;
+/*   margin-bottom: 60px; */
+  height: 80px;
+/*   box-shadow: 0 2px 5px grey; */
 }
 
-.request-review-subheader {
-  color: #a8a8a8;
-  margin-left: 10px;
+.esr-review-background {
+  display: flex;
+  height: 100%;
+  width: 100%;
+/*   padding: 2%; */
+/*   background-color: #2d2e2e; */
 }
 
-.request-review-box {
-  margin-bottom: 10px;
+.esr-review-body {
+  margin: 0 auto;
+/*   background-color: #b4b8b8; */
+/*   height: 200px; */
+  width: 100%;
+  display: flex;
+/*   box-shadow: 2px 2px 5px #878a8a; */
+/*   padding: 2%; */
 }
 
-.request-review-field {
-  /*   margin-right: 5px; */
-    font-size: 16px;
-    font-weight: bold;
-    max-width: 25%;
-  }
+.esr-review-header-id {
+  color: #ffb617;
+  margin: 0 15px 0 15px;
+  font-family: 'Prompt', sans-serif;
+}
 
-  .request-review-value {
-    max-width: 75%;
-  }
+.esr-review-header-title {
+  margin-left: 15px;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+}
 
-  .request-review-container-box {
-    margin: auto;
-    max-width: 75%;
-  }
+.esr-review-crate {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-basis: 50%;
+  flex-direction: column;
+  /* padding: 20px auto; */
+  padding: 20px;
+}
 
-  .request-checkbox {
-    max-width: 15px;
-    margin-top: -5px;
+.esr-review-box {
+  display: flex;
+  justify-content: flex-start;
+  margin: 5px 0;
+/*   flex-direction: column; */
+}
+
+.esr-review-field {
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0 20px auto 10px;
+  flex-basis: 30%;
+}
+
+.esr-review-field-value {
+  color: #b4b8b8;
+  font-size: 12px;
+  flex-basis: 70%;
+}
+
+.esr-review-attachment-box {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.esr-review.field-attachment {
+  margin-right: 10px;
+}
+
+.esr-review-div {
+  display: flex;
+  margin-top: 40px;
+/*   justify-content: flex-end; */
+  padding: 20px;
+  padding-left: 40px;
+}
+
+.esr-review-btn {
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  background-color: #17c9ff;
+  color: #2d2e2e;
+  letter-spacing: 2px;
+  border: none;
+  padding: 8px 16px;
+  box-shadow: inset 0 0 0 1px #17c9ff, inset 0 0 0 2px #2d2e2e;
+  animation: review-btn-fade-in 200ms linear;
+  animation-fill-mode: both;
+}
+
+.esr-review-btn:hover {
+  animation: review-btn-fade-out 200ms linear;
+  animation-fill-mode: both;
+  color: #17c9ff;
+}
+
+@keyframes review-btn-fade-in {
+  0% {
+    background-color: #2d2e2e;
   }
+  100% {
+    background-color: #17c9ff;
+  }
+}
+
+@keyframes review-btn-fade-out {
+  0% {
+    background-color: #17c9ff;
+  }
+  100% {
+    background-color: #2d2e2e;
+  }
+}
+
+.esr-review-form {
+  color: #fff;
+  background-color: #5a5c5c;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.esr-review-form-box {
+/*   border: 1px red solid; */
+  display: flex;
+  justify-content: center;
+  margin: 40px auto;
+  padding-right: 10px;
+  line-height: 2.0;
+}
+
+.esr-review-text-box {
+  background-color: #878a8a;
+  color: #fff;
+  border: none;
+  font-family: 'Roboto' sans-serif;
+  width: 40%;
+}
+
+/* The container */
+.esr-review-form-box.field-approved {
+  position: relative;
+}
+
+.esr-review-field.field-approved:hover {
+  cursor: pointer;
+}
+
+/* Hide the browser's default checkbox */
+.esr-review-form-box.field-approved input {
+  position: absolute;
+  left: 55%;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  z-index: 100;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 55%;
+  height: 32px;
+  width: 32px;
+  background-color: #5a5c5c;
+  border: 1px solid #ffb617;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: checkbox-grow 200ms linear;
+  animation-fill-mode: both;
+}
+
+/* On mouse-over, add a grey background color */
+.esr-review-form-box.field-approved:hover input ~ .checkmark {
+  background-color: #ffb617;
+  box-shadow: inset 0 0 0 1px #5a5c5c;
+}
+
+.esr-review-form-box.field-approved:hover input:checked ~ .checkmark {
+  background-color: #ffb617;
+  box-shadow: inset 0 0 0 1px #5a5c5c;
+}
+
+.esr-review-form-box.field-approved:active input ~ .checkmark {
+/*   opacity: 0.8; */
+/*   top: 2px; */
+  animation: checkbox-shrink 200ms linear;
+  animation-fill-mode: both;
+}
+
+@keyframes checkbox-shrink {
+  0% {
+    transform: scale(1.0);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+}
+
+@keyframes checkbox-grow {
+  0% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1.0);
+  }
+}
+
+/* When the checkbox is checked, add a blue background */
+.esr-review-form-box.field-approved input:checked ~ .checkmark {
+  background-color: #5a5c5c;
+  border: 1px solid #ffb617;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  visibility: hidden;
+  animation: approve-unchecked 200ms ease-in;
+  animation-fill-mode: both;
+}
+
+/* Show the checkmark when checked */
+.esr-review-form-box.field-approved input:checked ~ .checkmark:after {
+  display: block;
+  box-shadow: none;
+  animation: approve-checked 200ms ease-in;
+  animation-fill-mode: both;
+}
+
+.esr-review-form-box.field-approved input:hover ~ .checkmark:after {
+  border-color: #5a5c5c;
+}
+
+/* Style the checkmark/indicator */
+.esr-review-form-box.field-approved .checkmark:after {
+  margin-top: -4px;
+  visibility: visible;
+  width: 10px;
+  height: 25px;
+  border: solid #ffb617;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.esr-review-btn-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.esr-review-btn {
+    align-self: flex-start;
+  font-family: 'Roboto', sans-serif;
+  background-color: #ffb617;
+  animation: review-btn-fade-in 200ms linear;
+  border: none;
+  box-shadow: inset 0 0 0 2px #ffb617, inset 0 0 0 3px #5a5c5c;
+  color: #2d2e2e;
+  font-size: 16px;
+  text-transform: uppercase;
+  margin: 20px auto;
+  position: relative;
+  user-select: none;
+}
+
+.esr-review-btn:hover {
+  animation: review-btn-fade-out 200ms linear;
+  animation-fill-mode: both;
+  color: #ffb617;
+  box-shadow: inset 0 0 0 2px #5a5c5c, inset 0 0 0 3px #ffb617;
+}
+
+.esr-review-btn:active {
+  top: 2px;
+}
+
+
+@keyframes review-btn-fade-in {
+  0% {
+    background-color: #5a5c5c;
+  }
+  100% {
+    background-color: #ffb617;
+  }
+}
+
+@keyframes review-btn-fade-out {
+  0% {
+    background-color: #ffb617;
+  }
+  100% {
+    background-color: #5a5c5c;
+  }
+}
+
+@keyframes approve-checked {
+  0% {
+    visibility: hidden;
+    width: 2px;
+    height: 5px;
+  }
+  20% {
+    width: 4px;
+    height: 10px;
+  }
+  40% {
+    width: 6px;
+    height: 15px;
+  }
+  60% {
+    width: 10px;
+    height: 25px;
+  }
+  80% {
+    width: 12px;
+    height: 30px;
+  }
+  100% {
+    width: 10px;
+    height: 25px;
+    visibility: visible;
+  }
+}
+
+@keyframes approve-unchecked {
+  0% {
+    visibility: visible;
+/*     display: block; */
+    width: 10px;
+    height: 25px;
+  }
+  20% {
+    width: 12px;
+    height: 30px;
+  }
+  40% {
+    width: 10px;
+    height: 25px;
+  }
+  60% {
+    width: 6px;
+    height: 15px;
+  }
+  80% {
+    width: 4px;
+    height: 10px;
+  }
+  100% {
+    width: 0px;
+    height: 0px;
+    visibility: hidden;
+  }
+}

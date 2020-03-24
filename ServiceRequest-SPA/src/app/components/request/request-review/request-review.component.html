@@ -2,7 +2,128 @@
   <button class="btn btn-primary" [routerLink]="['/request-detail/', request.requestID]">Go Back</button>
 </div>
 
-<div class="container ReviewRequest">
+<div class="container-fluid RequestReview">
+
+  <div class="esr-review-header-box">
+    <h1 class="esr-review-header-id">20-001</h1>
+    <div class="esr-list-data-divider"></div>
+    <h2 class="esr-review-header-title">Red Hills Expansion</h2>
+  </div>
+
+  <div class="esr-review-background">
+    <div class="esr-review-body">
+
+      <div class="esr-review-crate">
+
+        <div class="esr-review-box">
+          <div class="esr-review-field">Created By:</div>
+          <div class="esr-review-field-value">PorkyPig</div>
+        </div>
+
+        <div class="esr-review-box">
+          <div class="esr-review-field">Created Date:</div>
+          <div class="esr-review-field-value">03/16/2020</div>
+        </div>
+
+        <div class="esr-review-box">
+          <div class="esr-review-field">Request Date:</div>
+          <div class="esr-review-field-value">05/17/2020</div>
+        </div>
+
+        <div class="esr-review-box">
+          <div class="esr-review-field">Location:</div>
+          <div class="esr-review-field-value">Red Hills Facility</div>
+        </div>
+
+        <div class="esr-review-box">
+          <div class="esr-review-field">Description:</div>
+          <div class="esr-review-field-value">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac ut consequat semper viverra nam libero justo. Dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Libero volutpat sed cras ornare arcu. Massa enim nec dui nunc mattis enim ut tellus elementum. Hendrerit gravida rutrum quisque non tellus orci ac auctor. Varius morbi enim nunc faucibus a pellentesque sit amet. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Sed ullamcorper morbi tincidunt ornare massa eget egestas purus. </div>
+        </div>
+
+
+
+        <div class="esr-review-box">
+          <div class="esr-review-field">Deliverables:</div>
+          <div class="esr-review-field-value">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac placerat vestibulum lectus mauris ultrices eros in cursus. Sodales ut etiam sit amet nisl. Nunc id cursus metus aliquam eleifend mi. Rutrum tellus pellentesque eu tincidunt. Quis risus sed vulputate odio ut enim blandit volutpat. Faucibus interdum posuere lorem ipsum dolor sit amet consectetur. Ullamcorper sit amet risus nullam. Lobortis scelerisque fermentum dui faucibus in.</div>
+        </div>
+
+        <div class="esr-review-box">
+          <div class="esr-review-field">Status:</div>
+          <div class="esr-review-field-value">Open</div>
+        </div>
+
+        <div class="esr-review-box">
+          <div class="esr-review-field field-attachment">Attachments:</div>
+          <div class="esr-review-attachment-box">
+            <div class="esr-review-field-value">document1.txt</div>
+            <div class="esr-review-field-value">document2.pdf</div>
+            <div class="esr-review-field-value">document3.png</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="esr-review-crate">
+
+        <form [formGroup]="reviewRequestForm" (ngSubmit)="submitRequestReview()" class="esr-review-form">
+
+          <div class="esr-review-form-box">
+
+            <div class="esr-review-field">AFE:</div>
+
+            <input type="text"
+            class="esr-review-text-box"
+            formControlName="afe"
+            [ngClass]="{'is-invalid': reviewRequestForm.get('afe').errors && reviewRequestForm.get('afe').touched}">
+
+            <div class="invalid-feedback">Please provide the AFE number.</div>
+          </div>
+
+          <div class="esr-review-form-box">
+            <div class="esr-review-field">Assigned Engineer:</div>
+            <select
+            formControlName="engineerAssigned"
+            class="esr-review-text-box"
+            [ngClass]="{'is-invalid': reviewRequestForm.get('engineerAssigned').errors && reviewRequestForm.get('engineerAssigned').touched}">
+            <option *ngFor="let member of groupMembers" value="{{ member.username }}">{{ member.fullName }}</option>
+            </select>
+            <div class="invalid-feedback">Please assign an engineer to the request.</div>
+          </div>
+
+          <div class="esr-review-form-box">
+            <div class="esr-review-field">Coupa Approved Date:</div>
+            <input type="text"
+            autocomplete="off"
+            formControlName="coupaDate"
+            class="esr-review-text-box"
+            bsDatepicker
+            [ngClass]="{'is-invalid': reviewRequestForm.get('coupaDate').errors && reviewRequestForm.get('coupaDate').touched}"
+            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true, isAnimated: false }">
+            <div class="invalid-feedback">Date is invalid.</div>
+          </div>
+
+          <div class="esr-review-form-box field-approved">
+            <label class="esr-review-field field-approved">Approved:
+              <input type="checkbox" class="esr-review-check" formControlName="approved">
+              <span class="checkmark"></span>
+            </label>
+          </div>
+
+          <div class="esr-review-btn-box">
+            <button class="esr-review-btn" type="submit">Submit</button>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  </div>
+
+<!-- <div class="container ReviewRequest">
 
   <h1 class="request-review-header">Service Request # {{ request.requestID }}</h1>
   <h2 class="request-review-subheader">{{ request.title }}</h2>
@@ -96,7 +217,7 @@
   <div class="container-fluid w-75">
     <app-comment-list [CommentsFromRequest]="request.comments"></app-comment-list>
     <app-comment-create [requestID]="request.requestID" (commentSubmitted)="refreshComments($event)"></app-comment-create>
-  </div>
+  </div> -->
 
 
 

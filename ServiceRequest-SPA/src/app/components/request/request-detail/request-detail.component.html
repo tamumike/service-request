@@ -79,4 +79,8 @@
 
   </div>
 
+  <div class="esr-detail-review-div">
+    <button class="esr-detail-review-btn" *ngIf="!request.approved && isAdmin" [routerLink]="['/request-review/', request.requestID]">Review</button>
+  </div>
+
   </div>
