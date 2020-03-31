@@ -82,7 +82,7 @@
         <div class="esr-detail-box">
           <div class="esr-detail-field field-attachment">Attachments:</div>
           <div class="esr-detail-attachment-box">
-            <div class="esr-detail-field-value" *ngFor="let file of request.attachments"><a [attr.href]="file.url">{{ file.fileName }}</a></div>
+            <div class="esr-detail-field-value" *ngFor="let file of request.attachments"><a [attr.href]="sanitize(file.url)">{{ file.fileName }}</a></div>
           </div>
         </div>
 

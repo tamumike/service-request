@@ -5,6 +5,7 @@ import { Request } from 'src/app/models/request';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { CommentService } from 'src/app/services/comment.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-request-detail',
@@ -22,13 +23,12 @@ export class RequestDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router,
               private requestService: RequestService, private userService: UserService,
-              private commentService: CommentService) { }
+              private commentService: CommentService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.userInfo = this.userService.user;
     this.route.data.subscribe(data => {
       this.request = data.data;
-      console.log(this.request);
       this.idToCommentCreate = this.request.requestID;
     }, error => {
       console.log('request-detail resolve', error);
@@ -60,6 +60,10 @@ export class RequestDetailComponent implements OnInit {
         console.log('request detail, update request', error);
       });
     }
+  }
+
+  sanitize(url: string) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
   refreshComments(refresh: boolean) {
