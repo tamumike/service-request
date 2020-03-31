@@ -37,11 +37,14 @@ namespace ServiceRequest.API
             {
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+            
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors();
             services.AddHttpContextAccessor();
             services.AddAutoMapper(typeof(RequestRepository).Assembly);
+            services.AddHttpContextAccessor();
             services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
+            services.Configure<IISServerOptions>(options => options.AutomaticAuthentication = true);
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.AddScoped<IRequestRepository, RequestRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
