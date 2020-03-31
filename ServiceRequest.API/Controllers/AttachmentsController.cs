@@ -45,7 +45,7 @@ namespace ServiceRequest.API.Controllers
                 var filePath = "";
                 var fileExt = Path.GetExtension(file.FileName);
                 filePath = Path.Combine(_targetFilePath, Path.GetRandomFileName() + Path.GetExtension(file.FileName));
-                url = filePath;
+                url = Path.Combine("leg-adhocsql:8001/files", Path.GetRandomFileName() + Path.GetExtension(file.FileName));
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
