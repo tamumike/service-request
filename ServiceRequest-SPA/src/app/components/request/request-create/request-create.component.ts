@@ -26,7 +26,8 @@ export class RequestCreateComponent implements OnInit {
 
   ngOnInit() {
     this.sessionID = this.userService.getUserIdentifier();
-    this.getUserInfo();
+    // this.getUserInfo();
+    this.userInfo = this.userService.user;
     this.locations = this.requestService.locations;
     this.initializeRequestForm();
   }
