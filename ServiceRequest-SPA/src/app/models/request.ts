@@ -19,6 +19,7 @@ export interface Request {
   status?: string;
   acknowledged?: boolean;
   owner?: string;
+  resolutionDate?: Date;
   comments?: any;
   attachments?: any;
 }

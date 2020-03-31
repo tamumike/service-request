@@ -1,22 +1,7 @@
-.RequestCreate {
-  background-color: #fff;
-  padding: 30px 0;
-  border-radius: 0;
-  box-shadow: 2px 2px 5px 0px grey;
-  margin-bottom: 100px;
-}
-
-.RequestCreate form {
-  max-width: 70%;
-  margin-left: 40px;
-}
-
-/* .RequestCreate label {
-  font-size: 16px;
-  font-weight: bold;
-  max-width: 25%;
+/* .RequestCreate {
 } */
 
-.RequestCreate .form-group {
-  margin-top: 30px;
+.esr-detail-crate.create {
+  flex-basis: 90%;
+  margin: 0 auto;
 }

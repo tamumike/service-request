@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, ElementRef, ViewChild } from '@angular/core';
 
 import { environment } from '../../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -37,6 +37,9 @@ export class RequestListComponent implements OnInit {
   filterMode = false;
   showAllMode = false;
   requestsCount = 0;
+  @ViewChild('toggleAllBtn') toggleAllBtn: ElementRef;
+  @ViewChild('toggleAssignedBtn') toggleAssignedBtn: ElementRef;
+  activeClasses = ['esr-headline-box esr-headline-sub-box esr-headline-box-active'];
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,
               private requestService: RequestService, private modalService: ModalService,
@@ -114,9 +117,11 @@ export class RequestListComponent implements OnInit {
     this.filterMode = !this.filterMode;
   }
 
-  toggleShowAll() {
+  toggleShowAll(event: any) {
 
-    const el = document.getElementsByClassName('esr-table-btn-all');
+    this.clearActiveHeadline();
+
+    this.toggleAllBtn.nativeElement.classList.add('esr-headline-box-active');
 
     if (!this.showAllMode) {
       this.showAllMode = true;
@@ -126,11 +131,25 @@ export class RequestListComponent implements OnInit {
   }
 
   toggleShowAssigned() {
+
+    this.clearActiveHeadline();
+
+    this.toggleAssignedBtn.nativeElement.classList.add('esr-headline-box-active');
+
     if (this.showAllMode) {
       this.showAllMode = false;
       this.requestParams.owner = this.getRequestParamsOwner();
       this.getRequests();
     }
+  }
+
+  clearActiveHeadline() {
+    const elements = [this.toggleAllBtn, this.toggleAssignedBtn];
+
+    elements.forEach(el => {
+      el.nativeElement.classList.remove('esr-headline-box-active');
+    });
+
   }
 
   getRequests() {

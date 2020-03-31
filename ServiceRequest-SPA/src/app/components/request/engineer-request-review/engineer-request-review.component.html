@@ -1,47 +1,189 @@
-<div class="container-fluid">
-  <button class="btn btn-primary" [routerLink]="['/request-detail/', request.requestID]">Go Back</button>
-  <h1>{{ request.requestID }}</h1>
-  <p>Created By: {{ request.createdBy }}</p>
-  <p>Created Date: {{ request.createdDate | date }}</p>
-  <p>Request Date: {{ request.requestDate }}</p>
-  <p>Location: {{ request.location }}</p>
-  <p>Description: {{ request.description }}</p>
-  <p>Deliverables: {{ request.deliverables }}</p>
+<button class="esr-btn alt" [routerLink]="['/request-detail/', request.requestID]">Go Back</button>
+<div class="esr-request-component EngineerReview">
 
-  <div class="container">
-    <form [formGroup]="reviewRequestForm" (submit)="submit()">
+  <div class="esr-headline-box detail">
 
-      <div class="form-group">
-        <label for="promiseDate">Promise Date:</label>
-        <input type="text"
-        autocomplete="off"
-        formControlName="promiseDate"
-        class="form-control"
-        bsDatepicker
-        [ngClass]="{'is-invalid': reviewRequestForm.get('promiseDate').errors && reviewRequestForm.get('promiseDate').touched}"
-        [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true, isAnimated: false }">
-        <div class="invalid-feedback">Date is invalid.</div>
+    <h1 class="esr-headline detail-id">{{ request.requestID }}</h1>
+    <div class="esr-list-data-divider"></div>
+    <h2 class="esr-headline detail-title">{{ request.title }}</h2>
+
+  </div>
+
+  <div class="esr-detail-background">
+    <div class="esr-detail-body">
+
+      <div class="esr-detail-crate">
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Created By:</div>
+          <div class="esr-detail-field-value">{{ request.createdBy }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Created Date:</div>
+          <div class="esr-detail-field-value">{{ request.createdDate | date: 'longDate' }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Request Date:</div>
+          <div class="esr-detail-field-value">{{ request.requestDate | date: 'longDate' }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">AFE:</div>
+          <div class="esr-detail-field-value">{{ request.afe }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Location:</div>
+          <div class="esr-detail-field-value">{{ request.location }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Description:</div>
+          <div class="esr-detail-field-value">{{ request.description }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Deliverables:</div>
+          <div class="esr-detail-field-value">{{ request.deliverables }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Status:</div>
+          <div class="esr-detail-field-value">{{ request.status }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Engineer:</div>
+          <div class="esr-detail-field-value">{{ request.engineerAssigned }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Promise Date:</div>
+          <div class="esr-detail-field-value">{{ request.promiseDate | date: 'longDate' }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Expected Cost:</div>
+          <div class="esr-detail-field-value">{{ request.expectedCost | currency }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Coupa Date:</div>
+          <div class="esr-detail-field-value">{{ request.coupaDate | date: 'longDate' }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field field-attachment">Attachments:</div>
+          <div class="esr-detail-attachment-box">
+            <div class="esr-detail-field-value" *ngFor="let file of request.attachments">{{ file.filename }}</div>
+          </div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Resolution Date:</div>
+          <div class="esr-detail-field-value">{{ request.resolutionDate | date: 'longDate' }}</div>
+        </div>
+
       </div>
 
-      <div class="form-group">
-        <label for="expectedCost">Expected Cost:</label>
-        <input type="number"
-        class="form-control"
-        formControlName="expectedCost"
-        [ngClass]="{'is-invalid': reviewRequestForm.get('expectedCost').errors && reviewRequestForm.get('expectedCost').touched}">
-        <div class="invalid-feedback">Expected cost must be less than $25,000.</div>
+      <div class="esr-detail-crate">
+
+        <form [formGroup]="reviewRequestForm" (submit)="submit()" class="esr-detail-form" *ngIf="!request.promiseDate">
+
+          <div class="esr-detail-form-box">
+
+            <div class="esr-detail-field">Promise Date:</div>
+
+            <div class="esr-detail-form-box box2">
+
+              <input type="text"
+              autocomplete="off"
+              formControlName="promiseDate"
+              class="esr-detail-text-box"
+              bsDatepicker
+              [ngClass]="{'is-invalid': reviewRequestForm.get('promiseDate').errors && reviewRequestForm.get('promiseDate').touched}"
+              [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true, isAnimated: false }">
+
+              <div class="invalid-feedback esr-invalid-alert">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Please enter a valid date.</p>
+              </div>
+
+              <div class="valid-feedback esr-valid-alert">
+                <i class="far fa-check-square"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="esr-detail-form-box">
+            <div class="esr-detail-field">Expected Cost:</div>
+            <div class="esr-detail-form-box box2">
+              <input type="number"
+              class="esr-detail-text-box"
+              formControlName="expectedCost"
+              [ngClass]="{'is-invalid': reviewRequestForm.get('expectedCost').errors && reviewRequestForm.get('expectedCost').touched}">
+              <div class="invalid-feedback">Expected cost must be less than $25,000.</div>
+            </div>
+          </div>
+
+          <div class="esr-detail-btn-box">
+            <button class="esr-btn" type="submit">Submit</button>
+          </div>
+
+        </form>
+
+        <form [formGroup]="resolveRequestForm" (submit)="resolveRequest()" class="esr-detail-form" *ngIf="request.promiseDate">
+          <div class="esr-detail-form-box">
+
+            <div class="esr-detail-field">Resolve As:</div>
+
+            <div class="esr-detail-form-box box2">
+              <select
+              class="esr-detail-text-box"
+              formControlName="status"
+              [ngClass]="{'is-invalid': resolveRequestForm.get('status').errors && resolveRequestForm.get('status').touched}">
+                <option>Completed</option>
+                <option>Canceled</option>
+              </select>
+
+              <div class="invalid-feedback esr-invalid-alert">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Required</p>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="esr-detail-form-box">
+            <div class="esr-detail-field">Final Comments:</div>
+            <div class="esr-detail-form-box box2 ">
+              <app-final-comment-create #createComment></app-final-comment-create>
+            </div>
+
+          </div>
+
+
+          <div class="esr-detail-btn-box">
+            <button class="esr-btn" type="submit">Submit</button>
+          </div>
+        </form>
+
+
       </div>
 
-      <button class="btn btn-primary" type="Submit">Submit</button>
+    </div>
 
-    </form>
   </div>
 
 
-  <div class="container-fluid">
+  <!-- <button class="esr-btn" (click)="toggleResolveMode($event)">Resolve Request</button> -->
+
+  <!-- <div class="container-fluid">
     <app-comment-list [CommentsFromRequest]="request.comments"></app-comment-list>
     <app-comment-create [requestID]="request.requestID"></app-comment-create>
-  </div>
+  </div> -->
 
 </div>
 

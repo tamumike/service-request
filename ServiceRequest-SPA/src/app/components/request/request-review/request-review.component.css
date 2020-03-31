@@ -1,41 +1,25 @@
-.RequestReview {
-  background-color: #2d2e2e;
-  width: 100%;
-  box-shadow: 2px 2px 5px 0px grey;
-  min-height: 70vh;
-  margin: 0 auto;
-  padding: 0;
-}
+/* .RequestReview {
+} */
 
 .esr-review-header-box {
   width: 100%;
-/*   background-color: #2d2e2e; */
   display: flex;
   border-bottom: 1px #b4b8b8 solid;
-/*   justify-content: center; */
   align-items: center;
   margin: 0;
-/*   margin-bottom: 60px; */
   height: 80px;
-/*   box-shadow: 0 2px 5px grey; */
 }
 
 .esr-review-background {
   display: flex;
   height: 100%;
   width: 100%;
-/*   padding: 2%; */
-/*   background-color: #2d2e2e; */
 }
 
 .esr-review-body {
   margin: 0 auto;
-/*   background-color: #b4b8b8; */
-/*   height: 200px; */
   width: 100%;
   display: flex;
-/*   box-shadow: 2px 2px 5px #878a8a; */
-/*   padding: 2%; */
 }
 
 .esr-review-header-id {
@@ -56,7 +40,6 @@
   display: flex;
   flex-basis: 50%;
   flex-direction: column;
-  /* padding: 20px auto; */
   padding: 20px;
 }
 
@@ -64,7 +47,6 @@
   display: flex;
   justify-content: flex-start;
   margin: 5px 0;
-/*   flex-direction: column; */
 }
 
 .esr-review-field {
@@ -72,8 +54,7 @@
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 400;
-  margin: 0 20px auto 10px;
-  flex-basis: 30%;
+  margin: 0 10px auto 10px;
 }
 
 .esr-review-field-value {
@@ -96,46 +77,8 @@
 .esr-review-div {
   display: flex;
   margin-top: 40px;
-/*   justify-content: flex-end; */
   padding: 20px;
   padding-left: 40px;
-}
-
-.esr-review-btn {
-  font-family: 'Roboto', sans-serif;
-  text-transform: uppercase;
-  background-color: #17c9ff;
-  color: #2d2e2e;
-  letter-spacing: 2px;
-  border: none;
-  padding: 8px 16px;
-  box-shadow: inset 0 0 0 1px #17c9ff, inset 0 0 0 2px #2d2e2e;
-  animation: review-btn-fade-in 200ms linear;
-  animation-fill-mode: both;
-}
-
-.esr-review-btn:hover {
-  animation: review-btn-fade-out 200ms linear;
-  animation-fill-mode: both;
-  color: #17c9ff;
-}
-
-@keyframes review-btn-fade-in {
-  0% {
-    background-color: #2d2e2e;
-  }
-  100% {
-    background-color: #17c9ff;
-  }
-}
-
-@keyframes review-btn-fade-out {
-  0% {
-    background-color: #17c9ff;
-  }
-  100% {
-    background-color: #2d2e2e;
-  }
 }
 
 .esr-review-form {
@@ -146,20 +89,33 @@
 }
 
 .esr-review-form-box {
-/*   border: 1px red solid; */
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   margin: 40px auto;
-  padding-right: 10px;
+  width: 80%;
   line-height: 2.0;
+  box-sizing: border-box;
 }
 
-.esr-review-text-box {
+.esr-detail-form-box.box2 {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  flex-basis: 40%;
+}
+
+.esr-detail-text-box {
   background-color: #878a8a;
   color: #fff;
   border: none;
   font-family: 'Roboto' sans-serif;
-  width: 40%;
+  width: 100%;
+  line-height: 2.0;
+}
+
+.esr-review-form-box.box2 > select {
+  min-height: 34px;
 }
 
 /* The container */
@@ -190,7 +146,7 @@
   height: 32px;
   width: 32px;
   background-color: #5a5c5c;
-  border: 1px solid #ffb617;
+  border: 1px solid #17c9ff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -200,18 +156,16 @@
 
 /* On mouse-over, add a grey background color */
 .esr-review-form-box.field-approved:hover input ~ .checkmark {
-  background-color: #ffb617;
+  background-color: #17c9ff;
   box-shadow: inset 0 0 0 1px #5a5c5c;
 }
 
 .esr-review-form-box.field-approved:hover input:checked ~ .checkmark {
-  background-color: #ffb617;
+  background-color: #17c9ff;
   box-shadow: inset 0 0 0 1px #5a5c5c;
 }
 
 .esr-review-form-box.field-approved:active input ~ .checkmark {
-/*   opacity: 0.8; */
-/*   top: 2px; */
   animation: checkbox-shrink 200ms linear;
   animation-fill-mode: both;
 }
@@ -237,7 +191,7 @@
 /* When the checkbox is checked, add a blue background */
 .esr-review-form-box.field-approved input:checked ~ .checkmark {
   background-color: #5a5c5c;
-  border: 1px solid #ffb617;
+  border: 1px solid #17c9ff;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -267,7 +221,7 @@
   visibility: visible;
   width: 10px;
   height: 25px;
-  border: solid #ffb617;
+  border: solid #17c9ff;
   border-width: 0 2px 2px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
@@ -278,51 +232,6 @@
   display: flex;
   justify-content: center;
   margin-top: 60px;
-}
-
-.esr-review-btn {
-    align-self: flex-start;
-  font-family: 'Roboto', sans-serif;
-  background-color: #ffb617;
-  animation: review-btn-fade-in 200ms linear;
-  border: none;
-  box-shadow: inset 0 0 0 2px #ffb617, inset 0 0 0 3px #5a5c5c;
-  color: #2d2e2e;
-  font-size: 16px;
-  text-transform: uppercase;
-  margin: 20px auto;
-  position: relative;
-  user-select: none;
-}
-
-.esr-review-btn:hover {
-  animation: review-btn-fade-out 200ms linear;
-  animation-fill-mode: both;
-  color: #ffb617;
-  box-shadow: inset 0 0 0 2px #5a5c5c, inset 0 0 0 3px #ffb617;
-}
-
-.esr-review-btn:active {
-  top: 2px;
-}
-
-
-@keyframes review-btn-fade-in {
-  0% {
-    background-color: #5a5c5c;
-  }
-  100% {
-    background-color: #ffb617;
-  }
-}
-
-@keyframes review-btn-fade-out {
-  0% {
-    background-color: #ffb617;
-  }
-  100% {
-    background-color: #5a5c5c;
-  }
 }
 
 @keyframes approve-checked {
@@ -357,7 +266,6 @@
 @keyframes approve-unchecked {
   0% {
     visibility: visible;
-/*     display: block; */
     width: 10px;
     height: 25px;
   }

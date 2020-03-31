@@ -7,10 +7,5 @@ namespace ServiceRequest.API.DTOs
         public decimal ExpectedCost { get; set; }
         public DateTime PromiseDate { get; set; }
         public string Status { get; set; }
-
-        public EngineerReviewedRequestDTO()
-        {
-            Status = "Completed";
-        }
     }
 }

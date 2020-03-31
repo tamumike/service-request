@@ -1,0 +1,77 @@
+.esr-divider {
+  height: 20px;
+  width: 100%;
+  display: flex;
+  flex-basis: auto;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0px 20px;
+}
+
+.esr-divider > .esr-divider-logo {
+  box-sizing: border-box;
+  height: 30px;
+  flex-grow: 0.2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.esr-divider > .esr-divider-logo > .esr-divider-img {
+  content: url('../../../assets/img/logo2.png');
+  height: 20px;
+  width: auto;
+}
+
+.esr-divider > .esr-divider-logo > .esr-divider-img:hover {
+  animation: logo-expand 1s linear infinite;
+}
+
+.esr-divider .esr-divider-bar1, .esr-divider-bar2 {
+  border: 1px solid #5a5c5c;
+  height: 10%;
+  max-width: 90%;
+  color: #fff;
+  margin: 0px 20px;
+  box-shadow: 1px 1px 5px 0px grey;
+  animation: divider-bar-grow 2s linear;
+}
+
+.esr-divider, .esr-divider-bar1 {
+  flex-grow: 6;
+}
+
+.esr-divider, .esr-divider-bar2 {
+  flex-grow: 0.5;
+}
+
+@keyframes logo-expand {
+  0% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes divider-bar-grow {
+  0% {
+    flex-grow: 0;
+  }
+  100% {
+    flex-grow: 100%;
+  }
+}
+
+@keyframes divider-slide {
+  0% {
+    align-items: flex-end;
+  }
+  25% {
+    align-items: stretch;
+  }
+  50% {
+    align-items: flex-start;
+  }
+  100% {
+    align-items: baseline;
+
+  }
+}

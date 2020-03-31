@@ -103,5 +103,18 @@ namespace ServiceRequest.API.Controllers
 
             throw new Exception($"Error updating the status.");
         }
+
+        [HttpPut("{ID}/resolved")]
+        public async Task<IActionResult> ResolveRequest([FromRoute]string ID, ResolvedRequestDTO resolvedRequestDTO) {
+
+            var requestFromDB = await _repo.GetRequest(ID);
+            var requestToUpdate = _mapper.Map(resolvedRequestDTO, requestFromDB);
+
+            if (await _repo.SaveAll())
+                return Ok(requestFromDB);
+
+            throw new Exception($"Error resolving the request.");
+
+        }
     }
 }

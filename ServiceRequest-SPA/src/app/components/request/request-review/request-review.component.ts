@@ -36,7 +36,8 @@ export class RequestReviewComponent implements OnInit {
       engineerAssigned: ['', Validators.required],
       afe: ['', Validators.required],
       coupaDate: ['', Validators.required],
-      approved: [false],
+      approved: [],
+      status: [''],
       createdBy: [this.request.createdBy, Validators.required],
       acknowledged: [false, Validators.required]
     });
@@ -49,6 +50,13 @@ export class RequestReviewComponent implements OnInit {
   submitRequestReview() {
     console.log('submit request review');
     this.reviewRequestForm.value.propertyCode = 0;
+
+    if (this.reviewRequestForm.value.approved) {
+      this.reviewRequestForm.value.status = 'Approved';
+    } else {
+      this.reviewRequestForm.value.status = 'Requested';
+    }
+
     console.log(this.reviewRequestForm.value);
     this.requestService.submitReviewedRequest(this.request.requestID, this.reviewRequestForm.value).subscribe(response => {
       this.router.navigate(['request-detail/' + response.requestID]);
@@ -56,6 +64,7 @@ export class RequestReviewComponent implements OnInit {
       console.log('review request, submit', error);
     });
   }
+
 
   refreshComments(refresh: boolean) {
     if (refresh) {

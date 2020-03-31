@@ -137,6 +137,37 @@ namespace ServiceRequest.API.Data
             return user.Role == 3;
         }
 
+        public async Task<User> GetUserFromCookie(IRequestCookieCollection requestCookies, string _cookie)
+        {
+            User user = null;
+            requestCookies.TryGetValue(_cookie, out string sessionIDFromCookie);
+            Guid sessionIDAsGuid = Guid.Parse(sessionIDFromCookie);
+
+            var userFromRepo = await GetUser(sessionIDAsGuid);
+            if (userFromRepo != null) {
+                user = userFromRepo;
+            } else {
+                user = await GetUserFromUsername();
+            }
+
+            return user;
+        }
+
+        public async Task<User> GetUserFromUsername()
+        {
+            User user = null;
+            string username = GetUsername();
+
+            if (await UserExists(username))
+            {
+                user = await GetUser(username);
+            }
+
+            return user;
+        }        
+
+        
+
         public async Task<User> Login()
         {
             User user = null;
@@ -203,5 +234,7 @@ namespace ServiceRequest.API.Data
 
             return false;
         }
+
+
     }
 }

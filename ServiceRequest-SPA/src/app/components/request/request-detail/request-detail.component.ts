@@ -40,11 +40,19 @@ export class RequestDetailComponent implements OnInit {
       this.newRequestCount = x;
     });
 
+    /*
+    checks if 1) the request is not acknowledged
+    2) the request is owned by the user
+    3) the user did not create the request
+    */
+
     // tslint:disable-next-line: max-line-length
     if (!this.request.acknowledged && this.requestService.isRequestOwnedByUser(this.request) && this.request.createdBy !== this.userInfo.username) {
+
       this.request.acknowledged = true;
       this.newRequestCount -= 1;
       this.requestService.newRequestCount.next(this.newRequestCount);
+
       this.requestService.updateRequest(this.request.requestID, this.request).subscribe(response => {
         this.request = response;
       }, error => {

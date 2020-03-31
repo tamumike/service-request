@@ -4,31 +4,90 @@
   padding: 0;
 }
 
-/* .esr-navbar-box {
-  border-color: #fff;
-  border-style: solid;
+.esr-navbar {
+  box-shadow: 2px 2px 5px 0px grey;
+  padding: 0;
+  height: 60px;
+  display: flex;
+  margin-bottom: 24px;
+}
+
+.esr-navbar-crate-80 {
+  display: flex;
+  height: 100%;
+  flex-basis: 80%;
+  margin: 0;
+  justify-content: flex-start;
+}
+
+.esr-navbar-crate-20 {
+  display: flex;
+  height: 100%;
+  flex-basis: 20%;
+  margin: 0;
+  justify-content: flex-end;
+}
+
+.esr-navbar-crate-20 i {
+  color: #ffb617;
+  margin-right: 8px;
+}
+
+.esr-navbar-box {
   z-index: 200;
   position: relative;
   border: none;
   border-top: 1px;
   border-bottom: 1px;
-  box-shadow: 3px 0 2px rgba(255,255,255,0.6);
   height: 100%;
   flex-basis: 7%;
   padding: 0;
-  margin: 0;
+  margin: 0 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
 }
 
-.navbar-box-alt {
-  background-color: #5a5c5c;
-  box-shadow: none;
+.esr-navbar-user-box {
+  display: flex;
+  font-family: 'Prompt', sans-serif;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: flex-end;
+  padding-right: 24px;
 }
 
-.navbar-brand img {
-  width: 120px;
+.esr-navbar-box.alt {
+  background-color: #5a5c5c;
+  box-shadow: inset 0 0 0 11px rgba(90, 92, 92, 1.0),
+    inset 0 10.5px 0 5px rgba(90, 92, 92, 1.0),
+    inset -10.5px 0 0 5px rgba(90, 92, 92, 1.0),
+    inset 10.5px 0 0 5px rgba(90, 92, 92, 1.0);
+  color: #ffb617;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-bottom: 1.5px solid rgba(255, 182, 23, 1.0);
+}
 
-} */
+.esr-navbar-box.alt > h1 {
+  font-size: 14px;
+}
+
+.esr-navbar-box img {
+  width: 120px;
+}
+
+.esr-navbar-active-span {
+  height: 18px;
+  width: 18px;
+  transform: rotate(45deg);
+  background-color: #5a5c5c;
+  position: absolute;
+  border-bottom: 1.5px solid rgba(255, 182, 23, 1.0);
+  border-right: 1.5px solid rgba(255, 182, 23, 1.0);
+  bottom: -10px;
+  z-index: 201;
+  box-shadow: 3px 1px 3px rgb(135, 138, 138);
+  border-radius: 0 0 20% 0;
+}

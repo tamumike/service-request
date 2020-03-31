@@ -67,13 +67,9 @@ namespace ServiceRequest.API.Controllers
             IResponseCookies responseCookies = _http.HttpContext.Response.Cookies;
             if (requestCookies.ContainsKey(_cookie))
             {
-                Console.WriteLine("\n\n\n\n\n\n");
-                Console.WriteLine("\n\n\n\n\n\nWe Good Bra");
-                Console.WriteLine("\n\n\n\n\n\n");
-                requestCookies.TryGetValue(_cookie, out string sessionIDFromCookie);
-                Guid sessionIDAsGuid = Guid.Parse(sessionIDFromCookie);
+                user = await _repo.GetUserFromCookie(requestCookies, _cookie);
 
-                user = await _repo.GetUser(sessionIDAsGuid);
+                
 
                 // responseCookies.Delete(_cookie);
             }

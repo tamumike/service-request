@@ -6,11 +6,11 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 
 @Component({
-  selector: 'app-comment-create',
-  templateUrl: './comment-create.component.html',
-  styleUrls: ['./comment-create.component.css']
+  selector: 'app-final-comment-create',
+  templateUrl: './final-comment-create.component.html',
+  styleUrls: ['./final-comment-create.component.css']
 })
-export class CommentCreateComponent implements OnInit {
+export class FinalCommentCreateComponent implements OnInit {
   createCommentForm: FormGroup;
   @Input() requestID: string;
   user: User;

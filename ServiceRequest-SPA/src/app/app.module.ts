@@ -39,6 +39,7 @@ import { ModalInterceptorProvider } from './services/modal.interceptor';
 import { FooterComponent } from './UI/footer/footer.component';
 import { GreetingComponent } from './UI/greeting/greeting.component';
 import { DividerComponent } from './UI/divider/divider.component';
+import { FinalCommentCreateComponent } from './components/comment/final-comment-create/final-comment-create.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { DividerComponent } from './UI/divider/divider.component';
     ConfirmModalComponent,
     FooterComponent,
     GreetingComponent,
-    DividerComponent
+    DividerComponent,
+    FinalCommentCreateComponent
   ],
   imports: [
     BrowserModule,

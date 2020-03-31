@@ -4,6 +4,7 @@ using ServiceRequest.API.Models;
 using ServiceRequest.API.DTOs;
 using ServiceRequest.API.Helpers;
 using System;
+using Microsoft.AspNetCore.Http;
 
 namespace ServiceRequest.API.Data
 {
@@ -20,5 +21,7 @@ namespace ServiceRequest.API.Data
         IEnumerable<GroupMember> GetGroupMembers();
         Task<User> Login();
         Task<bool> IsAdministrator(Guid sessionID);
+        Task<User> GetUserFromCookie(IRequestCookieCollection requestCookies, string _cookie);
+        Task<User> GetUserFromUsername();
     }
 }

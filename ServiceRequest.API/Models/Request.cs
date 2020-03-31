@@ -26,6 +26,7 @@ namespace ServiceRequest.API.Models
         public string Status { get; set; }
         public bool Acknowledged { get; set; }
         public string Owner { get; set; }
+        public DateTime? ResolutionDate { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Attachment> Attachments { get; set; }
     }

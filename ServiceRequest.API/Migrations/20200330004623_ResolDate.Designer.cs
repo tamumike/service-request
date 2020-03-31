@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ServiceRequest.API.Data;
 
 namespace ServiceRequest.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200330004623_ResolDate")]
+    partial class ResolDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,9 +65,6 @@ namespace ServiceRequest.API.Migrations
 
                     b.Property<string>("RequestID")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("Resolution")
-                        .HasColumnType("bit");
 
                     b.HasKey("CommentID");
 
@@ -142,7 +141,7 @@ namespace ServiceRequest.API.Migrations
                     b.Property<DateTime>("RequestDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("ResolutionDate")
+                    b.Property<DateTime>("ResolutionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Status")

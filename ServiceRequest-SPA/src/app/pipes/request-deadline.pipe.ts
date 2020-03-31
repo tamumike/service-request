@@ -16,7 +16,7 @@ export class RequestDeadlinePipe implements PipeTransform {
 
       if (requestDateTime <= sevenDaysOut) {
 
-        classToReturn = 'deadline-warning';
+        classToReturn = 'esr-list-alert-yellow';
 
       } else {
 
@@ -25,7 +25,7 @@ export class RequestDeadlinePipe implements PipeTransform {
 
     } else {
 
-      classToReturn = 'deadline-danger';
+      classToReturn = 'esr-list-alert-red';
     }
 
     return classToReturn;

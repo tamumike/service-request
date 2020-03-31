@@ -9,6 +9,7 @@ namespace ServiceRequest.API.Models
         public string Author { get; set; }
         public string Content { get; set; }
         public DateTime CreatedDate { get; set; }
+        public bool Resolution { get; set; }
         public virtual Request Request { get; set; }
     }
 }

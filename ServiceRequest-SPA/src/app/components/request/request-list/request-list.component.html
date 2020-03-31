@@ -1,41 +1,137 @@
-<div matSort class="RequestList" (matSortChange)="sortData($event)">
+<div matSort class="esr-request-component RequestList" (matSortChange)="sortData($event)">
   <div class="esr-headline-box">
     <h1 class="esr-headline">Active Requests</h1>
   </div>
 
-  <div class="esr-headline-box esr-table-tabs-box">
+  <!-- <div class="esr-headline-box esr-table-tabs-box"> -->
+    <div class="esr-headline-box tabs">
 
-    <div class="esr-table-tabs-sub-box">
+      <!-- <div class="esr-table-tabs-sub-box"> -->
+        <div class="esr-tabs-box">
 
-      <div class="esr-headline-box esr-headline-sub-box esr-headline-box-active" (click)="toggleShowAssigned()">
-        <h2 class="esr-headline esr-headline-sub esr-headline-sub-alt">Assigned</h2>
-        <span class="esr-headline-span"></span>
+        <div class="esr-tabs-box box2 active" (click)="toggleShowAssigned()" #toggleAssignedBtn>
+          <h2 class="esr-headline tab-text">Assigned</h2>
+          <span class="esr-tab-span"></span>
+        </div>
+
+        <div class="esr-tabs-box box2" (click)="toggleShowAll($event)" #toggleAllBtn>
+          <h2 class="esr-headline tab-text">All</h2>
+          <span class="esr-tab-span"></span>
+        </div>
+
       </div>
-
-        <div class="esr-headline-box esr-headline-sub-box">
-          <h2 class="esr-headline esr-headline-sub esr-headline-sub-alt">Submitted</h2>
-          <span class="esr-headline-span inactive"></span>
-        </div>
-
-        <div class="esr-headline-box esr-headline-sub-box esr-table-btn-all" (click)="toggleShowAll()">
-          <h2 class="esr-headline esr-headline-sub esr-headline-sub-alt">All</h2>
-          <span class="esr-headline-span inactive"></span>
-        </div>
-
-    </div>
 
       <div class="esr-table-tabs-sub-box esr-table-buttons-box">
-          <button *ngIf="requestsCount > 0" class="esr-button esr-list-filter-btn" (click)="toggleFilterMode()">Filters</button>
+
+      </div>
+
+      <div class="esr-filter-box">
+        <button *ngIf="requestsCount > 0" class="esr-btn sm alt btn-filter-primary" (click)="toggleFilterMode()"><i class="fas fa-filter"></i></button>
+        <form id="filterForm" class="esr-filter-form" *ngIf="filterMode" [formGroup]="filterRequestsForm" (ngSubmit)="filterRequests()">
+
+          <div class="esr-filter-body">
+
+            <label class="esr-filter-label" for="field">Field: </label>
+
+            <!-- <div class="esr-filter-crate"></div> -->
+
+              <select
+                      (change)="checkFilterInputType()"
+                      formControlName="field"
+                      class="esr-detail-text-box filter">
+                <option *ngFor="let field of fieldsForFilter" value="{{ field.value }}">{{ field.display }}</option>
+              </select>
+
+
+            <label class="esr-filter-label" for="fieldValue">Value: </label>
+
+              <input *ngIf="!toggleFilterInputType" type="text"
+                     class="esr-detail-text-box filter"
+                     formControlName="fieldValue">
+
+              <select
+                      *ngIf="filterRequestsForm.value.field == 'location'"
+                      formControlName="fieldValue"
+                      class="esr-detail-text-box filter">
+                <option *ngFor="let location of locations" value="{{ location.name }}">{{ location.name }}</option>
+              </select>
+
+              <select
+                      *ngIf="filterRequestsForm.value.field == 'engineerAssigned'"
+                      formControlName="fieldValue"
+                      class="esr-detail-text-box filter">
+                <option *ngFor="let member of groupMembers" value="{{ member.username }}">{{ member.fullName }}</option>
+              </select>
+
+          </div>
+
+          <div class="esr-filter-btn-box">
+            <button class="esr-btn secondary alt sm btn-filter" (click)="clearFilter($event)">Clear</button>
+            <button type="submit" class="esr-btn secondary sm btn-filter">Apply</button>
+          </div>
+
+        </form>
+
       </div>
 
 
+    </div>
+
+
+
+  <div class="esr-list-table-body" >
+    <div class="esr-list-table-crate">
+      <div class="esr-list-table-header-box">
+        <div class="esr-header-box1">
+          <p mat-sort-header="requestID" class="esr-list-header header-id">id</p>
+          <p mat-sort-header="title" class="esr-list-header header-title">Title</p>
+        </div>
+        <div class="esr-header-box2">
+          <p mat-sort-header="createdBy" class="esr-list-header header-requestedby">Requested By</p>
+          <p mat-sort-header="status" class="esr-list-header header-status">Status</p>
+          <p mat-sort-header="requestDate" class="esr-list-header header-duedate">Due Date</p>
+        </div>
+      </div>
+
+      <div class="esr-list-table-box" *ngFor="let request of sortedData" (click)="navToRequest(request.requestID)">
+
+        <div class="esr-list-table-box-sub">
+          <p class="esr-list-data-id">{{ request.requestID }}</p>
+          <div class="esr-list-data-divider"></div>
+          <p class="esr-list-data-title">{{ request.title }}</p>
+        </div>
+
+        <div *ngIf="!request.acknowledged && (userInfo.username == request.owner || (userInfo.role == 3))" class="esr-list-alert esr-list-alert-new"><p></p></div>
+        <div class="esr-list-alert {{ request.requestDate | requestDeadline }}"><p></p></div>
+
+        <div class="esr-list-attr-box">
+          <p class="esr-list-attr esr-list-data-author">{{ request.createdBy }}</p>
+          <p class="esr-list-attr esr-list-data-status">{{ request.status }}</p>
+          <p class="esr-list-attr esr-list-data-due">{{ request.requestDate | date: 'LL/dd/yyyy' }}</p>
+        </div>
+
+      </div>
 
     </div>
+
+    <div class="esr-list-table-crate">
+      <div class="esr-list-table-sidepane">
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <div *ngIf="requestsCount == 0" class="container-fluid d-flex justify-content-center align-items-center m-5 flex-column">
+    <i class="fas fa-exclamation-circle fa-5x"></i>
+    <h1>There aren't any requests, yet.</h1>
+  </div>
+</div>
+
+
 
   <!-- <div class="container m-2 d-flex flex-column">
-    <div class="container-fluid d-flex justify-content-end p-0">
-    </div>
-
 
     <form id="filterForm" *ngIf="filterMode" [formGroup]="filterRequestsForm" (ngSubmit)="filterRequests()">
       <div class="d-inline-flex align-items-baseline m-3">
@@ -115,57 +211,6 @@
       </tr>
     </tbody>
   </table> -->
-
-
-  <div class="esr-list-table-body" >
-    <div class="esr-list-table-crate">
-      <div class="esr-list-table-header-box">
-        <div class="esr-header-box1">
-          <p mat-sort-header="requestID" class="esr-list-header header-id">id</p>
-          <p mat-sort-header="title" class="esr-list-header header-title">Title</p>
-        </div>
-        <div class="esr-header-box2">
-          <p mat-sort-header="createdBy" class="esr-list-header header-requestedby">Requested By</p>
-          <p mat-sort-header="status" class="esr-list-header header-status">Status</p>
-          <p mat-sort-header="requestDate" class="esr-list-header header-duedate">Due Date</p>
-        </div>
-      </div>
-
-      <div class="esr-list-table-box" *ngFor="let request of sortedData" (click)="navToRequest(request.requestID)">
-
-        <div class="esr-list-table-box-sub">
-          <p class="esr-list-data-id">{{ request.requestID }}</p>
-          <div class="esr-list-data-divider"></div>
-          <p class="esr-list-data-title">{{ request.title }}</p>
-        </div>
-        <div class="esr-list-alert esr-list-alert-red"><p>Overdue</p></div>
-        <div class="esr-list-attr-box">
-          <p class="esr-list-attr esr-list-data-author">{{ request.createdBy }}</p>
-          <p class="esr-list-attr esr-list-data-status">{{ request.status }}</p>
-          <p class="esr-list-attr esr-list-data-due">{{ request.requestDate | date: 'LL/dd/yyyy' }}</p>
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="esr-list-table-crate">
-      <div class="esr-list-table-sidepane">
-
-      </div>
-    </div>
-  </div>
-
-
-
-  <div *ngIf="requestsCount == 0" class="container-fluid d-flex justify-content-center align-items-center m-5 flex-column">
-    <i class="fas fa-exclamation-circle fa-5x"></i>
-    <h1>There aren't any requests, yet.</h1>
-  </div>
-</div>
-
-
-
 
 
 

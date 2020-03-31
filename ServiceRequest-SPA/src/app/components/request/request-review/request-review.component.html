@@ -1,116 +1,166 @@
-<div class="container-fluid d-flex mb-3">
-  <button class="btn btn-primary" [routerLink]="['/request-detail/', request.requestID]">Go Back</button>
-</div>
+<button class="esr-btn alt" [routerLink]="['/request-detail/', request.requestID]">Go Back</button>
 
-<div class="container-fluid RequestReview">
+<div class="esr-request-component RequestReview">
 
-  <div class="esr-review-header-box">
-    <h1 class="esr-review-header-id">20-001</h1>
+  <div class="esr-headline-box detail">
+
+    <h1 class="esr-headline detail-id">{{ request.requestID }}</h1>
     <div class="esr-list-data-divider"></div>
-    <h2 class="esr-review-header-title">Red Hills Expansion</h2>
+    <h2 class="esr-headline detail-title">{{ request.title }}</h2>
+
   </div>
 
-  <div class="esr-review-background">
-    <div class="esr-review-body">
+  <div class="esr-detail-background">
+    <div class="esr-detail-body">
 
-      <div class="esr-review-crate">
+      <div class="esr-detail-crate">
 
-        <div class="esr-review-box">
-          <div class="esr-review-field">Created By:</div>
-          <div class="esr-review-field-value">PorkyPig</div>
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Created By:</div>
+          <div class="esr-detail-field-value">{{ request.createdBy }}</div>
         </div>
 
-        <div class="esr-review-box">
-          <div class="esr-review-field">Created Date:</div>
-          <div class="esr-review-field-value">03/16/2020</div>
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Created Date:</div>
+          <div class="esr-detail-field-value">{{ request.createdDate | date: 'longDate' }}</div>
         </div>
 
-        <div class="esr-review-box">
-          <div class="esr-review-field">Request Date:</div>
-          <div class="esr-review-field-value">05/17/2020</div>
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Request Date:</div>
+          <div class="esr-detail-field-value">{{ request.requestDate | date: 'longDate' }}</div>
         </div>
 
-        <div class="esr-review-box">
-          <div class="esr-review-field">Location:</div>
-          <div class="esr-review-field-value">Red Hills Facility</div>
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">AFE:</div>
+          <div class="esr-detail-field-value">{{ request.afe }}</div>
         </div>
 
-        <div class="esr-review-box">
-          <div class="esr-review-field">Description:</div>
-          <div class="esr-review-field-value">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac ut consequat semper viverra nam libero justo. Dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Libero volutpat sed cras ornare arcu. Massa enim nec dui nunc mattis enim ut tellus elementum. Hendrerit gravida rutrum quisque non tellus orci ac auctor. Varius morbi enim nunc faucibus a pellentesque sit amet. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Sed ullamcorper morbi tincidunt ornare massa eget egestas purus. </div>
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Location:</div>
+          <div class="esr-detail-field-value">{{ request.location }}</div>
         </div>
 
-
-
-        <div class="esr-review-box">
-          <div class="esr-review-field">Deliverables:</div>
-          <div class="esr-review-field-value">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac placerat vestibulum lectus mauris ultrices eros in cursus. Sodales ut etiam sit amet nisl. Nunc id cursus metus aliquam eleifend mi. Rutrum tellus pellentesque eu tincidunt. Quis risus sed vulputate odio ut enim blandit volutpat. Faucibus interdum posuere lorem ipsum dolor sit amet consectetur. Ullamcorper sit amet risus nullam. Lobortis scelerisque fermentum dui faucibus in.</div>
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Description:</div>
+          <div class="esr-detail-field-value">{{ request.description }}</div>
         </div>
 
-        <div class="esr-review-box">
-          <div class="esr-review-field">Status:</div>
-          <div class="esr-review-field-value">Open</div>
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Deliverables:</div>
+          <div class="esr-detail-field-value">{{ request.deliverables }}</div>
         </div>
 
-        <div class="esr-review-box">
-          <div class="esr-review-field field-attachment">Attachments:</div>
-          <div class="esr-review-attachment-box">
-            <div class="esr-review-field-value">document1.txt</div>
-            <div class="esr-review-field-value">document2.pdf</div>
-            <div class="esr-review-field-value">document3.png</div>
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Status:</div>
+          <div class="esr-detail-field-value">{{ request.status }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Engineer:</div>
+          <div class="esr-detail-field-value">{{ request.engineerAssigned }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Promise Date:</div>
+          <div class="esr-detail-field-value">{{ request.promiseDate }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Expected Cost:</div>
+          <div class="esr-detail-field-value">{{ request.expectedCost }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Coupa Date:</div>
+          <div class="esr-detail-field-value">{{ request.coupaDate | date: 'longDate' }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field field-attachment">Attachments:</div>
+          <div class="esr-detail-attachment-box">
+            <div class="esr-detail-field-value" *ngFor="let file of request.attachments">{{ file.filename }}</div>
           </div>
         </div>
 
       </div>
 
-      <div class="esr-review-crate">
+      <div class="esr-detail-crate">
 
-        <form [formGroup]="reviewRequestForm" (ngSubmit)="submitRequestReview()" class="esr-review-form">
+        <form [formGroup]="reviewRequestForm" (ngSubmit)="submitRequestReview()" class="esr-detail-form">
 
-          <div class="esr-review-form-box">
+          <div class="esr-detail-form-box">
 
-            <div class="esr-review-field">AFE:</div>
+            <div class="esr-detail-field">AFE:</div>
 
-            <input type="text"
-            class="esr-review-text-box"
-            formControlName="afe"
-            [ngClass]="{'is-invalid': reviewRequestForm.get('afe').errors && reviewRequestForm.get('afe').touched}">
+            <div class="esr-detail-form-box box2">
 
-            <div class="invalid-feedback">Please provide the AFE number.</div>
+              <input type="text"
+              class="esr-detail-text-box"
+              formControlName="afe"
+              [ngClass]="{'is-invalid': reviewRequestForm.get('afe').errors && reviewRequestForm.get('afe').touched, 'is-valid': reviewRequestForm.get('afe').valid}">
+
+              <div class="invalid-feedback esr-invalid-alert">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Please provide the AFE number.</p>
+              </div>
+
+              <div class="valid-feedback esr-valid-alert">
+                <i class="far fa-check-square"></i>
+              </div>
+            </div>
           </div>
 
-          <div class="esr-review-form-box">
-            <div class="esr-review-field">Assigned Engineer:</div>
-            <select
-            formControlName="engineerAssigned"
-            class="esr-review-text-box"
-            [ngClass]="{'is-invalid': reviewRequestForm.get('engineerAssigned').errors && reviewRequestForm.get('engineerAssigned').touched}">
-            <option *ngFor="let member of groupMembers" value="{{ member.username }}">{{ member.fullName }}</option>
-            </select>
-            <div class="invalid-feedback">Please assign an engineer to the request.</div>
+          <div class="esr-detail-form-box">
+            <div class="esr-detail-field">Assigned Engineer:</div>
+            <div class="esr-detail-form-box box2">
+              <select
+              formControlName="engineerAssigned"
+              class="esr-detail-text-box"
+              [ngClass]="{'is-invalid': reviewRequestForm.get('engineerAssigned').errors && reviewRequestForm.get('engineerAssigned').touched, 'is-valid': reviewRequestForm.get('engineerAssigned').valid}">
+              <option *ngFor="let member of groupMembers" value="{{ member.username }}">{{ member.fullName }}</option>
+              </select>
+
+              <div class="invalid-feedback esr-invalid-alert">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Please assign an engineer.</p>
+              </div>
+
+              <div class="valid-feedback esr-valid-alert">
+                <i class="far fa-check-square"></i>
+              </div>
+            </div>
           </div>
 
-          <div class="esr-review-form-box">
-            <div class="esr-review-field">Coupa Approved Date:</div>
-            <input type="text"
-            autocomplete="off"
-            formControlName="coupaDate"
-            class="esr-review-text-box"
-            bsDatepicker
-            [ngClass]="{'is-invalid': reviewRequestForm.get('coupaDate').errors && reviewRequestForm.get('coupaDate').touched}"
-            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true, isAnimated: false }">
-            <div class="invalid-feedback">Date is invalid.</div>
+          <div class="esr-detail-form-box">
+            <div class="esr-detail-field">Coupa Approved Date:</div>
+              <div class="esr-detail-form-box box2">
+                <input type="text"
+                autocomplete="off"
+                formControlName="coupaDate"
+                class="esr-detail-text-box"
+                bsDatepicker
+                [ngClass]="{'is-invalid': reviewRequestForm.get('coupaDate').errors && reviewRequestForm.get('coupaDate').touched, 'is-valid': reviewRequestForm.get('coupaDate').valid}"
+                [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true, isAnimated: false }">
+                <div class="invalid-feedback esr-invalid-alert">
+                  <i class="fas fa-exclamation-circle"></i>
+                  <p>Date is invalid.</p>
+                </div>
+
+                <div class="valid-feedback esr-valid-alert">
+                  <i class="far fa-check-square"></i>
+                </div>
+              </div>
           </div>
 
-          <div class="esr-review-form-box field-approved">
-            <label class="esr-review-field field-approved">Approved:
-              <input type="checkbox" class="esr-review-check" formControlName="approved">
+          <div class="esr-detail-form-box field-approved">
+            <label class="esr-detail-field field-approved">Approved:
+              <input type="checkbox" formControlName="approved">
               <span class="checkmark"></span>
             </label>
           </div>
 
-          <div class="esr-review-btn-box">
-            <button class="esr-review-btn" type="submit">Submit</button>
+          <div class="esr-detail-btn-box">
+            <button class="esr-btn" type="submit">Submit</button>
           </div>
 
         </form>
@@ -122,102 +172,6 @@
   </div>
 
   </div>
-
-<!-- <div class="container ReviewRequest">
-
-  <h1 class="request-review-header">Service Request # {{ request.requestID }}</h1>
-  <h2 class="request-review-subheader">{{ request.title }}</h2>
-
-  <div class="container request-review-container-box">
-    <div class="container d-flex p-0 request-review-box">
-      <div class="flex-fill request-review-field">Created By:</div>
-      <div class="flex-fill request-review-value">{{ request.createdBy }}</div>
-    </div>
-
-    <div class="container d-flex p-0 request-review-box">
-      <div class="flex-fill request-review-field">Created Date:</div>
-      <div class="flex-fill request-review-value">{{ request.createdDate | date }}</div>
-    </div>
-
-    <div class="container d-flex p-0 request-review-box">
-      <div class="flex-fill request-review-field">Request Date:</div>
-      <div class="flex-fill request-review-value">{{ request.requestDate | date}}</div>
-    </div>
-
-    <div class="container d-flex p-0 request-review-box">
-      <div class="flex-fill request-review-field">Location:</div>
-      <div class="flex-fill request-review-value">{{ request.location }}</div>
-    </div>
-
-    <div class="container d-flex p-0 request-review-box">
-      <div class="flex-fill request-review-field">Description:</div>
-      <div class="flex-fill request-review-value">{{ request.description }}</div>
-    </div>
-
-    <div class="container d-flex p-0 request-review-box">
-      <div class="flex-fill request-review-field">Deliverables:</div>
-      <div class="flex-fill request-review-value">{{ request.deliverables }}</div>
-    </div>
-
-    <div class="container d-flex p-0 request-review-box">
-      <div class="flex-fill request-review-field">Status:</div>
-      <div class="flex-fill request-review-value">{{ request.status }}</div>
-    </div>
-  </div>
-
-
-  <div class="container request-review-container-box mt-3">
-    <form [formGroup]="reviewRequestForm" (ngSubmit)="submitRequestReview()">
-
-      <div class="form-group">
-        <label class="request-review-field" for="afe">AFE:</label>
-        <input type="text"
-        class="form-control"
-        formControlName="afe"
-        [ngClass]="{'is-invalid': reviewRequestForm.get('afe').errors && reviewRequestForm.get('afe').touched}">
-        <div class="invalid-feedback">Please provide the AFE number.</div>
-      </div>
-
-      <div class="form-group">
-        <label class="request-review-field" for="engineerAssigned">Assigned Engineer:</label>
-        <select
-        formControlName="engineerAssigned"
-        class="form-control"
-        [ngClass]="{'is-invalid': reviewRequestForm.get('engineerAssigned').errors && reviewRequestForm.get('engineerAssigned').touched}">
-        <option *ngFor="let member of groupMembers" value="{{ member.username }}">{{ member.fullName }}</option>
-        </select>
-        <div class="invalid-feedback">Please assign an engineer to the request.</div>
-      </div>
-
-      <div class="form-group">
-        <label class="request-review-field" for="coupaDate">Coupa Approved Date:</label>
-        <input type="text"
-        autocomplete="off"
-        formControlName="coupaDate"
-        class="form-control"
-        bsDatepicker
-        [ngClass]="{'is-invalid': reviewRequestForm.get('coupaDate').errors && reviewRequestForm.get('coupaDate').touched}"
-        [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true, isAnimated: false }">
-        <div class="invalid-feedback">Date is invalid.</div>
-      </div>
-
-      <div class="form-group form-check form-check-inline d-flex align-items-center">
-        <input type="checkbox" class="form-check-input form-control request-checkbox" formControlName="approved">
-        <label class="request-review-field" for="approved">Approved </label>
-      </div>
-
-      <div class="form-group d-flex justify-content-end">
-        <button class="btn btn-success" type="submit">Submit</button>
-      </div>
-
-    </form>
-  </div>
-</div>
-
-  <div class="container-fluid w-75">
-    <app-comment-list [CommentsFromRequest]="request.comments"></app-comment-list>
-    <app-comment-create [requestID]="request.requestID" (commentSubmitted)="refreshComments($event)"></app-comment-create>
-  </div> -->
 
 
 

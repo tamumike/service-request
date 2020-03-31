@@ -1,15 +1,12 @@
-<div class="container-fluid d-flex mb-3">
-  <button class="btn btn-primary mr-2" [routerLink]="['request-list']">Go Back</button>
-  <button class="btn btn-success" *ngIf="!request.approved && isAdmin" [routerLink]="['/request-review/', request.requestID]">Review</button>
-  <button class="btn btn-success" *ngIf="request.approved" [routerLink]="['/e-request-review/', request.requestID]">Engineer Review</button>
-</div>
+<button class="esr-btn alt" [routerLink]="['request-list']">Go Back</button>
+<div class="esr-request-component RequestDetail">
 
-<div class="container-fluid RequestDetail">
+  <div class="esr-headline-box detail">
 
-  <div class="esr-detail-header-box">
-    <h1 class="esr-detail-header-id">20-001</h1>
+    <h1 class="esr-headline detail-id">{{ request.requestID }}</h1>
     <div class="esr-list-data-divider"></div>
-    <h2 class="esr-detail-header-title">Red Hills Expansion</h2>
+    <h2 class="esr-headline detail-title">{{ request.title }}</h2>
+
   </div>
 
   <div class="esr-detail-background">
@@ -19,68 +16,93 @@
 
         <div class="esr-detail-box">
           <div class="esr-detail-field">Created By:</div>
-          <div class="esr-detail-field-value">PorkyPig</div>
+          <div class="esr-detail-field-value">{{ request.createdBy }}</div>
         </div>
 
         <div class="esr-detail-box">
           <div class="esr-detail-field">Created Date:</div>
-          <div class="esr-detail-field-value">03/16/2020</div>
+          <div class="esr-detail-field-value">{{ request.createdDate | date: 'longDate' }}</div>
         </div>
 
         <div class="esr-detail-box">
           <div class="esr-detail-field">Request Date:</div>
-          <div class="esr-detail-field-value">05/17/2020</div>
+          <div class="esr-detail-field-value">{{ request.requestDate | date: 'longDate' }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">AFE:</div>
+          <div class="esr-detail-field-value">{{ request.afe }}</div>
         </div>
 
         <div class="esr-detail-box">
           <div class="esr-detail-field">Location:</div>
-          <div class="esr-detail-field-value">Red Hills Facility</div>
+          <div class="esr-detail-field-value">{{ request.location }}</div>
         </div>
 
         <div class="esr-detail-box">
           <div class="esr-detail-field">Description:</div>
-          <div class="esr-detail-field-value">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac ut consequat semper viverra nam libero justo. Dolor sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Libero volutpat sed cras ornare arcu. Massa enim nec dui nunc mattis enim ut tellus elementum. Hendrerit gravida rutrum quisque non tellus orci ac auctor. Varius morbi enim nunc faucibus a pellentesque sit amet. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Sed ullamcorper morbi tincidunt ornare massa eget egestas purus. </div>
+          <div class="esr-detail-field-value">{{ request.description }}</div>
         </div>
-
-
 
         <div class="esr-detail-box">
           <div class="esr-detail-field">Deliverables:</div>
-          <div class="esr-detail-field-value">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac placerat vestibulum lectus mauris ultrices eros in cursus. Sodales ut etiam sit amet nisl. Nunc id cursus metus aliquam eleifend mi. Rutrum tellus pellentesque eu tincidunt. Quis risus sed vulputate odio ut enim blandit volutpat. Faucibus interdum posuere lorem ipsum dolor sit amet consectetur. Ullamcorper sit amet risus nullam. Lobortis scelerisque fermentum dui faucibus in.</div>
+          <div class="esr-detail-field-value">{{ request.deliverables }}</div>
         </div>
 
         <div class="esr-detail-box">
           <div class="esr-detail-field">Status:</div>
-          <div class="esr-detail-field-value">Open</div>
+          <div class="esr-detail-field-value">{{ request.status }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Engineer:</div>
+          <div class="esr-detail-field-value">{{ request.engineerAssigned }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Promise Date:</div>
+          <div class="esr-detail-field-value">{{ request.promiseDate | date: 'longDate' }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Expected Cost:</div>
+          <div class="esr-detail-field-value">{{ request.expectedCost | currency }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Coupa Date:</div>
+          <div class="esr-detail-field-value">{{ request.coupaDate | date: 'longDate' }}</div>
+        </div>
+
+        <div class="esr-detail-box">
+          <div class="esr-detail-field">Resolution Date:</div>
+          <div class="esr-detail-field-value">{{ request.resolutionDate | date: 'longDate' }}</div>
         </div>
 
         <div class="esr-detail-box">
           <div class="esr-detail-field field-attachment">Attachments:</div>
           <div class="esr-detail-attachment-box">
-            <div class="esr-detail-field-value">document1.txt</div>
-            <div class="esr-detail-field-value">document2.pdf</div>
-            <div class="esr-detail-field-value">document3.png</div>
+            <div class="esr-detail-field-value" *ngFor="let file of request.attachments">{{ file.filename }}</div>
           </div>
         </div>
 
       </div>
 
-      <div class="esr-detail-crate">
+      <div class="esr-detail-crate comment-box">
 
         <app-comment-list #commentList [CommentsFromRequest]="request.comments"></app-comment-list>
         <app-comment-create [requestID]="idToCommentCreate" (commentSubmitted)="refreshComments($event)"></app-comment-create>
 
       </div>
 
-
-
-
     </div>
 
   </div>
 
+
   <div class="esr-detail-review-div">
-    <button class="esr-detail-review-btn" *ngIf="!request.approved && isAdmin" [routerLink]="['/request-review/', request.requestID]">Review</button>
+    <button class="esr-btn secondary" *ngIf="!request.approved && isAdmin" [routerLink]="['/request-review/', request.requestID]">Review</button>
+    <button class="esr-btn secondary" *ngIf="request.approved && request.engineerAssigned === userInfo.username && request.owner === userInfo.username" [routerLink]="['/e-request-review/', request.requestID]">Engineer Review</button>
   </div>
 
   </div>

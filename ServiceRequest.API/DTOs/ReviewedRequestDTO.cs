@@ -16,14 +16,6 @@ namespace ServiceRequest.API.DTOs
 
         public ReviewedRequestDTO()
         {
-            if (Approved == true) 
-            {
-                Status = "Approved";
-            } 
-            else
-            {
-                Status = "Open";
-            }
             Acknowledged = false;
         }
     }

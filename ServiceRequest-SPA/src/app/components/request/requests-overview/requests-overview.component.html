@@ -1,19 +1,4 @@
-<!-- <div class="RequestsOverview container-fluid">
-  <div class="card">
-    <h1 class="card-header">For You</h1>
-    <div class="card-body">
-      <h3 class="mb-5">Hello {{ userInfo.displayName }}, you have {{ numberOfNewRequests }} new request{{ numberOfNewRequests > 1 || numberOfNewRequests == 0 ? 's' : '' }}.</h3>
-      <app-divider></app-divider>
-      <ul>
-        <li><i class="far fa-file-alt mr-2"></i><a href="" (click)="navToCreate($event)">Create New Request</a></li>
-        <li><i class="far fa-question-circle mr-2"></i><a href="">Help</a></li>
-      </ul>
-    </div>
-  </div>
-
-</div> -->
-
-<div class="RequestsOverview container-fluid">
+<div class="esr-request-component RequestsOverview">
 
   <div class="esr-headline-box">
     <h1 class="esr-headline">For You</h1>
@@ -29,16 +14,13 @@
         </div>
           <p class="esr-overview-greet">new requests.</p>
       </div>
-
-
-
-
         <app-divider></app-divider>
     </div>
 
     <div class="esr-overview-sideshow">
       <div class="esr-overview-links-box">
-        <a class="esr-overview-link highlight-link" href="" (click)="navToCreate($event)">Create New Request</a>
+        <button class="esr-btn" (click)="navToCreate($event)">Create New Request</button>
+        <!-- <a class="esr-overview-link highlight-link" href="" (click)="navToCreate($event)">Create New Request</a> -->
         <a class="esr-overview-link" href="">Help</a>
       </div>
     </div>

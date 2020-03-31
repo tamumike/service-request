@@ -1,78 +1,219 @@
-<div>
-  <button class="esr-button" [routerLink]="['request-list']">Go Back</button>
 
-  <div class="container RequestCreate">
-    <h1 class="esr-component-header">Create New Request</h1>
-    <app-divider></app-divider>
-    <form [formGroup]="createRequestForm" (ngSubmit)="createRequest()">
+<button class="esr-btn alt" [routerLink]="['request-list']">Go Back</button>
 
-      <div class="form-group">
-        <label class="esr-label" for="requestDate">Request Date:</label>
-        <input type="text"
-        autocomplete="off"
-        formControlName="requestDate"
-        class="form-control esr-text-input"
-        bsDatepicker
-        [ngClass]="{'is-invalid': createRequestForm.get('requestDate').errors && createRequestForm.get('requestDate').touched}"
-        [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true, isAnimated: false }">
-        <div class="invalid-feedback">Date is invalid.</div>
-      </div>
+<div class=" esr-request-component RequestCreate">
+  <!-- <div class="esr-headline-box">
+    <h1 class="esr-headline">Create New Request</h1>
+  </div> -->
 
-      <div class="form-group">
-        <label class="esr-label" for="title">Title:</label>
-        <input
-          type="text"
-          formControlName="title"
-          [ngClass]="{'is-invalid': createRequestForm.get('title').errors && createRequestForm.get('title').touched}"
-          class="form-control esr-text-input">
-          <div class="invalid-feedback">Please enter a title.</div>
-      </div>
-
-      <div class="form-group">
-        <label class="esr-label" for="location">Location:</label>
-        <select
-        class="form-control esr-select"
-        formControlName="location"
-        [ngClass]="{'is-invalid': createRequestForm.get('location').errors && createRequestForm.get('location').touched}">
-          <option *ngFor="let location of locations" value="{{ location.name }}">{{ location.name }}</option>
-        </select>
-        <div class="invalid-feedback">Please choose a location for the request.</div>
-      </div>
-
-      <div class="form-group">
-        <label class="esr-label" for="description">Description: </label>
-        <textarea
-        class="esr-text-area form-control"
-        formControlName="description"
-        placeholder="Enter Description..."
-        [ngClass]="{'is-invalid': createRequestForm.get('description').errors && createRequestForm.get('description').touched}"
-        >
-        </textarea>
-        <div class="invalid-feedback">Please enter a description for the request.</div>
-      </div>
-
-      <div class="form-group">
-        <label class="esr-label" for="deliverables">Deliverables: </label>
-        <textarea
-        class="esr-text-area form-control"
-        formControlName="deliverables"
-        placeholder="Enter Deliverables..."
-        [ngClass]="{'is-invalid': createRequestForm.get('deliverables').errors && createRequestForm.get('deliverables').touched}"
-        >
-        </textarea>
-        <div class="invalid-feedback">Please enter the deliverables needed for the request.</div>
-      </div>
-
-      <div class="form-group">
-        <label class="esr-label" for="attachments">Attachments:</label>
-        <input type="file" multiple="true" class="esr-file-input form-control" formControlName="attachments"(change)="handleInputFile($event.target.files)"
-        [ngClass]="{'is-invalid': createRequestForm.get('attachments').errors && createRequestForm.get('attachments').touched}">
-        <div class="invalid-feedback">Please include attachments with your request.</div>
-      </div>
-      <button class="esr-button esr-button-success mt-4" type="submit">Submit</button>
-
-    </form>
+  <div class="esr-headline-box detail">
+    <h1 class="esr-headline detail-id">ESR</h1>
+    <div class="esr-list-data-divider"></div>
+    <h2 class="esr-headline detail-title">Create New Request</h2>
   </div>
 
+  <div class="esr-detail-background">
+    <div class="esr-detail-body">
+      <!-- <p>Please fill out the form and submit the request. When submitted, the Engineering Admin will review the request.</p> -->
+      <div class="esr-detail-crate create">
+
+        <form [formGroup]="createRequestForm" (ngSubmit)="createRequest()" class="esr-detail-form">
+
+          <div class="esr-detail-form-box">
+
+            <div class="esr-detail-field">Request Date:</div>
+
+            <div class="esr-detail-form-box box2">
+
+              <input type="text"
+              autocomplete="off"
+              formControlName="requestDate"
+              class="esr-detail-text-box"
+              bsDatepicker
+              [ngClass]="{'is-invalid': createRequestForm.get('requestDate').errors && createRequestForm.get('requestDate').touched,
+              'is-valid': createRequestForm.get('requestDate').valid}"
+              [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true, isAnimated: false }">
+
+              <div class="invalid-feedback esr-invalid-alert">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Required</p>
+              </div>
+
+              <div class="valid-feedback esr-valid-alert">
+                <i class="far fa-check-square"></i>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="esr-detail-form-box">
+
+            <div class="esr-detail-field">Title:</div>
+
+            <div class="esr-detail-form-box box2">
+
+              <input
+              type="text"
+              formControlName="title"
+              [ngClass]="{'is-invalid': createRequestForm.get('title').errors && createRequestForm.get('title').touched,
+              'is-valid': createRequestForm.get('title').valid}"
+              class="esr-detail-text-box">
+
+              <div class="invalid-feedback esr-invalid-alert">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Required</p>
+              </div>
+
+              <div class="valid-feedback esr-valid-alert">
+                <i class="far fa-check-square"></i>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="esr-detail-form-box">
+
+            <div class="esr-detail-field">Location:</div>
+
+            <div class="esr-detail-form-box box2">
+
+              <select
+              class="esr-detail-text-box"
+              formControlName="location"
+              [ngClass]="{'is-invalid': createRequestForm.get('location').errors && createRequestForm.get('location').touched,
+              'is-valid': createRequestForm.get('location').valid}">
+                <option *ngFor="let location of locations" value="{{ location.name }}">{{ location.name }}</option>
+              </select>
+
+              <div class="invalid-feedback esr-invalid-alert">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Required</p>
+              </div>
+
+              <div class="valid-feedback esr-valid-alert">
+                <i class="far fa-check-square"></i>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="esr-detail-form-box">
+
+            <div class="esr-detail-field">Description:</div>
+
+            <div class="esr-detail-form-box box2">
+
+              <textarea
+              class="esr-detail-text-box"
+              formControlName="description"
+              placeholder="Enter Description..."
+              [ngClass]="{'is-invalid': createRequestForm.get('description').errors && createRequestForm.get('description').touched,
+              'is-valid': createRequestForm.get('description').valid}"
+              >
+              </textarea>
+
+              <div class="invalid-feedback esr-invalid-alert">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Required</p>
+              </div>
+
+              <div class="valid-feedback esr-valid-alert">
+                <i class="far fa-check-square"></i>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="esr-detail-form-box">
+
+            <div class="esr-detail-field">Deliverables:</div>
+
+            <div class="esr-detail-form-box box2">
+
+              <textarea
+              class="esr-detail-text-box"
+              formControlName="deliverables"
+              placeholder="Enter Deliverables..."
+              [ngClass]="{'is-invalid': createRequestForm.get('deliverables').errors && createRequestForm.get('deliverables').touched,
+              'is-valid': createRequestForm.get('deliverables').valid}"
+              >
+              </textarea>
+
+              <div class="invalid-feedback esr-invalid-alert">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Required</p>
+              </div>
+
+              <div class="valid-feedback esr-valid-alert">
+                <i class="far fa-check-square"></i>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="esr-detail-form-box">
+
+            <div class="esr-detail-field">Attachments:</div>
+
+            <div class="esr-detail-form-box box2">
+
+              <input
+              type="file"
+              multiple="true"
+              class="esr-detail-text-box"
+              formControlName="attachments"
+              (change)="handleInputFile($event.target.files)"
+              [ngClass]="{'is-invalid': createRequestForm.get('attachments').errors && createRequestForm.get('attachments').touched}">
+
+              <div class="invalid-feedback esr-invalid-alert">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Required</p>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- <div class="esr-detail-form-box">
+
+            <div class="esr-detail-field">Title:</div>
+
+            <div class="esr-detail-form-box box2">
+
+              <input
+              type="text"
+              formControlName="title"
+              [ngClass]="{'is-invalid': createRequestForm.get('title').errors && createRequestForm.get('title').touched}"
+              class="esr-detail-text-box">
+
+              <div class="invalid-feedback esr-invalid-alert">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Please enter a title.</p>
+              </div>
+
+              <div class="valid-feedback esr-valid-alert">
+                <i class="far fa-check-square"></i>
+              </div>
+
+            </div>
+
+          </div> -->
+
+
+          <div class="esr-detail-btn-box">
+            <button class="esr-btn" type="submit">Submit</button>
+          </div>
+
+          </form>
+
+      </div>
+    </div>
+  </div>
 
 </div>

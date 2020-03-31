@@ -84,6 +84,15 @@ constructor(private http: HttpClient, private userService: UserService) {
     return this.http.put(this.baseUrl + 'Requests/' + id, request);
   }
 
+  resolveRequest(id: string, request: Request): Observable<any> {
+    return this.http.put(this.baseUrl + 'Requests/' + id + '/resolved', request);
+  }
+
+  /* returns true
+  1. if the request owner equals the current user
+        OR
+  2. if the user is an admin AND the request owner is Admin
+  */
   isRequestOwnedByUser(request: Request): boolean {
     const user = this.userService.user;
     const isAdmin = this.userService.isAdministrator();
