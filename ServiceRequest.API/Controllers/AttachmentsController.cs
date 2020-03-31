@@ -32,6 +32,7 @@ namespace ServiceRequest.API.Controllers
         {
             var fileObj = createNewAttachmentDTO;
             var file = fileObj.File;
+            var url = "";
 
             if (file == null || file.Length == 0) 
             {
@@ -44,6 +45,7 @@ namespace ServiceRequest.API.Controllers
                 var filePath = "";
                 var fileExt = Path.GetExtension(file.FileName);
                 filePath = Path.Combine(_targetFilePath, Path.GetRandomFileName() + Path.GetExtension(file.FileName));
+                url = filePath;
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
@@ -53,7 +55,8 @@ namespace ServiceRequest.API.Controllers
 
             fileObj.RequestID = id;
             fileObj.FileName = file.FileName;
-            fileObj.URL = _targetFilePath + $"/{fileObj.FileName}";
+            // fileObj.URL = _targetFilePath + $"\\{fileObj.FileName}";
+            fileObj.URL = url;
             var attachmentToCreate = _mapper.Map<Attachment>(fileObj);
             var createdAttachment = await _repo.UploadAttachment(attachmentToCreate);
 

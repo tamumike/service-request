@@ -121,7 +121,7 @@ export class RequestListComponent implements OnInit {
 
     this.clearActiveHeadline();
 
-    this.toggleAllBtn.nativeElement.classList.add('esr-headline-box-active');
+    this.toggleAllBtn.nativeElement.classList.add('active');
 
     if (!this.showAllMode) {
       this.showAllMode = true;
@@ -134,7 +134,7 @@ export class RequestListComponent implements OnInit {
 
     this.clearActiveHeadline();
 
-    this.toggleAssignedBtn.nativeElement.classList.add('esr-headline-box-active');
+    this.toggleAssignedBtn.nativeElement.classList.add('active');
 
     if (this.showAllMode) {
       this.showAllMode = false;
@@ -147,7 +147,7 @@ export class RequestListComponent implements OnInit {
     const elements = [this.toggleAllBtn, this.toggleAssignedBtn];
 
     elements.forEach(el => {
-      el.nativeElement.classList.remove('esr-headline-box-active');
+      el.nativeElement.classList.remove('active');
     });
 
   }

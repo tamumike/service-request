@@ -28,6 +28,7 @@ export class RequestDetailComponent implements OnInit {
     this.userInfo = this.userService.user;
     this.route.data.subscribe(data => {
       this.request = data.data;
+      console.log(this.request);
       this.idToCommentCreate = this.request.requestID;
     }, error => {
       console.log('request-detail resolve', error);
