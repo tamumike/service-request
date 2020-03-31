@@ -2,3 +2,6 @@ obj
 bin
 node_modules
 .vscode
+ESR_PDF
+ESR_Text
+ESR_Word
