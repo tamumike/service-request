@@ -80,7 +80,7 @@ namespace ServiceRequest.API
             app.UseAuthorization();
             app.UseAuthentication();
 
-            string[] origins = new string[] {"http://localhost:4200"};
+            string[] origins = new string[] {"http://localhost:4200", "http://leg-adhocsql:8001"};
 
             // app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseCors(x => x.AllowAnyMethod().AllowAnyHeader().WithOrigins(origins).AllowCredentials());

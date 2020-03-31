@@ -56,9 +56,7 @@ export class RequestCreateComponent implements OnInit {
 
   createRequest() {
     console.log('create request');
-    // this.createRequestForm.value.createdBy = this.userInfo.username;
-
-    this.createRequestForm.value.createdBy = 'PorkyPig';
+    this.createRequestForm.value.createdBy = this.userInfo.username;
 
     this.requestService.postRequest(this.createRequestForm.value).subscribe(response => {
 
