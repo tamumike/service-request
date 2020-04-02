@@ -61,41 +61,23 @@ namespace ServiceRequest.API.Controllers
         public async Task<IActionResult> Login()
         {
             User user = null;
-
-            // Check if cookie exists
-            IRequestCookieCollection requestCookies = _http.HttpContext.Request.Cookies;
+            var username = _repo.GetUsername();
             IResponseCookies responseCookies = _http.HttpContext.Response.Cookies;
-            if (requestCookies.ContainsKey(_cookie))
+
+            if ( await _repo.UserExists(username)) 
             {
-                user = await _repo.GetUserFromCookie(requestCookies, _cookie);
-
-                
-
-                // responseCookies.Delete(_cookie);
+                user = await _repo.GetUser(username);
             }
-            else {
-
-                // Check if user exists
-                string username = _repo.GetUsername();
-
-                if (await _repo.UserExists(username))
-                {
-                    user = await _repo.GetUser(username);
-                }
-                else // if user does not exist
-                {
-                    UserInfo userInfo = _repo.GetUserInfo(username);
-                    CreateNewUserDTO createNewUserDTO = new CreateNewUserDTO(userInfo.Username, userInfo.DisplayName, userInfo.Email, userInfo.Role);
-                    var userToCreate = _mapper.Map<User>(createNewUserDTO);
-                    user = await _repo.CreateNewUser(userToCreate);
-                }
-
+            else 
+            {
+                UserInfo userInfo = _repo.GetUserInfo(username);
+                CreateNewUserDTO createNewUserDTO = new CreateNewUserDTO(userInfo.Username, userInfo.DisplayName, userInfo.Email, userInfo.Role);
+                var userToCreate = _mapper.Map<User>(createNewUserDTO);
+                user = await _repo.CreateNewUser(userToCreate);
             }
 
             user.LastLogin = DateTime.Now;
             user.SessionID = Guid.NewGuid();
-
-            // _http.HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:4200");
 
             if (await _repo.SaveAll())
             {

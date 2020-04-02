@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -44,7 +45,7 @@ namespace ServiceRequest.API.Controllers
                 long size = file.Length;
                 var filePath = "";
                 var fileExt = Path.GetExtension(file.FileName);
-                var newFileName = Path.Combine(Path.GetRandomFileName() + Path.GetExtension(file.FileName));
+                var newFileName = Path.Combine(Guid.NewGuid().ToString() + Path.GetExtension(file.FileName));
                 // filePath = Path.Combine(_targetFilePath, Path.GetRandomFileName() + Path.GetExtension(file.FileName));
                 filePath = Path.Combine(_targetFilePath, newFileName);
                 url = Path.Combine("leg-adhocsql:8001\\files", newFileName);

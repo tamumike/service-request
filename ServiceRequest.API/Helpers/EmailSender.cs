@@ -1,10 +1,12 @@
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using ServiceRequest.API.Models;
 
 namespace ServiceRequest.API.Helpers
 {
@@ -17,7 +19,7 @@ namespace ServiceRequest.API.Helpers
             _env = env;
             _settings = settings.Value;
         }
-        public async Task SendEmailAsync(string email, string subject, string message)
+        public async Task SendEmailAsync(string email, string subject, string message, Request request)
         {
             try
             {
@@ -29,9 +31,20 @@ namespace ServiceRequest.API.Helpers
 
                 mimeMessage.Subject = subject;
 
+                var pathToFile = _env.WebRootPath + Path.DirectorySeparatorChar.ToString() + "Templates" + Path.DirectorySeparatorChar.ToString() + "email_template.html";
+
+                var builder = new BodyBuilder();
+
+                using (StreamReader streamReader = System.IO.File.OpenText(pathToFile))
+                {
+                    builder.HtmlBody = streamReader.ReadToEnd();
+                }
+
+                string messageBody = string.Format(builder.HtmlBody, request.RequestID);
+
                 mimeMessage.Body = new TextPart("html")
                 {
-                    Text = message
+                    Text = messageBody
                 };
 
                 using (var client = new SmtpClient())
@@ -43,15 +56,15 @@ namespace ServiceRequest.API.Helpers
                     {
                         // The third parameter is useSSL (true if the client should make an SSL-wrapped
                         // connection to the server; otherwise, false).
-                        await client.ConnectAsync(_settings.MailServer, _settings.MailPort, true);
+                        await client.ConnectAsync(_settings.MailServer, _settings.MailPort, false);
                     }
                     else
                     {
-                        await client.ConnectAsync(_settings.MailServer);
+                        await client.ConnectAsync(_settings.MailServer, _settings.MailPort);
                     }
 
                     // Note: only needed if the SMTP server requires authentication
-                    await client.AuthenticateAsync(_settings.Sender, _settings.Password);
+                    // await client.AuthenticateAsync(_settings.Sender, _settings.Password);
 
                     await client.SendAsync(mimeMessage);
 

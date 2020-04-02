@@ -20,7 +20,7 @@
 }
 
 .esr-filter-box {
-  flex-basis: 40%;
+  flex-basis: 45%;
   display: flex;
 }
 
@@ -513,7 +513,7 @@
 }
 
 .esr-header-box2 {
-  flex-basis: 30%;
+  flex-basis: 25%;
   display: flex;
   text-align: center;
   margin-top: 4px;
@@ -528,17 +528,17 @@
   line-height: 1.2;
   cursor: pointer;
   opacity: 0.8;
+  text-align: center;
   animation: header-contract 200ms linear;
   animation-fill-mode: both;
-  /* margin-right: 15px; */
 }
 
 .esr-list-header.header-requestedby {
-  flex-basis: 40%;
-  margin-right: 2px;
+  flex-basis: 44%;
+  /* margin-right: 2px; */
 }
 .esr-list-header.header-status, .esr-list-header.header-duedate {
-  flex-basis: 30%;
+  flex-basis: 28%;
   /* left: -15px; */
   /* margin: auto 2px; */
 }
@@ -562,6 +562,25 @@
   opacity: 1.0;
   color: #fff;
   animation: header-expand 200ms linear;
+}
+
+.esr-list-alert-box {
+  background-color: #2d2e2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px;
+}
+
+.esr-list-alert-box > i {
+  color: #ffb617;
+  margin: 18px;
+}
+
+.esr-list-alert-box > h4 {
+  color: #fff;
+  text-transform: uppercase;
 }
 
 @keyframes header-contract {

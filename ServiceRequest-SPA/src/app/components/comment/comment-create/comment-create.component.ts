@@ -26,7 +26,6 @@ export class CommentCreateComponent implements OnInit {
   }
 
   initializeCommentForm() {
-    console.log('initialized at comment create');
     this.createCommentForm = this.formBuilder.group({
       requestID: [this.requestID, Validators.required],
       content: ['', Validators.required],

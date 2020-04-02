@@ -3,10 +3,8 @@
     <h1 class="esr-headline">Active Requests</h1>
   </div>
 
-  <!-- <div class="esr-headline-box esr-table-tabs-box"> -->
     <div class="esr-headline-box tabs">
 
-      <!-- <div class="esr-table-tabs-sub-box"> -->
         <div class="esr-tabs-box">
 
         <div class="esr-tabs-box box2 active" (click)="toggleShowAssigned()" #toggleAssignedBtn>
@@ -32,8 +30,6 @@
           <div class="esr-filter-body">
 
             <label class="esr-filter-label" for="field">Field: </label>
-
-            <!-- <div class="esr-filter-crate"></div> -->
 
               <select
                       (change)="checkFilterInputType()"
@@ -74,10 +70,7 @@
 
       </div>
 
-
     </div>
-
-
 
   <div class="esr-list-table-body" >
     <div class="esr-list-table-crate">
@@ -121,105 +114,8 @@
     </div>
   </div>
 
-
-
-  <div *ngIf="requestsCount == 0" class="container-fluid d-flex justify-content-center align-items-center m-5 flex-column">
-    <i class="fas fa-exclamation-circle fa-5x"></i>
-    <h1>There aren't any requests, yet.</h1>
+  <div *ngIf="requestsCount == 0" class="esr-list-alert-box">
+    <i class="fas fa-exclamation-circle fa-2x"></i>
+    <h4>No Requests Yet</h4>
   </div>
 </div>
-
-
-
-  <!-- <div class="container m-2 d-flex flex-column">
-
-    <form id="filterForm" *ngIf="filterMode" [formGroup]="filterRequestsForm" (ngSubmit)="filterRequests()">
-      <div class="d-inline-flex align-items-baseline m-3">
-
-        <label class="esr-label mr-2" for="field">Field: </label>
-        <div class="form-group mr-4">
-
-          <select
-          (change)="checkFilterInputType()"
-          formControlName="field"
-          class="form-control esr-select">
-            <option class="esr-select-option" *ngFor="let field of fieldsForFilter" value="{{ field.value }}">{{ field.display }}</option>
-          </select>
-        </div>
-
-        <label class="esr-label" for="fieldValue">Value: </label>
-        <div  class="form-group m-2">
-
-          <input *ngIf="!toggleFilterInputType" type="text"
-          class="form-control esr-text-input"
-          placeholder="Enter filter value..."
-          formControlName="fieldValue">
-
-          <select
-          *ngIf="filterRequestsForm.value.field == 'location'"
-          formControlName="fieldValue"
-          class="form-control">
-            <option *ngFor="let location of locations" value="{{ location.name }}">{{ location.name }}</option>
-          </select>
-
-          <select
-          *ngIf="filterRequestsForm.value.field == 'engineerAssigned'"
-          formControlName="fieldValue"
-          class="form-control">
-            <option *ngFor="let member of groupMembers" value="{{ member.username }}">{{ member.fullName }}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="container d-inline-flex">
-        <button type="submit" class="esr-button esr-button-sm esr-button-success mr-2">Apply</button>
-        <button class="esr-button esr-button-sm esr-button-danger mr-2" (click)="clearFilter($event)">Clear</button>
-      </div>
-
-    </form>
-  </div> -->
-
-  <!-- <table *ngIf="requestsCount > 0" class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">View</th>
-        <th mat-sort-header="requestID" scope="col">Request ID</th>
-        <th mat-sort-header="createdBy" scope="col">Requested By</th>
-        <th mat-sort-header="requestDate" scope="col">Requested Due Date</th>
-        <th mat-sort-header="afe" scope="col">AFE</th>
-        <th mat-sort-header="engineerAssigned" scope="col">Engineer</th>
-        <th mat-sort-header="promiseDate" scope="col">Promise Date</th>
-        <th mat-sort-header="expectedCost" scope="col">Exp. Cost</th>
-        <th mat-sort-header="coupaDate" scope="col">Coupa Date</th>
-        <th mat-sort-header="status" scope="col">Status</th>
-        <th mat-sort-header="approved" scope="col">Approved</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let request of sortedData" class="{{ request.requestDate | requestDeadline }}">
-        <td><a [routerLink]="['/request-detail/', request.requestID]"><i class="fas fa-eye"></i></a></td>
-        <td><i *ngIf="!request.acknowledged" class="fas fa-exclamation-triangle mr-2"></i>{{ request.requestID }}</td>
-        <td>{{ request.createdBy }}</td>
-        <td>{{ request.requestDate | date }}</td>
-        <td>{{ request.afe }}</td>
-        <td>{{ request.engineerAssigned }}</td>
-        <td>{{ request.promiseDate | date }}</td>
-        <td>{{ request.expectedCost | currency }}</td>
-        <td>{{ request.coupaDate | date }}</td>
-        <td>{{ request.status }}</td>
-        <td>{{ request.approved }}</td>
-      </tr>
-    </tbody>
-  </table> -->
-
-
-
-
-
-
-      <!-- <div class="form-check">
-        <input class="form-check-input" (change)="toggleShowAll()" type="checkbox" value="" id="showAllToggle">
-        <label class="form-check-label" for="showAllToggle">
-          Show All Requests
-        </label>
-      </div> -->

@@ -5,14 +5,23 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ServiceRequest.API.Models;
 using ServiceRequest.API.Helpers;
+using MimeKit;
+using MailKit.Net.Smtp;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace ServiceRequest.API.Data
 {
     public class RequestRepository : IRequestRepository
     {
         private readonly DataContext _context;
-        public RequestRepository(DataContext context)
+        private readonly IConfiguration _config;
+        private readonly IWebHostEnvironment _env;
+        public RequestRepository(DataContext context, IConfiguration config, IWebHostEnvironment env)
         {
+            _env = env;
+            _config = config;
             _context = context;
         }
 
@@ -101,7 +110,7 @@ namespace ServiceRequest.API.Data
             var comments = await _context.Comments
                 .Where(c => c.RequestID == id)
                 .ToListAsync();
-                
+
             return comments;
         }
 

@@ -13,11 +13,9 @@ export class CommentListComponent implements OnInit {
 
   ngOnInit() {
     this.commentCount = this.CommentsFromRequest.length;
-    console.log(this.CommentsFromRequest);
   }
 
   refreshCount(count: any) {
-    console.log('refresh count');
     this.commentCount = count;
   }
 

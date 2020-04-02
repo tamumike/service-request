@@ -17,8 +17,10 @@ namespace ServiceRequest.API.Controllers
         private readonly IRequestRepository _repo;
         private readonly IUserRepository _urepo;
         private readonly IMapper _mapper;
-        public RequestsController(IRequestRepository repo, IUserRepository urepo, IMapper mapper)
+        private readonly IEmailSender _emailSender;
+        public RequestsController(IRequestRepository repo, IUserRepository urepo, IMapper mapper, IEmailSender emailSender)
         {
+            _emailSender = emailSender;
             _mapper = mapper;
             _urepo = urepo;
             _repo = repo;
@@ -64,7 +66,7 @@ namespace ServiceRequest.API.Controllers
             if (reviewedRequestDTO.Approved)
             {
                 reviewedRequestDTO.Owner = reviewedRequestDTO.EngineerAssigned;
-            } 
+            }
             else
             {
                 reviewedRequestDTO.Owner = reviewedRequestDTO.CreatedBy;
@@ -73,6 +75,7 @@ namespace ServiceRequest.API.Controllers
             var requestToUpdate = _mapper.Map(reviewedRequestDTO, requestFromDB);
 
             if (await _repo.SaveAll())
+                await _emailSender.SendEmailAsync("mlinden@lucid-energy.com", "ESR", "This is the body", requestFromDB);
                 return Ok(requestFromDB);
 
             throw new Exception($"Error submitting the request.");
@@ -88,7 +91,7 @@ namespace ServiceRequest.API.Controllers
 
             if (await _repo.SaveAll())
                 return Ok(requestFromDB);
-            
+
             throw new Exception($"Error submitting the request.");
         }
 
@@ -105,7 +108,8 @@ namespace ServiceRequest.API.Controllers
         }
 
         [HttpPut("{ID}/resolved")]
-        public async Task<IActionResult> ResolveRequest([FromRoute]string ID, ResolvedRequestDTO resolvedRequestDTO) {
+        public async Task<IActionResult> ResolveRequest([FromRoute]string ID, ResolvedRequestDTO resolvedRequestDTO)
+        {
 
             var requestFromDB = await _repo.GetRequest(ID);
             var requestToUpdate = _mapper.Map(resolvedRequestDTO, requestFromDB);
