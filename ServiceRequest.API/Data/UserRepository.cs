@@ -51,7 +51,7 @@ namespace ServiceRequest.API.Data
         public async Task<User> CreateNewUser(User user)
         {
             await _context.AddAsync(user);
-            // await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             return user;
         }
@@ -71,8 +71,6 @@ namespace ServiceRequest.API.Data
                 groupMember.FullName = member.DisplayName;
 
                 memberList.Add(groupMember);
-                // memberList.Add(["fullName", user.DisplayName]);
-                // memberList.Add(new KeyValuePair<string, string>("username", user.SamAccountName));
             }
 
             return memberList;
@@ -164,64 +162,7 @@ namespace ServiceRequest.API.Data
             }
 
             return user;
-        }        
-
-        
-
-        public async Task<User> Login()
-        {
-            User user = null;
-            // Check if cookie exists
-            IRequestCookieCollection cookies = _http.HttpContext.Request.Cookies;
-            if (cookies.ContainsKey(_cookieKey)) {
-                
-                // Get sessionID from cookie, stored in out variable
-                cookies.TryGetValue(_cookieKey, out string sessionID);
-                var sessionIDAsGuid = Guid.Parse(sessionID);
-
-                // Retrieve user info from db
-                user = await GetUser(sessionIDAsGuid);
-
-                // Update last login time
-                user.LastLogin = DateTime.Now;
-
-                // Overwrite SessionID in db
-                user.SessionID = new Guid();
-
-                // Save changes to db
-                if (await SaveAll())
-                {
-                    // Store in cookie
-                    _http.HttpContext.Response.Cookies.Delete(_cookieKey);
-                    _http.HttpContext.Response.Cookies.Append(_cookieKey, user.SessionID.ToString());
-                }
-            }
-
-            // Get username
-            string username = GetUsername();
-
-            // Check if user exists in db with username
-
-            if (await UserExists(username)) { // -- IF USER EXISTS
-                user = await GetUser(username);
-
-                user.SessionID = Guid.NewGuid();
-                user.LastLogin = DateTime.Now;
-
-                await SaveAll();
-                // TODO: Generate new SessionID, store in cookie, update in db
-                // TODO: Return user info via SessionID
-            }
-            else // -- IF USER DOES NOT EXIST
-            {
-                // UserInfo userInfo = GetUserInfo(username);
-                // TODO: Generate new user with SessionID
-                // TODO: Return user info via SessionID
-            }
-
-            return user;
         }
-
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0;

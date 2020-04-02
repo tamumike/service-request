@@ -19,7 +19,6 @@ namespace ServiceRequest.API.Data
         Task<User> GetUser(Guid sessionID);
         Task<bool> SaveAll();
         IEnumerable<GroupMember> GetGroupMembers();
-        Task<User> Login();
         Task<bool> IsAdministrator(Guid sessionID);
         Task<User> GetUserFromCookie(IRequestCookieCollection requestCookies, string _cookie);
         Task<User> GetUserFromUsername();

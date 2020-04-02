@@ -57,7 +57,7 @@ namespace ServiceRequest.API.Controllers
             }
 
             fileObj.RequestID = id;
-            fileObj.FileName = file.FileName;
+            fileObj.FileName = Path.GetFileNameWithoutExtension(file.FileName);
             // fileObj.URL = _targetFilePath + $"\\{fileObj.FileName}";
             fileObj.URL = url;
             var attachmentToCreate = _mapper.Map<Attachment>(fileObj);
