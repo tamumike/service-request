@@ -21,7 +21,6 @@ namespace ServiceRequest.API.Data
         private readonly IHttpContextAccessor _http;
         private readonly DataContext _context;
         private readonly IConfiguration _config;
-        private readonly string _cookieKey = "esr-session";
         public UserRepository(IWebHostEnvironment env, IHttpContextAccessor http, DataContext context, IConfiguration config)
         {
             _config = config;
@@ -123,6 +122,7 @@ namespace ServiceRequest.API.Data
             else
             {
                 username = _http.HttpContext.User.Identity.Name;
+                username = username.Replace("LUCIDENERGY\\", "");
             }
 
             return username;

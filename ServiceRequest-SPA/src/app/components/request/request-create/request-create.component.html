@@ -82,18 +82,13 @@
               <select
               class="esr-detail-text-box"
               formControlName="location"
-              [ngClass]="{'is-invalid': createRequestForm.get('location').errors && createRequestForm.get('location').touched,
-              'is-valid': createRequestForm.get('location').valid}">
+              [ngClass]="{'is-invalid': createRequestForm.get('location').errors && createRequestForm.get('location').touched}">
                 <option *ngFor="let location of locations" value="{{ location.name }}">{{ location.name }}</option>
               </select>
 
               <div class="invalid-feedback esr-invalid-alert">
                 <i class="fas fa-exclamation-circle"></i>
                 <p>Required</p>
-              </div>
-
-              <div class="valid-feedback esr-valid-alert">
-                <i class="far fa-check-square"></i>
               </div>
 
             </div>
@@ -110,18 +105,13 @@
               class="esr-detail-text-box"
               formControlName="description"
               placeholder="Enter Description..."
-              [ngClass]="{'is-invalid': createRequestForm.get('description').errors && createRequestForm.get('description').touched,
-              'is-valid': createRequestForm.get('description').valid}"
+              [ngClass]="{'is-invalid': createRequestForm.get('description').errors && createRequestForm.get('description').touched}"
               >
               </textarea>
 
               <div class="invalid-feedback esr-invalid-alert">
                 <i class="fas fa-exclamation-circle"></i>
                 <p>Required</p>
-              </div>
-
-              <div class="valid-feedback esr-valid-alert">
-                <i class="far fa-check-square"></i>
               </div>
 
             </div>
@@ -138,18 +128,13 @@
               class="esr-detail-text-box"
               formControlName="deliverables"
               placeholder="Enter Deliverables..."
-              [ngClass]="{'is-invalid': createRequestForm.get('deliverables').errors && createRequestForm.get('deliverables').touched,
-              'is-valid': createRequestForm.get('deliverables').valid}"
+              [ngClass]="{'is-invalid': createRequestForm.get('deliverables').errors && createRequestForm.get('deliverables').touched}"
               >
               </textarea>
 
               <div class="invalid-feedback esr-invalid-alert">
                 <i class="fas fa-exclamation-circle"></i>
                 <p>Required</p>
-              </div>
-
-              <div class="valid-feedback esr-valid-alert">
-                <i class="far fa-check-square"></i>
               </div>
 
             </div>

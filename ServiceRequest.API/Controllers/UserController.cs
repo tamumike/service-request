@@ -88,11 +88,9 @@ namespace ServiceRequest.API.Controllers
                 // cookieOptions.Domain = "localhost";
                 cookieOptions.Domain = "leg-adhocsql";
                 responseCookies.Append(_cookie, user.SessionID.ToString(), cookieOptions);
-                return Ok(user);
             }
 
-            throw new Exception($"Error in login.");
-
+            return Ok(user);
         }
 
     }
