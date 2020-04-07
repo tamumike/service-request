@@ -30,17 +30,12 @@
               formControlName="requestDate"
               class="esr-detail-text-box"
               bsDatepicker
-              [ngClass]="{'is-invalid': createRequestForm.get('requestDate').errors && createRequestForm.get('requestDate').touched,
-              'is-valid': createRequestForm.get('requestDate').valid}"
+              [ngClass]="{'is-invalid': createRequestForm.get('requestDate').errors && createRequestForm.get('requestDate').touched}"
               [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true, isAnimated: false }">
 
               <div class="invalid-feedback esr-invalid-alert">
                 <i class="fas fa-exclamation-circle"></i>
                 <p>Required</p>
-              </div>
-
-              <div class="valid-feedback esr-valid-alert">
-                <i class="far fa-check-square"></i>
               </div>
 
             </div>
@@ -56,17 +51,12 @@
               <input
               type="text"
               formControlName="title"
-              [ngClass]="{'is-invalid': createRequestForm.get('title').errors && createRequestForm.get('title').touched,
-              'is-valid': createRequestForm.get('title').valid}"
+              [ngClass]="{'is-invalid': createRequestForm.get('title').errors && createRequestForm.get('title').touched}"
               class="esr-detail-text-box">
 
               <div class="invalid-feedback esr-invalid-alert">
                 <i class="fas fa-exclamation-circle"></i>
                 <p>Required</p>
-              </div>
-
-              <div class="valid-feedback esr-valid-alert">
-                <i class="far fa-check-square"></i>
               </div>
 
             </div>
