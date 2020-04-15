@@ -3,7 +3,6 @@ import { ModalService } from './services/modal.service';
 import { Router } from '@angular/router';
 import { ModalBodyItem } from './models/modalBodyItem';
 import { UserService } from './services/user.service';
-import { CookieService } from 'ngx-cookie-service';
 import { forkJoin, pipe } from 'rxjs';
 import { RequestService } from './services/request.service';
 import { tap } from 'rxjs/operators';

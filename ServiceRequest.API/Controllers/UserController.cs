@@ -85,8 +85,8 @@ namespace ServiceRequest.API.Controllers
                 cookieOptions.Path = "/";
                 cookieOptions.HttpOnly = false;
                 cookieOptions.Secure = false;
-                // cookieOptions.Domain = "localhost";
-                cookieOptions.Domain = "leg-adhocsql";
+                cookieOptions.Domain = "localhost";
+                // cookieOptions.Domain = "leg-adhocsql";
                 responseCookies.Append(_cookie, user.SessionID.ToString(), cookieOptions);
             }
 

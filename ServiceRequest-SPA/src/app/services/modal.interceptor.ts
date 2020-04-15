@@ -12,15 +12,16 @@ export class ModalInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    Promise.resolve(null).then(() => this.showLoadingModal());
+    // Promise.resolve(null).then(() => this.showLoadingModal());
 
     return next.handle(req).pipe(
-      tap(() => this.hideModal())
+      tap(() => { this.hideModal(); })
       , catchError(error => {
         console.log('error from modal interceptor');
         if (error instanceof HttpErrorResponse) {
           const applicationError = error.headers.get('Application-Error');
           if (applicationError) {
+            this.showErrorModal();
             return throwError(applicationError);
           }
         }
@@ -30,6 +31,10 @@ export class ModalInterceptor implements HttpInterceptor {
 
   private showLoadingModal(): void {
     this.modalService.toggleDisplay({ display: true, type: 'loading' });
+  }
+
+  private showSuccessModal(): void {
+    this.modalService.toggleDisplay({ display: true, type: 'success'});
   }
 
   private hideModal(): void {

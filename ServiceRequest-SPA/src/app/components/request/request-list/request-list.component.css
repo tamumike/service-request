@@ -43,12 +43,12 @@
 
 .esr-filter-label {
   margin: 4px;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .btn-filter {
   padding: 4px 8px;
-  font-size: 10px;
+  font-size: 12px;
   margin: 0 4px;
 }
 
@@ -437,7 +437,9 @@
 
 .esr-list-alert {
   height: 60%;
-  width: 100px;
+  width: auto;
+  padding: 8px;
+  font-size: 14px;
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -513,17 +515,18 @@
 }
 
 .esr-header-box2 {
-  flex-basis: 25%;
+  flex-basis: 30%;
   display: flex;
   text-align: center;
   margin-top: 4px;
+  justify-content: space-around;
 }
 
 .esr-list-header {
   color: #ffb617;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 1px;
-  font-family: 'Prompt', sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: auto 0;
   line-height: 1.2;
   cursor: pointer;
@@ -531,16 +534,6 @@
   text-align: center;
   animation: header-contract 200ms linear;
   animation-fill-mode: both;
-}
-
-.esr-list-header.header-requestedby {
-  flex-basis: 44%;
-  /* margin-right: 2px; */
-}
-.esr-list-header.header-status, .esr-list-header.header-duedate {
-  flex-basis: 28%;
-  /* left: -15px; */
-  /* margin: auto 2px; */
 }
 
 .esr-list-table-box:hover .esr-list-alert-red {

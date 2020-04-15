@@ -40,6 +40,9 @@ import { FooterComponent } from './UI/footer/footer.component';
 import { GreetingComponent } from './UI/greeting/greeting.component';
 import { DividerComponent } from './UI/divider/divider.component';
 import { FinalCommentCreateComponent } from './components/comment/final-comment-create/final-comment-create.component';
+import { AlertifyService } from './services/alertify.service';
+import { LoaderComponent } from './UI/loader/loader.component';
+import { LoaderInterceptor, LoaderInterceptorProvider } from './services/loader.interceptor';
 
 @NgModule({
   declarations: [
@@ -64,7 +67,8 @@ import { FinalCommentCreateComponent } from './components/comment/final-comment-
     FooterComponent,
     GreetingComponent,
     DividerComponent,
-    FinalCommentCreateComponent
+    FinalCommentCreateComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -79,15 +83,16 @@ import { FinalCommentCreateComponent } from './components/comment/final-comment-
   providers: [
     ErrorInterceptorProvider,
     // ModalInterceptorProvider,
+    // LoaderInterceptorProvider,
     RequestService,
     UserService,
     GetRequestsResolverService,
     RequestDetailResolverService,
     CommentService,
     UserInfoResolverService,
-    CookieService
+    CookieService,
+    AlertifyService
   ],
   bootstrap: [AppComponent]
-  // entryComponents: [SuccessModalComponent, LoadingModalComponent]
 })
 export class AppModule { }

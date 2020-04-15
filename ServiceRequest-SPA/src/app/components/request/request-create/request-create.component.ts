@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { Router } from '@angular/router';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-request-create',
@@ -22,7 +23,8 @@ export class RequestCreateComponent implements OnInit {
   private sessionID: any;
 
   constructor(private formBuilder: FormBuilder, private requestService: RequestService,
-              private userService: UserService, private modalService: ModalService, private router: Router) { }
+              private userService: UserService, private modalService: ModalService, private router: Router,
+              private alertifyService: AlertifyService) { }
 
   ngOnInit() {
     this.sessionID = this.userService.getUserIdentifier();
@@ -70,6 +72,7 @@ export class RequestCreateComponent implements OnInit {
           });
         }
       }
+      // this.alertifyService.success('Successfully created request');
       this.router.navigate(['request-detail/' + response.requestID]);
     }, error => {
       console.log('error from component');
