@@ -172,7 +172,7 @@
 
 .esr-list-alert {
   height: 60%;
-  width: 100px;
+  min-width: 100px;
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   letter-spacing: 1px;

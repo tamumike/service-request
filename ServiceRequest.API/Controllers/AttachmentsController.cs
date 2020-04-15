@@ -48,7 +48,7 @@ namespace ServiceRequest.API.Controllers
                 var newFileName = Path.Combine(Guid.NewGuid().ToString() + Path.GetExtension(file.FileName));
                 // filePath = Path.Combine(_targetFilePath, Path.GetRandomFileName() + Path.GetExtension(file.FileName));
                 filePath = Path.Combine(_targetFilePath, newFileName);
-                url = Path.Combine("leg-adhocsql:8001\\files", newFileName);
+                url = Path.Combine("http:\\\\leg-adhocsql:8001\\files", newFileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
