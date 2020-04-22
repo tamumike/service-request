@@ -29,6 +29,13 @@ body {
   margin: 0;
 }
 
+/* ---------------------MODAL COMPONENT STYLE--------------------- */
+mat-dialog-container#modal-component {
+  /* border: 3px solid #262626; */
+  /* border-radius: 11px; */
+  background-color: #2d2e2e;
+}
+
 /* ---------------------BASE REQUEST COMPONENT STYLE--------------------- */
 .esr-request-component {
   background-color: #2d2e2e;

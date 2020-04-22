@@ -1,39 +1,27 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, Input, OnDestroy } from '@angular/core';
-import { ModalService } from 'src/app/services/modal.service';
-import { ModalBodyDirective } from 'src/app/directives/modal-body.directive';
-import { ModalBodyItem } from 'src/app/models/modalBodyItem';
-import { ModalBodyComponent } from 'src/app/models/modalBodyComponent';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ModalActionsService } from 'src/app/services/modal-actions.service';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css']
 })
-export class ModalComponent implements OnInit, OnDestroy {
-  modalConfig: any;
-  @ViewChild(ModalBodyDirective, { static: true }) modalBody: ModalBodyDirective;
-  @Input() modals: any;
+export class ModalComponent implements OnInit {
 
-  constructor(private modalService: ModalService, private componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(public dialogRef: MatDialogRef<ModalComponent>, @Inject(MAT_DIALOG_DATA) public modalData: any,
+              private modalService: ModalActionsService) { }
 
   ngOnInit() {
-    this.modalService.displayModal.subscribe(modalConfig => this.modalConfig = modalConfig);
-    this.loadComponent(this.modals[this.modalConfig.type]);
   }
 
-  loadComponent(template: ModalBodyItem) {
-
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(template.component);
-
-    const viewContainerRef = this.modalBody.viewContainerRef;
-    viewContainerRef.clear();
-
-    const componentRef = viewContainerRef.createComponent(componentFactory);
-    (componentRef.instance as ModalBodyComponent).data = template.data;
+  actionFunction() {
+    this.modalService.modalAction(this.modalData);
+    this.closeModal();
   }
 
-  ngOnDestroy() {
-    const viewContainerRef = this.modalBody.viewContainerRef;
-    viewContainerRef.clear();
+  closeModal() {
+    this.dialogRef.close();
   }
+
 }

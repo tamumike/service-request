@@ -5,9 +5,10 @@ import { RequestService } from 'src/app/services/request.service';
 import { requestDateValidator } from 'src/app/validators/requestDateValidator';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
-import { ModalService } from 'src/app/services/modal.service';
 import { Router } from '@angular/router';
 import { AlertifyService } from 'src/app/services/alertify.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ModalComponent } from 'src/app/UI/modal/modal.component';
 
 @Component({
   selector: 'app-request-create',
@@ -23,19 +24,14 @@ export class RequestCreateComponent implements OnInit {
   private sessionID: any;
 
   constructor(private formBuilder: FormBuilder, private requestService: RequestService,
-              private userService: UserService, private modalService: ModalService, private router: Router,
-              private alertifyService: AlertifyService) { }
+              private userService: UserService, private router: Router,
+              private alertifyService: AlertifyService, public matDialog: MatDialog) { }
 
   ngOnInit() {
     this.sessionID = this.userService.getUserIdentifier();
-    // this.getUserInfo();
     this.userInfo = this.userService.user;
     this.locations = this.requestService.locations;
     this.initializeRequestForm();
-  }
-
-  testConfirm() {
-    this.modalService.toggleDisplay({ display: true, type: 'confirm'});
   }
 
   initializeRequestForm() {
@@ -58,26 +54,24 @@ export class RequestCreateComponent implements OnInit {
   }
 
   createRequest() {
-    console.log('create request');
-    this.createRequestForm.value.createdBy = this.userInfo.username;
-
-    this.requestService.postRequest(this.createRequestForm.value).subscribe(response => {
-
-      if (this.fileToUpload) {
-        for (const i of this.fileToUpload) {
-          this.requestService.postAttachment(i, response.requestID).subscribe(res => {
-            console.log('Succesful file upload!');
-          }, error => {
-            console.log('error inspect', error);
-          });
-        }
-      }
-      // this.alertifyService.success('Successfully created request');
-      this.router.navigate(['request-detail/' + response.requestID]);
-    }, error => {
-      console.log('error from component');
-      console.log(error);
-    });
+    if (!this.createRequestForm.valid) {
+      this.createRequestForm.markAllAsTouched();
+    } else {
+      this.createRequestForm.value.createdBy = this.userInfo.username;
+      const dialogConfig = new MatDialogConfig();
+      // The user can't close the dialog by clicking outside its body
+      dialogConfig.disableClose = true;
+      dialogConfig.id = 'modal-component';
+      dialogConfig.data = {
+        name: 'create',
+        title: 'Confirm New Request',
+        description: 'Are you sure you would like to submit this request?',
+        actionButtonText: 'Submit',
+        formData: this.createRequestForm.value,
+        formAttachments: this.fileToUpload
+      };
+      const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
+     }
   }
 
   handleInputFile(files: FileList) {

@@ -8,7 +8,6 @@ namespace ServiceRequest.API.DTOs
         public string AFE { get; set; }
         public string EngineerAssigned { get; set; }
         public DateTime CoupaDate { get; set; }
-        public int PropertyCode { get; set; }
         public bool Approved { get; set; }
         public string Owner { get; set; }
         public string Status { get; set; }

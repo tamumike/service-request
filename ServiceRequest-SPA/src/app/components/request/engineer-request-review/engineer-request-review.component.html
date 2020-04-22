@@ -90,7 +90,7 @@
 
       <div class="esr-detail-crate">
 
-        <form [formGroup]="reviewRequestForm" (submit)="submit()" class="esr-detail-form" *ngIf="!request.promiseDate">
+        <form [formGroup]="reviewRequestForm" (submit)="submitEngineerReviewedRequest()" class="esr-detail-form" *ngIf="!request.promiseDate">
 
           <div class="esr-detail-form-box">
 
@@ -110,10 +110,6 @@
                 <i class="fas fa-exclamation-circle"></i>
                 <p>Please enter a valid date.</p>
               </div>
-
-              <div class="valid-feedback esr-valid-alert">
-                <i class="far fa-check-square"></i>
-              </div>
             </div>
           </div>
 
@@ -124,7 +120,10 @@
               class="esr-detail-text-box"
               formControlName="expectedCost"
               [ngClass]="{'is-invalid': reviewRequestForm.get('expectedCost').errors && reviewRequestForm.get('expectedCost').touched}">
-              <div class="invalid-feedback">Expected cost must be less than $25,000.</div>
+              <div class="invalid-feedback esr-invalid-alert">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>Must be between $0 and $25,000</p>
+              </div>
             </div>
           </div>
 

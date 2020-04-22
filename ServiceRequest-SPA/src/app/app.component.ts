@@ -1,34 +1,26 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ModalService } from './services/modal.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalBodyItem } from './models/modalBodyItem';
 import { UserService } from './services/user.service';
-import { forkJoin, pipe } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { RequestService } from './services/request.service';
 import { tap } from 'rxjs/operators';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from './UI/modal/modal.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
   title = 'ServiceRequest-SPA';
-  modalConfig: any;
-  modals: {success: ModalBodyItem, error: ModalBodyItem};
   user: any;
   appReady = false;
 
-  constructor(private modalService: ModalService, private router: Router,
-              private userService: UserService, private requestService: RequestService) {}
+  constructor(private router: Router, private userService: UserService,
+              private requestService: RequestService, public matDialog: MatDialog) {}
 
   ngOnInit() {
-
-    this.modals = this.modalService.getModals();
-    // this.modalConfig = ({ display: false, type: ''});
-    this.modalService.displayModal.subscribe(modalConfig => this.modalConfig = modalConfig);
-
-    // this.modalService.toggleDisplay({display: true, type: 'loading'});
 
     forkJoin([
       this.userService.login().pipe(tap(res => this.userService.user = res, res => this.userService.sessionID = res.sessionID)),
@@ -43,8 +35,21 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.router.navigate([{ outlets: { primary: '', sidebar: 'requests-overview' }}]);
   }
 
-  ngAfterViewInit() {
-    // this.modalService.hideModal();
+  openModal() {
+    const dialogConfig = new MatDialogConfig();
+    // The user can't close the dialog by clicking outside its body
+    dialogConfig.disableClose = true;
+    dialogConfig.id = 'modal-component';
+    dialogConfig.height = '350px';
+    dialogConfig.width = '600px';
+    dialogConfig.data = {
+      name: 'logout',
+      title: 'Are you sure you want to logout?',
+      description: 'Pretend this is a convincing argument on why you shouldn\'t logout :)',
+      actionButtonText: 'Logout',
+    };
+
+    const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
   }
 
 }

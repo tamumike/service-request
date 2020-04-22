@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { MatSortModule } from '@angular/material/sort';
 import { CookieService } from 'ngx-cookie-service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './containers/home/home.component';
@@ -15,7 +17,6 @@ import { RequestListComponent } from './components/request/request-list/request-
 import { RequestsOverviewComponent } from './components/request/requests-overview/requests-overview.component';
 import { RequestService } from './services/request.service';
 import { appRoutes } from './routes';
-import { ModalComponent } from './UI/modal/modal.component';
 import { RequestCreateComponent } from './components/request/request-create/request-create.component';
 import { UserService } from './services/user.service';
 import { GetRequestsResolverService } from './resolvers/get-requests-resolver.service';
@@ -28,14 +29,8 @@ import { NavComponent } from './UI/nav/nav.component';
 import { RequestReviewComponent } from './components/request/request-review/request-review.component';
 import { UserInfoResolverService } from './resolvers/user-info-resolver.service';
 import { RequestDeadlinePipe } from './pipes/request-deadline.pipe';
-import { ModalBodyDirective } from './directives/modal-body.directive';
-import { SuccessModalComponent } from './UI/modal/sub-modal/success-modal/success-modal.component';
-import { ErrorModalComponent } from './UI/modal/sub-modal/error-modal/error-modal.component';
 import { ErrorInterceptorProvider } from './services/error.interceptor';
 import { EngineerRequestReviewComponent } from './components/request/engineer-request-review/engineer-request-review.component';
-import { ConfirmModalComponent } from './UI/modal/sub-modal/confirm-modal/confirm-modal.component';
-import { LoadingModalComponent } from './UI/modal/sub-modal/loading-modal/loading-modal.component';
-import { ModalInterceptorProvider } from './services/modal.interceptor';
 import { FooterComponent } from './UI/footer/footer.component';
 import { GreetingComponent } from './UI/greeting/greeting.component';
 import { DividerComponent } from './UI/divider/divider.component';
@@ -43,6 +38,8 @@ import { FinalCommentCreateComponent } from './components/comment/final-comment-
 import { AlertifyService } from './services/alertify.service';
 import { LoaderComponent } from './UI/loader/loader.component';
 import { LoaderInterceptor, LoaderInterceptorProvider } from './services/loader.interceptor';
+import { ModalComponent } from './UI/modal/modal.component';
+import { ModalActionsService } from './services/modal-actions.service';
 
 @NgModule({
   declarations: [
@@ -51,24 +48,19 @@ import { LoaderInterceptor, LoaderInterceptorProvider } from './services/loader.
     RequestListComponent,
     RequestsOverviewComponent,
     RequestCreateComponent,
-    ModalComponent,
     RequestDetailComponent,
     CommentListComponent,
     CommentCreateComponent,
     NavComponent,
     RequestReviewComponent,
     RequestDeadlinePipe,
-    ModalBodyDirective,
-    SuccessModalComponent,
-    ErrorModalComponent,
-    LoadingModalComponent,
     EngineerRequestReviewComponent,
-    ConfirmModalComponent,
     FooterComponent,
     GreetingComponent,
     DividerComponent,
     FinalCommentCreateComponent,
-    LoaderComponent
+    LoaderComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -78,12 +70,13 @@ import { LoaderInterceptor, LoaderInterceptorProvider } from './services/loader.
     BsDatepickerModule.forRoot(),
     RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload' }),
     TabsModule.forRoot(),
-    MatSortModule
+    MatSortModule,
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [
-    ErrorInterceptorProvider,
-    // ModalInterceptorProvider,
     // LoaderInterceptorProvider,
+    ErrorInterceptorProvider,
     RequestService,
     UserService,
     GetRequestsResolverService,
@@ -91,8 +84,12 @@ import { LoaderInterceptor, LoaderInterceptorProvider } from './services/loader.
     CommentService,
     UserInfoResolverService,
     CookieService,
-    AlertifyService
+    AlertifyService,
+    ModalActionsService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalComponent]  /* The set of components to compile when this
+                                      NgModule is defined, so they can be dynamically loaded into the view
+                                      */
 })
 export class AppModule { }

@@ -37,14 +37,14 @@
 
 .esr-comment-date {
   color: #ffb617;
-  font-size: 14px;
+  font-size: 12px;
   font-family: 'Prompt', sans-serif;
   font-weight: 400;
 }
 
 .esr-comment-content {
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .esr-comment-content-icon {

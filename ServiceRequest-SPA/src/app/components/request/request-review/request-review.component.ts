@@ -4,6 +4,8 @@ import { UserService } from 'src/app/services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RequestService } from 'src/app/services/request.service';
 import { CommentService } from 'src/app/services/comment.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ModalComponent } from 'src/app/UI/modal/modal.component';
 
 @Component({
   selector: 'app-request-review',
@@ -18,7 +20,7 @@ export class RequestReviewComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private userService: UserService,
               private formBuilder: FormBuilder, private requestService: RequestService,
-              private router: Router, private commentService: CommentService) { }
+              private router: Router, private commentService: CommentService, public matDialog: MatDialog) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -36,7 +38,7 @@ export class RequestReviewComponent implements OnInit {
       engineerAssigned: ['', Validators.required],
       afe: ['', Validators.required],
       coupaDate: ['', Validators.required],
-      approved: [],
+      approved: [false],
       status: [''],
       createdBy: [this.request.createdBy, Validators.required],
       acknowledged: [false, Validators.required]
@@ -49,7 +51,6 @@ export class RequestReviewComponent implements OnInit {
 
   submitRequestReview() {
     console.log('submit request review');
-    this.reviewRequestForm.value.propertyCode = 0;
 
     if (this.reviewRequestForm.value.approved) {
       this.reviewRequestForm.value.status = 'Approved';
@@ -63,6 +64,27 @@ export class RequestReviewComponent implements OnInit {
     }, error => {
       console.log('review request, submit', error);
     });
+  }
+
+  openDialog() {
+    if (!this.reviewRequestForm.valid) {
+      this.reviewRequestForm.markAllAsTouched();
+    } else {
+      this.reviewRequestForm.value.status = this.reviewRequestForm.value.approved ? 'Approved' : 'Requested';
+      this.reviewRequestForm.value.requestID = this.request.requestID;
+      const dialogConfig = new MatDialogConfig();
+      // The user can't close the dialog by clicking outside its body
+      dialogConfig.disableClose = true;
+      dialogConfig.id = 'modal-component';
+      dialogConfig.data = {
+        name: 'review',
+        title: 'Confirm Request Review',
+        description: 'Are you sure you would like to submit this request review?',
+        actionButtonText: 'Submit',
+        formData: this.reviewRequestForm.value
+      };
+      const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
+    }
   }
 
 

@@ -6,7 +6,6 @@ import { RequestService } from 'src/app/services/request.service';
 import { User } from 'src/app/models/user';
 import { Sort } from '@angular/material/sort';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ModalService } from 'src/app/services/modal.service';
 import { UserService } from 'src/app/services/user.service';
 import { creds } from 'src/app/helpers/creds';
 import { ThrowStmt } from '@angular/compiler';
@@ -42,7 +41,7 @@ export class RequestListComponent implements OnInit {
   activeClasses = ['esr-headline-box esr-headline-sub-box esr-headline-box-active'];
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder,
-              private requestService: RequestService, private modalService: ModalService,
+              private requestService: RequestService,
               private userService: UserService, private router: Router) { }
 
   ngOnInit() {
@@ -179,11 +178,12 @@ export class RequestListComponent implements OnInit {
         case 'requestID': return compare(a.requestID, b.requestID, isAsc);
         case 'createdBy': return compare(a.createdBy, b.createdBy, isAsc);
         case 'requestDate': return compare(a.requestDate, b.requestDate, isAsc);
-        case 'location': return compare(a.location, b.location, isAsc);
+        // case 'location': return compare(a.location, b.location, isAsc);
         case 'status': return compare(a.status, b.status, isAsc);
-        case 'submitted': return compare(a.submitted, b.submitted, isAsc);
-        case 'approved': return compare(a.approved, b.approved, isAsc);
+        // case 'submitted': return compare(a.submitted, b.submitted, isAsc);
+        // case 'approved': return compare(a.approved, b.approved, isAsc);
         case 'title': return compare(a.title, b.title, isAsc);
+        case 'engineerAssigned': return compare(a.engineerAssigned, b.engineerAssigned, isAsc);
         default: return 0;
       }
     });

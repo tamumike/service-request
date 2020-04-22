@@ -1,6 +1,16 @@
-<div class="Modal-Backsplash">
-  <div class="Modal-Body container p-3">
-    <ng-template appModalBody></ng-template>
-  </div>
-
+<div id="modal-content-wrapper">
+  <header id="modal-header">
+      <h1 id="modal-title">{{ modalData.title }}</h1>
+  </header>
+  <section id="modal-body">
+      <p>{{ modalData.description }}</p>
+  </section>
+  <footer id="modal-footer">
+      <button class="esr-btn" id="modal-action-button" (click)="actionFunction()">
+          {{ modalData.actionButtonText }}
+      </button>
+      <button class="esr-btn alt" id="modal-cancel-button" (click)="closeModal()">
+          Cancel
+      </button>
+  </footer>
 </div>
