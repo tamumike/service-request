@@ -39,6 +39,7 @@ export class CommentCreateComponent implements OnInit {
       this.commentService.postComment(this.createCommentForm.value).subscribe(response => {
         this.createCommentForm.reset();
         this.commentSubmitted.emit(true);
+        this.initializeCommentForm();
       }, error => {
         console.log('create-comment, post', error);
       });
