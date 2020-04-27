@@ -155,10 +155,17 @@
             </div>
           </div>
 
-          <div class="esr-detail-form-box">
+          <div class="esr-detail-form-box alt">
             <div class="esr-detail-field">Final Comments:</div>
             <div class="esr-detail-form-box box2 ">
-              <app-final-comment-create #createComment></app-final-comment-create>
+              <!-- <app-final-comment-create #createComment></app-final-comment-create> -->
+              <textarea
+              class="esr-detail-text-box"
+              formControlName="comment"
+              placeholder="Enter final comment...."
+              [ngClass]="{'is-invalid': resolveRequestForm.get('comment').errors && resolveRequestForm.get('comment').touched}"
+              >
+              </textarea>
             </div>
 
           </div>

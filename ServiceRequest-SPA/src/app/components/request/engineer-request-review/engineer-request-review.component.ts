@@ -9,7 +9,7 @@ import { requestDateValidator } from 'src/app/validators/requestDateValidator';
 import { FinalCommentCreateComponent } from '../../comment/final-comment-create/final-comment-create.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ModalComponent } from 'src/app/UI/modal/modal.component';
-
+import { Comment } from 'src/app/models/comment';
 
 @Component({
   selector: 'app-engineer-request-review',
@@ -47,7 +47,8 @@ export class EngineerRequestReviewComponent implements OnInit {
 
   initializeResolveRequestForm() {
     this.resolveRequestForm = this.formBuilder.group({
-      status: ['', [Validators.required, Validators.minLength(5)]]
+      status: ['', [Validators.required, Validators.minLength(5)]],
+      comment: ['', Validators.required]
     });
 
   }
@@ -66,29 +67,56 @@ export class EngineerRequestReviewComponent implements OnInit {
   }
 
   resolveRequest() {
+    const comment = {
+      requestID: this.request.requestID,
+      author: '',
+      content: this.resolveRequestForm.value.comment,
+      resolution: true
+    } as Comment;
 
-    const commentForm = this.createComment.createCommentForm;
+    const request = {
+      status: this.resolveRequestForm.value.status
+    } as Request;
 
-    // if (this.resolveRequestForm.value.status.length > 0 && commentForm.value.content.length > 0) {
-    if (this.resolveRequestForm.valid) {
-      this.requestService.resolveRequest(this.request.requestID, this.resolveRequestForm.value).subscribe(response => {
-        if (response) {
-          console.log(this.createComment.createCommentForm.value);
-          this.createComment.createCommentForm.value.requestID = response.requestID;
-          this.createComment.createCommentForm.value.resolution = true;
-          this.createComment.createComment();
-        }
-        this.router.navigate(['request-list']);
-      }, error => {
-        console.log('engineer review, resolve', error);
-      });
+    const data = {
+      requestID: this.request.requestID,
+      commentData: comment,
+      requestData: request
+    };
+
+    if (!this.resolveRequestForm.valid) {
+      this.resolveRequestForm.markAllAsTouched();
     } else {
-      // const statusControl = this.resolveRequestForm.controls.status;
-      // const commentContentControl = this.createComment.createCommentForm.controls.content;
-
-      // this.setFormErrors(statusControl, this.resolveRequestForm.value.status);
-      // this.setFormErrors(commentContentControl, commentForm.value.content);
+      this.resolveRequestForm.value.requestID = this.request.requestID;
+      this.resolveRequestForm.value.comment = comment;
+      const dialogConfig = new MatDialogConfig();
+      // The user can't close the dialog by clicking outside its body
+      dialogConfig.disableClose = true;
+      dialogConfig.id = 'modal-component';
+      dialogConfig.data = {
+        name: 'resolve',
+        title: 'Confirm Request Review',
+        description: 'Are you sure you would like to close this request?',
+        actionButtonText: 'Submit',
+        formData: data
+      };
+      const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
     }
+
+    // if (this.resolveRequestForm.valid) {
+    //   this.requestService.resolveRequest(this.request.requestID, this.resolveRequestForm.value).subscribe(response => {
+    //     if (response) {
+    //       console.log(this.createComment.createCommentForm.value);
+    //       this.createComment.createCommentForm.value.requestID = response.requestID;
+    //       this.createComment.createCommentForm.value.resolution = true;
+    //       this.createComment.createComment();
+    //     }
+    //     this.router.navigate(['request-list']);
+    //   }, error => {
+    //     console.log('engineer review, resolve', error);
+    //   });
+    // } else {
+    // }
   }
 
   submitEngineerReviewedRequest() {

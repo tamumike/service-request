@@ -32,7 +32,7 @@
 }
 
 .esr-comment-body {
-  padding: 10px;
+  padding: 6px;
 }
 
 .esr-comment-date {
@@ -45,6 +45,7 @@
 .esr-comment-content {
   color: #fff;
   font-size: 14px;
+  text-align: center;
 }
 
 .esr-comment-content-icon {
@@ -108,4 +109,21 @@
 
 .esr-flex-row-box > i {
   margin: 5px;
+}
+
+.esr-comment-actions-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 4px;
+  color: #ffb617;
+}
+
+.esr-comment-actions-box i {
+  cursor: pointer;
+  text-shadow: 1px 2px 1px rgba(0, 0, 0, 0.8);
+}
+
+.esr-comment-actions-box i:hover {
+  color: #fff;
 }

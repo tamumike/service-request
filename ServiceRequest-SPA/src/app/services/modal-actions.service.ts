@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from './request.service';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
+import { CommentService } from './comment.service';
+import { UserService } from './user.service';
+import { Request } from 'src/app/models/request';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalActionsService {
 
-constructor(private requestService: RequestService, private router: Router) { }
+constructor(private requestService: RequestService, private commentService: CommentService,
+            private userService: UserService, private router: Router) { }
 
 modalAction(modalData: any) {
   switch (modalData.name) {
@@ -20,6 +25,10 @@ modalAction(modalData: any) {
       this.submitRequestReview(modalData);
       break;
 
+    case 'resolve':
+      this.resolveRequest(modalData);
+      break;
+
     case 'e-review':
       this.submitEngineerRequestReview(modalData);
       break;
@@ -27,6 +36,19 @@ modalAction(modalData: any) {
     default:
       break;
   }
+}
+
+private resolveRequest(modalData: any) {
+  modalData.formData.commentData.author = this.userService.user.displayName;
+  console.log(modalData);
+  forkJoin([
+    this.requestService.resolveRequest(modalData.formData.requestID, modalData.formData.requestData),
+    this.commentService.postComment(modalData.formData.commentData)
+  ]).subscribe(response => {
+    this.router.navigate(['request-list']);
+  }, error => {
+    console.log(error);
+  });
 }
 
 private createNewRequest(modalData: any) {

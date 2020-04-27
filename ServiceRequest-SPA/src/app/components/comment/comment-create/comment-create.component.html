@@ -1,5 +1,5 @@
 <div class="esr-comment-create">
-  <form [formGroup]="createCommentForm" (ngSubmit)="createComment()">
+  <form [formGroup]="createCommentForm" class="esr-comment-create-form" (ngSubmit)="createComment()">
 
     <div class="form-group">
       <textarea
@@ -8,12 +8,8 @@
 
       placeholder="Leave comment...."
       ></textarea>
-      <!-- <div class="invalid-feedback">The comment cannot be empty.</div> -->
     </div>
 
     <button class="esr-btn sm" type="submit">Post</button>
   </form>
 </div>
-
-
-<!-- [ngClass]="{'is-invalid': createCommentForm.get('content').errors && createCommentForm.get('content').touched}" -->

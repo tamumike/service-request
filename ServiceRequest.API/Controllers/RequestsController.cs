@@ -75,7 +75,7 @@ namespace ServiceRequest.API.Controllers
             var requestToUpdate = _mapper.Map(reviewedRequestDTO, requestFromDB);
 
             if (await _repo.SaveAll())
-                // await _emailSender.SendEmailAsync("mlinden@lucid-energy.com", "ESR", "This is the body", requestFromDB);
+                await _emailSender.SendEmailAsync("mlinden@lucid-energy.com", "ESR", "This is the body", requestFromDB);
                 return Ok(requestFromDB);
 
             throw new Exception($"Error submitting the request.");

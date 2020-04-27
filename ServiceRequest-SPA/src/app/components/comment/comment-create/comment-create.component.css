@@ -1,11 +1,15 @@
 .esr-comment-create {
-  width: 75%;
+  width: 100%;
   /* flex-basis: 20%; */
-  align-self: flex-end;
-  margin: 0 auto;
+  align-self: center;
+  margin: 20px auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+}
+
+.esr-comment-create-form {
+  width: 75%;
 }
 
 .esr-comment-text-area {
@@ -13,8 +17,8 @@
   color: #fff;
   border-radius: 0;
   border: none;
-  margin-top: 20px;
-  width: 300px;
+  width: 100%;
+  /* width: 300px; */
   height: 50px;
   font-size: 12px;
   opacity: 0.7;
@@ -27,13 +31,6 @@
 .esr-comment-text-area::placeholder {
   color: #fff;
   font-size: 12px;
-}
-
-.esr-comment-btn {
-
-}
-.esr-comment-btn:hover {
-
 }
 
 @keyframes comment-btn-fade-in {
