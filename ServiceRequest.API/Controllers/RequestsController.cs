@@ -69,13 +69,16 @@ namespace ServiceRequest.API.Controllers
             }
             else
             {
-                reviewedRequestDTO.Owner = reviewedRequestDTO.CreatedBy;
+                reviewedRequestDTO.Owner = null;
+                reviewedRequestDTO.Status = "Denied";
             }
 
             var requestToUpdate = _mapper.Map(reviewedRequestDTO, requestFromDB);
 
+            var recipient = reviewedRequestDTO.EngineerAssigned + "@lucid-energy.com";
             if (await _repo.SaveAll())
-                await _emailSender.SendEmailAsync("mlinden@lucid-energy.com", "ESR", "This is the body", requestFromDB);
+                if (requestFromDB.Approved)
+                    await _emailSender.SendEmailAsync(recipient, "ESR", "This is the body", requestFromDB);
                 return Ok(requestFromDB);
 
             throw new Exception($"Error submitting the request.");
