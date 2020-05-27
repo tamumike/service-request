@@ -39,7 +39,7 @@ export class RequestCreateComponent implements OnInit {
       requestDate: ['', [Validators.required, requestDateValidator]],
       location: ['', Validators.required],
       title: ['', Validators.required],
-      description: ['', Validators.required],
+      description: ['', [Validators.required, Validators.maxLength(255)]],
       deliverables: ['', Validators.required],
       attachments: ['']
     });

@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using ServiceRequest.API.Helpers;
 
 namespace ServiceRequest.API.DTOs
@@ -13,6 +14,8 @@ namespace ServiceRequest.API.DTOs
         public DateTime RequestDate { get; set; }
         public string Title { get; set; }
         public string Location { get; set; }
+        
+        [MaxLength(255)]
         public string Description { get; set; }
         public string Deliverables { get; set; }
         public decimal ApprovedBudget { get; set; }

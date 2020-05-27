@@ -12,6 +12,10 @@ export class RequestDeadlinePipe implements PipeTransform {
     const requestDateTime = requestDate.getTime();
     let classToReturn = null;
 
+    if (!requestDateTime) {
+      return null;
+    }
+
     if (requestDateTime >= today.getTime()) {
 
       if (requestDateTime <= sevenDaysOut) {

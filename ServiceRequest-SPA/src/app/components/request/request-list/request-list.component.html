@@ -83,7 +83,7 @@
           <p mat-sort-header="createdBy" class="esr-list-header header-requestedby">Requested By</p>
           <p mat-sort-header="status" class="esr-list-header header-status">Status</p>
           <p mat-sort-header="engineerAssigned" class="esr-list-header header-engineer">Engineer</p>
-          <p mat-sort-header="requestDate" class="esr-list-header header-duedate">Due Date</p>
+          <p mat-sort-header="requestDate" class="esr-list-header header-duedate">Promise Date</p>
         </div>
       </div>
 
@@ -96,13 +96,13 @@
         </div>
 
         <div *ngIf="!request.acknowledged && (userInfo.username == request.owner || (userInfo.role == 3))" class="esr-list-alert esr-list-alert-new"><p></p></div>
-        <div class="esr-list-alert {{ request.requestDate | requestDeadline }}"><p></p></div>
+        <div class="esr-list-alert {{ request.promiseDate | requestDeadline }}"><p></p></div>
 
         <div class="esr-list-attr-box">
           <p class="esr-list-attr esr-list-data-author">{{ request.createdBy }}</p>
           <p class="esr-list-attr esr-list-data-status">{{ request.status }}</p>
           <p class="esr-list-attr esr-list-data-engineer">{{ request.engineerAssigned }}</p>
-          <p class="esr-list-attr esr-list-data-due">{{ request.requestDate | date: 'LL/dd/yyyy' }}</p>
+          <p class="esr-list-attr esr-list-data-due">{{ request.promiseDate | date: 'LL/dd/yyyy' }}</p>
         </div>
 
       </div>
