@@ -54,6 +54,7 @@ namespace ServiceRequest.API.Controllers
 
             var requestToCreate = _mapper.Map<Request>(createNewRequestDTO);
             var createdRequest = await _repo.CreateNewRequest(requestToCreate);
+            await _emailSender.SendEmailAsync("", "newRequest_template.html", "New ESR Submitted", createdRequest);
 
             return Ok(createdRequest);
         }
@@ -78,7 +79,7 @@ namespace ServiceRequest.API.Controllers
             var recipient = reviewedRequestDTO.EngineerAssigned + "@lucid-energy.com";
             if (await _repo.SaveAll())
                 if (requestFromDB.Approved)
-                    await _emailSender.SendEmailAsync(recipient, "ESR", "This is the body", requestFromDB);
+                    await _emailSender.SendEmailAsync(recipient, "requestAssigned_template.html", "ESR Assignment", requestFromDB);
                 return Ok(requestFromDB);
 
             throw new Exception($"Error submitting the request.");

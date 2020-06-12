@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using MimeKit;
@@ -14,24 +15,41 @@ namespace ServiceRequest.API.Helpers
     {
         private readonly EmailSettings _settings;
         private readonly IWebHostEnvironment _env;
-        public EmailSender(IOptions<EmailSettings> settings, IWebHostEnvironment env)
+        private readonly IConfiguration _config;
+        public EmailSender(IOptions<EmailSettings> settings, IWebHostEnvironment env, IConfiguration config)
         {
+            _config = config;
             _env = env;
             _settings = settings.Value;
         }
-        public async Task SendEmailAsync(string email, string subject, string message, Request request)
+        public async Task SendEmailAsync(string email, string template, string subject, Request request)
         {
             try
             {
                 var mimeMessage = new MimeMessage();
 
+                var administrators = _config.GetSection("UserInformation:Administrators").Get<string[]>();
+
+                // if template is for a new request, get admins from config file and send the email to them.
+                if (template ==  "newRequest_template.html")
+                {
+                    foreach (var admin in administrators)
+                    {
+                        mimeMessage.To.Add(new MailboxAddress($"{admin}@lucid-energy.com"));
+                    }
+                }
+                // otherwise, send the request assigned template to the assigned engineer
+                else {
+                    mimeMessage.To.Add(new MailboxAddress(email));
+                }
+
                 mimeMessage.From.Add(new MailboxAddress(_settings.SenderName, _settings.Sender));
 
-                mimeMessage.To.Add(new MailboxAddress(email));
+                
 
                 mimeMessage.Subject = subject;
 
-                var pathToFile = _env.WebRootPath + Path.DirectorySeparatorChar.ToString() + "Templates" + Path.DirectorySeparatorChar.ToString() + "email_template.html";
+                var pathToFile = _env.WebRootPath + Path.DirectorySeparatorChar.ToString() + "Templates" + Path.DirectorySeparatorChar.ToString() + template;
 
                 var builder = new BodyBuilder();
 
