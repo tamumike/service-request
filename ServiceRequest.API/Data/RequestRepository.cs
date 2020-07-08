@@ -71,6 +71,7 @@ namespace ServiceRequest.API.Data
             var requests = _context.Requests
                 .Include(r => r.Comments)
                 .Include(r => r.Attachments)
+                .Where(r => r.ResolutionDate == null)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(requestParams.Owner))
