@@ -415,6 +415,7 @@ mat-dialog-container#modal-component {
   min-height: 34px;
 }
 
+
 .esr-detail-text-box {
   background-color: #878a8a;
   color: #fff;
@@ -422,8 +423,8 @@ mat-dialog-container#modal-component {
   font-family: 'Roboto' sans-serif;
   width: 100%;
   line-height: 2.0;
+  box-shadow: 2px 2px 5px #2d2e2e;
 }
-
 .esr-detail-text-box::placeholder {
   color: #b8b4b4;
 }
@@ -468,6 +469,7 @@ mat-dialog-container#modal-component {
   align-items: center;
   animation: checkbox-grow 200ms linear;
   animation-fill-mode: both;
+  box-shadow: 2px 2px 5px #2d2e2e;
 }
 
 /* On mouse-over, add a grey background color */

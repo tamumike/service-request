@@ -16,6 +16,7 @@ export class RequestReviewComponent implements OnInit {
   request: any;
   groupMembers: any;
   reviewRequestForm: FormGroup;
+  pendingApproval: boolean = true;
   @ViewChild('commentList') commentListComponent: any;
 
   constructor(private route: ActivatedRoute, private userService: UserService,
@@ -38,7 +39,7 @@ export class RequestReviewComponent implements OnInit {
       engineerAssigned: ['', Validators.required],
       afe: ['', Validators.required],
       coupaDate: ['', Validators.required],
-      approved: [false],
+      approved: [true],
       status: [''],
       createdBy: [this.request.createdBy, Validators.required],
       acknowledged: [false, Validators.required]
@@ -51,15 +52,15 @@ export class RequestReviewComponent implements OnInit {
 
   submitRequestReview() {
     console.log('submit request review');
+    this.reviewRequestForm.value.approved = this.pendingApproval;
 
     if (this.reviewRequestForm.value.approved) {
       this.reviewRequestForm.value.status = 'Approved';
     } else {
-      this.reviewRequestForm.value.status = 'Requested';
+      this.reviewRequestForm.value.status = 'Denied';
     }
-
-    console.log(this.reviewRequestForm.value);
     this.requestService.submitReviewedRequest(this.request.requestID, this.reviewRequestForm.value).subscribe(response => {
+
       this.router.navigate(['request-detail/' + response.requestID]);
     }, error => {
       console.log('review request, submit', error);
@@ -70,7 +71,7 @@ export class RequestReviewComponent implements OnInit {
     if (!this.reviewRequestForm.valid) {
       this.reviewRequestForm.markAllAsTouched();
     } else {
-      this.reviewRequestForm.value.status = this.reviewRequestForm.value.approved ? 'Approved' : 'Requested';
+      this.reviewRequestForm.value.status = this.reviewRequestForm.value.approved ? 'Approved' : 'Denied';
       this.reviewRequestForm.value.requestID = this.request.requestID;
       const dialogConfig = new MatDialogConfig();
       // The user can't close the dialog by clicking outside its body
@@ -78,7 +79,7 @@ export class RequestReviewComponent implements OnInit {
       dialogConfig.id = 'modal-component';
       dialogConfig.data = {
         name: 'review',
-        title: 'Confirm Request Review',
+        title: `Confirm ${this.reviewRequestForm.value.status} Request`,
         description: 'Are you sure you would like to submit this request review?',
         actionButtonText: 'Submit',
         formData: this.reviewRequestForm.value
@@ -97,6 +98,29 @@ export class RequestReviewComponent implements OnInit {
         console.log('request-detail, refresh comments', error);
       });
     }
+  }
+
+  // this method clears the required condition of form values if the request is to be denied (unchecked)
+  // it will restore the required condition if the approved box is checked 
+  toggleApprovalStatus() {
+    this.pendingApproval = !this.pendingApproval;
+
+    if (!this.pendingApproval) {
+      this.reviewRequestForm.controls['afe'].clearValidators();
+      this.reviewRequestForm.controls['afe'].setValue('');
+      this.reviewRequestForm.controls['coupaDate'].clearValidators();
+      this.reviewRequestForm.controls['coupaDate'].setValue('');
+      this.reviewRequestForm.controls['engineerAssigned'].clearValidators();
+      this.reviewRequestForm.controls['engineerAssigned'].setValue('');
+    } else {
+      this.reviewRequestForm.controls['afe'].setValidators([Validators.required]);
+      this.reviewRequestForm.controls['coupaDate'].setValidators([Validators.required]);
+      this.reviewRequestForm.controls['engineerAssigned'].setValidators([Validators.required]);
+    }
+
+    this.reviewRequestForm.controls['afe'].updateValueAndValidity();
+    this.reviewRequestForm.controls['coupaDate'].updateValueAndValidity();
+    this.reviewRequestForm.controls['engineerAssigned'].updateValueAndValidity();
   }
 
 }

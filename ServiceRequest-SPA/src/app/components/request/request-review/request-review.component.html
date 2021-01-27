@@ -87,6 +87,19 @@
       <div class="esr-detail-crate">
 
         <form [formGroup]="reviewRequestForm" (ngSubmit)="openDialog()" class="esr-detail-form">
+          
+          <div class="esr-detail-form-box field-approved">
+            <label class="esr-detail-field field-approved">Approve:
+              <div class="esr-detail-form-box box2">
+                <!-- <select class="esr-detail-text-box">
+                  <option>Approve</option>
+                  <option>Deny</option>
+                </select> -->
+                <input type="checkbox" formControlName="approved" (click)="toggleApprovalStatus()">
+                <span class="checkmark"></span>
+              </div>
+            </label>
+          </div>
 
           <div class="esr-detail-form-box">
 
@@ -144,12 +157,7 @@
               </div>
           </div>
 
-          <div class="esr-detail-form-box field-approved">
-            <label class="esr-detail-field field-approved">Approved:
-              <input type="checkbox" formControlName="approved">
-              <span class="checkmark"></span>
-            </label>
-          </div>
+
 
           <div class="esr-detail-btn-box">
             <button class="esr-btn" type="submit">Submit</button>

@@ -40,7 +40,6 @@ modalAction(modalData: any) {
 
 private resolveRequest(modalData: any) {
   modalData.formData.commentData.author = this.userService.user.displayName;
-  console.log(modalData);
   forkJoin([
     this.requestService.resolveRequest(modalData.formData.requestID, modalData.formData.requestData),
     this.commentService.postComment(modalData.formData.commentData)
@@ -52,7 +51,6 @@ private resolveRequest(modalData: any) {
 }
 
 private createNewRequest(modalData: any) {
-  console.log(modalData);
   this.requestService.postRequest(modalData.formData).subscribe(response => {
     if (modalData.formAttachments) {
       for (const i of modalData.formAttachments) {
@@ -70,7 +68,6 @@ private createNewRequest(modalData: any) {
 }
 
 private submitRequestReview(modalData: any) {
-  console.log(modalData);
   this.requestService.submitReviewedRequest(modalData.formData.requestID, modalData.formData).subscribe(response => {
     this.router.navigate(['request-detail/' + response.requestID]);
   }, error => {
@@ -80,7 +77,6 @@ private submitRequestReview(modalData: any) {
 
 private submitEngineerRequestReview(modalData: any) {
   this.requestService.submitEngineerReviewedRequest(modalData.formData.requestID, modalData.formData).subscribe(response => {
-    console.log(response);
     this.router.navigate(['request-list']);
   }, error => {
     console.log('engineer review, submit', error);

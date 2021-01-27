@@ -72,6 +72,7 @@ namespace ServiceRequest.API.Controllers
             {
                 reviewedRequestDTO.Owner = null;
                 reviewedRequestDTO.Status = "Denied";
+                reviewedRequestDTO.ResolutionDate = DateTime.Now;
             }
 
             var requestToUpdate = _mapper.Map(reviewedRequestDTO, requestFromDB);
